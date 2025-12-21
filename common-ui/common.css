@@ -303,3 +303,19 @@ img {
   bottom: 17%;
   width: 164px;
 }
+
+.w100 {
+  width: 100%;
+}
+.w-50 {
+  width: 50%;
+}
+.w-38{
+  width: 38%;
+}
+.w-23 {
+  width: 23%;
+}
+.w-9 {
+  width: 9%;
+}
