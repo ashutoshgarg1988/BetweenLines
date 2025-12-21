@@ -40,15 +40,6 @@
     updateScaleTilt();
   });
 
-  checkBtn.addEventListener("click", () => {
-    SoundManager.play("click");
-    if(leftWeight === rightWeight) {
-      showPopup("greatWork", { step: 1, description: "" });
-    }else {
-      alert("Please try again");
-    }
-  });
-
   challengeNextBtn.addEventListener("click", () => {
     SoundManager.play("click");
     loadView("menu")
