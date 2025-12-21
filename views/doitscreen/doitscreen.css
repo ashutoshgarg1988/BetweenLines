@@ -1,0 +1,211 @@
+/* TOP BAR */
+.top-bar {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    background: #e85b2a;
+    color: white;
+    font-size: 38px;
+    font-family: Poppins, sans-serif;
+    padding: 18px 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.sound-icon {
+    width: 60px;
+}
+.mute-label {
+    background: black;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+/* LEFT MENU */
+.left-menu {
+    position: absolute;
+    top: 150px;
+    left: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.menu-item {
+    transition: transform 0.25s ease;
+    width: 182px;
+    cursor: pointer;
+}
+.menu-item:hover {
+    transform: scale(1.07);
+}
+.hand-icon {
+    width: 80px;
+    margin: 20px;
+}
+
+.cutter-icon {
+    position: absolute;
+    bottom: 30px;
+    left: 10%;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 12px 0 rgba(0, 0, 0, 0.3);
+    transition: transform 0.25s ease;
+    cursor: pointer;
+}
+
+.cutter-icon:hover {
+  transform: scale(1.1);
+}
+
+.cutter-cursor {
+    position: fixed;
+    width: 60px;
+    pointer-events: none;
+    display: none;
+    z-index: 9999;
+    /* transform: translate(-50%, -50%); */
+}
+
+.wrap {
+    display: flex;
+    gap: 90px;
+    /* margin-top: 180px;
+    margin-left: 300px;
+    transform: translateX(-50%); */
+}
+
+/* BIG PIE */
+.big-pie {
+    background: url('');
+    background-size: cover;
+    position: absolute;
+    top: 180px;
+    left: 300px;
+    width: 711px;
+    height: 718px;
+}
+
+/* ANGLE MAKER */
+#angleCanvas {
+    background: url('');
+    background-size: cover;
+    position: absolute;
+    top: 180px;
+    right: 100px;
+    width: 711px;
+    height: 718px;
+}
+
+.d-scale-image {
+    width: 37%;
+    position: absolute;
+    top: 17%;
+    right: 5.2%;
+    cursor: grab;
+    user-select: none;
+    pointer-events: auto;
+    display: none;
+    transform-origin: 50% 94%;
+}
+
+.slice {
+    position: absolute;
+    top: 22.1%;
+    right: 60px;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.highlight {
+    opacity: 0.6;
+}
+
+/* ANSWER + SUBMIT WRAPPER */
+.answer-wrapper {
+    position: absolute;
+    bottom: 260px;
+    left: 780px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* White box around the input */
+.answer-box-ui {
+    width: 350px;
+    height: 120px;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 10px 0 rgba(0, 0, 0, 0.18);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Inner input design */
+.answer-input-ui {
+    width: 80%;
+    height: 60px;
+    background: #efefef;
+    border: 2px solid #d4d4d4;
+    border-radius: 15px;
+    font-size: 32px;
+    font-family: Poppins, sans-serif;
+    text-align: center;
+    outline: none;
+}
+
+/* BIG WHITE BOX Answer + submit */
+.answer-box-container {
+    width: 380px;
+    height: 180px;
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 0 10px 0 rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    bottom: 37px;
+    left: 45%;
+}
+
+/* INPUT FIELD */
+.answer-input-ui {
+    width: 80%;
+    height: 55px;
+    background: #eaeaea;
+    border: 2px solid #d0d0d0;
+    border-radius: 15px;
+    font-size: 28px;
+    font-family: Poppins, sans-serif;
+    text-align: center;
+    outline: none;
+}
+
+/* BLUE SUBMIT BUTTON */
+.submit-btn-ui {
+    width: 82%;
+    height: 60px;
+    background: #009bff;
+    color: white;
+    font-size: 30px;
+    font-family: Poppins, sans-serif;
+    font-weight: 700;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.25);
+    transition: transform 0.25s ease;
+}
+
+.submit-btn-ui:hover {
+  transform: scale(1.05);
+}

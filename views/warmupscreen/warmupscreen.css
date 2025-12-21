@@ -1,0 +1,34 @@
+/* ---------------- MAIN CONTENT AREA ---------------- */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Raleway'; }
+
+/* LEFT PANEL */
+.bg-panel {
+    top: 66px;
+    height: 690px;
+    background: white;
+    border-radius: 35px;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+/* MAIN LAYOUT */
+.main-area {
+    position: absolute;
+    top: 250px;
+    width: 97%;
+    left: 28px;
+    display: flex;
+    justify-content: center; /* center horizontally */
+    align-items: flex-start; /* top-align panels */
+    gap: 29px;               /* space between toolbox, workspace, equations */
+    margin: 0 auto;          /* ensure it stays centered */
+}
+.workspace {
+    flex: 1;
+    height: 456px;          /* ensure px unit */
+    background: white;
+    border-radius: 22px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+}
