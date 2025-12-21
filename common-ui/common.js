@@ -76,7 +76,6 @@ document.getElementById("btnHome").onclick = () => {
 };
 
 document.getElementById("btnPlay").onclick = () => {
-  // alert("Play clicked!");
   SoundManager.play("click");
   loadView('discovermenu')
   SoundManager.stopAll();
@@ -88,9 +87,8 @@ document.getElementById("btnPlay").onclick = () => {
 };
 
 document.getElementById("btnBook").onclick = () => {
-  // alert("Book clicked!");
   SoundManager.play("click");
-  loadView("introscreen")
+  loadView("doitscreen")
   SoundManager.stopAll();
   setTimeout(() => {
     if (!SoundManager.isBgmMuted()) {
