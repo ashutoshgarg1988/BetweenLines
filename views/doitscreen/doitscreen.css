@@ -21,6 +21,8 @@
     margin-top: 53px;
     position: relative;
     overflow: hidden;
+    background-size: cover;
+    background-repeat: repeat;
 }
 
 .paper-style {
