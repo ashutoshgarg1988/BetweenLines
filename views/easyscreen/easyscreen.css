@@ -23,6 +23,8 @@
   height: 88%;
   position: relative;
   overflow: hidden;
+  background-size: cover;
+  background-repeat: repeat;
 }
 
 .grid-overlay {

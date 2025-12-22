@@ -25,7 +25,7 @@ document.querySelectorAll("img").forEach(img => {
 });
 
 // ---- BGM toggle helpers ----
-const MUSIC_ON_ICON  = "assets/images/common/music-btn.svg";
+const MUSIC_ON_ICON = "assets/images/common/music-btn.svg";
 const MUSIC_OFF_ICON = "assets/images/common/music-off.png";
 
 const musicBtn = document.getElementById("musicBtn");
