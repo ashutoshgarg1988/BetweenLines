@@ -1,1 +1,38 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Raleway'; }
+
+/* MAIN LAYOUT */
+.content-area {
+  position: absolute;
+  top: 180px;
+  width: 97%;
+  left: 28px;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 30px;
+  height: calc(100% - 200px);
+}
+
+.grid-board {
+    background: #fff;
+    border-radius: 18px;
+    height: 81%;
+    width: 100%;
+    margin-top: 53px;
+    position: relative;
+    overflow: hidden;
+}
+
+.paper-style {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  background: rgba(255,255,255,0.9);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}

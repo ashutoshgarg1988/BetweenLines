@@ -4,14 +4,8 @@
   top: 180px;
   width: 97%;
   left: 28px;
-  height: 820px;
   display: flex;
   justify-content: space-between;
-}
-
-/* CONTENT */
-.content-area {
-  display: flex;
   gap: 30px;
   padding: 30px;
   height: calc(100% - 200px);

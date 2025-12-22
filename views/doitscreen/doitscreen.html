@@ -11,15 +11,35 @@
 <div id="doit-screen">
     <!-- TOP HEADING BAR -->
     <div class="top-banner">
-        <span>Use the drawing tools to create a line that matches the given condition - parallel or perpendicular to the line shown.</span>
+        <span>Use the drawing tools to create a line that matches the given condition - parallel or perpendicular to the
+            line shown.</span>
         <div class="sound-wrapper">
-        <img src="assets/images/common/sound-btn.svg" class="btn sound-btn" id="soundBtn">
+            <img src="assets/images/common/sound-btn.svg" class="btn sound-btn" id="soundBtn">
+        </div>
+    </div>
+
+
+    <!-- MAIN CONTENT -->
+    <div class="content-area">
+        <!-- GRID CANVAS -->
+        <div class="grid-board">
+            <!-- PLACE YOUR CANVAS / SVG HERE -->
+            <div class="grid-overlay"></div>
+
+            <!-- PAPER STYLE -->
+            <div class="paper-style">
+                <span style="font-size: 24px; font-weight: 900;">Paper Style</span>
+                <div>
+                    <label><input type="checkbox" checked /> Grid</label>
+                    <label><input type="checkbox" /> Dots</label>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- BOTTOM RIGHT BUTTONS -->
     <div class="bottom-right-buttons">
-        <div id="easyResetBtn"><img src="assets/images/common/reset.svg" style="width: 90px;"></div>
+        <div id="easyResetBtn"><img src="assets/images/doitscreen/info.svg" style="width: 90px;"></div>
         <div id="easyNextBtn"><img src="assets/images/common/next.svg" style="width: 110px;"></div>
         <div><img id="resetBtn" src="assets/images/common/reset.svg" style="width: 90px;"></div>
     </div>
