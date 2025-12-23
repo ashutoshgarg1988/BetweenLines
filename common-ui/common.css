@@ -322,3 +322,9 @@ img {
 .w-9 {
   width: 9%;
 }
+
+.disp-flex-row {
+  display: flex; 
+  flex-direction: row; 
+  gap: 8px;
+}

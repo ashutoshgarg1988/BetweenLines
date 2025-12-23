@@ -26,22 +26,15 @@
 
     // Reset button click
     document.getElementById("doitResetBtn").addEventListener("click", () => {
-
+        rotateBlueLineRandomly();
     });
 
-    // Chnage grid or dots background
-    const paperStyleCheckboxes = document.querySelectorAll('.paper-style input[type="checkbox"]');
-    paperStyleCheckboxes.forEach(cb => {
-        cb.addEventListener("change", function () {
-            paperStyleCheckboxes.forEach(other => {
-                if (other !== this) other.checked = false;
-            });
-            if (![...paperStyleCheckboxes].some(c => c.checked)) {
-                this.checked = true;
-            }
-            if (this.value === "grid") {
+    // Change the type of Paper
+    document.querySelectorAll('input[name="paperType"]').forEach(r => {
+        r.addEventListener('change', () => {
+            if(r.id === "grid") {
                 centerPanel.style.backgroundImage = "url('assets/images/easyscreen/mathsline.svg')";
-            } else if (this.value === "dots") {
+            }else {
                 centerPanel.style.backgroundImage = "url('assets/images/easyscreen/dotted.svg')";
             }
         });
@@ -62,7 +55,13 @@
     let drawingEnabled = false;
     let isDrawing = false;
     let start = { x: 0, y: 0 };
-    const BLUE_LINE_ANGLE = 41.12; // degrees
+    let blueLineAngle = 41.12;
+    rotateBlueLineRandomly();
+
+    function rotateBlueLineRandomly() {
+        blueLineAngle = Math.random() * 180; // 0–180 is enough
+        lineImg.style.transform = `rotate(${blueLineAngle}deg)`;
+    }
 
     pencilBtn.addEventListener("click", () => {
         drawingEnabled = true;

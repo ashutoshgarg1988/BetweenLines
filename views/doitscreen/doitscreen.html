@@ -58,10 +58,21 @@
 
             <!-- PAPER STYLE -->
             <div class="paper-style">
-                <span style="font-size: 24px; font-weight: 900;">Paper Style</span>
-                <div>
-                    <label><input type="checkbox" name="paperStyle" value="grid" checked /> Grid</label>
-                    <label><input type="checkbox" name="paperStyle" value="dots"/> Dots</label>
+                <div class="disp-flex-row">
+                    <img src="assets/images/doitscreen/copy.svg" style="width: 20px;">
+                    <span style="font-size: 24px; font-weight: 900;">Paper Style</span>
+                </div>
+                <div class="disp-flex-row">
+                    <label class="custom-option" for="grid">
+                        <input type="radio" name="paperType" id="grid" checked />
+                        <span class="custom-box"></span>
+                        <span class="option-text">Grid</span>
+                    </label>
+                    <label class="custom-option" for="dots">
+                        <input type="radio" name="paperType" id="dots"/>
+                        <span class="custom-box"></span>
+                        <span class="option-text">Dots</span>
+                    </label>
                 </div>
             </div>
         </div>
