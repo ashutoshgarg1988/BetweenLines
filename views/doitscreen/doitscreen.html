@@ -24,7 +24,37 @@
         <!-- GRID CANVAS -->
         <div class="grid-board" id="gridBoard">
             <!-- PLACE YOUR CANVAS / SVG HERE -->
-            <div class="grid-overlay"></div>
+            <div class="grid-overlay">
+                <img src="assets/images/doitscreen/line.svg" class="line-img" id="lineImg">
+            </div>
+            <!-- SVG drawing layer -->
+            <svg id="drawSvg" width="100%" height="100%" style="position:absolute; inset:0;">
+                <!-- user drawn line -->
+                <line id="userLine"
+                    x1="0" y1="0" x2="0" y2="0"
+                    stroke="red"
+                    stroke-width="6"
+                    stroke-linecap="round"
+                    visibility="hidden"/>
+            </svg>
+            <!-- Line options -->
+            <div class="option-card">
+                <label class="custom-option" for="perpendicular">
+                    <input type="radio" name="lineType" id="perpendicular" checked />
+                    <span class="custom-box"></span>
+                    <span class="option-text">Perpendicular Line</span>
+                </label>
+                <label class="custom-option" for="parallel">
+                    <input type="radio" name="lineType" id="parallel"/>
+                    <span class="custom-box"></span>
+                    <span class="option-text">Parallel Line</span>
+                </label>
+            </div>
+            <!-- User action buttons -->
+            <div class="user-action">
+                <div id="pencilBtn" class="btn"><img src="assets/images/doitscreen/pencil.svg" style="width: 65px;"></div>
+                <div id="deleteBtn" class="btn"><img src="assets/images/doitscreen/delete.svg" style="width: 65px;"></div>
+            </div>
 
             <!-- PAPER STYLE -->
             <div class="paper-style">
@@ -39,8 +69,8 @@
 
     <!-- BOTTOM RIGHT BUTTONS -->
     <div class="bottom-right-buttons">
-        <div id="easyResetBtn"><img src="assets/images/doitscreen/info.svg" style="width: 90px;"></div>
-        <div id="easyNextBtn"><img src="assets/images/common/next.svg" style="width: 110px;"></div>
-        <div><img id="resetBtn" src="assets/images/common/reset.svg" style="width: 90px;"></div>
+        <div id="doitInfoBtn"><img src="assets/images/doitscreen/info.svg" style="width: 90px;"></div>
+        <div id="doitNextBtn"><img src="assets/images/common/next.svg" style="width: 110px;"></div>
+        <div><img id="doitResetBtn" src="assets/images/common/reset.svg" style="width: 90px;"></div>
     </div>
 </div>

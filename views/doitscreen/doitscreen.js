@@ -14,6 +14,7 @@
         musicBtn: true,
         copyright: true
     });
+    let lineType = ''; //perpendicular or parallel
     const centerPanel = document.getElementById('gridBoard');
     centerPanel.style.backgroundImage = "url('assets/images/easyscreen/mathsline.svg')";
 
@@ -23,12 +24,12 @@
     // }
     // showInfoPopup();
 
-
     // Reset button click
-    document.getElementById("resetBtn").addEventListener("click", () => {
+    document.getElementById("doitResetBtn").addEventListener("click", () => {
 
     });
 
+    // Chnage grid or dots background
     const paperStyleCheckboxes = document.querySelectorAll('.paper-style input[type="checkbox"]');
     paperStyleCheckboxes.forEach(cb => {
         cb.addEventListener("change", function () {
@@ -46,4 +47,115 @@
         });
     });
 
+    // Change the type of lines
+    document.querySelectorAll('input[name="lineType"]').forEach(r => {
+        r.addEventListener('change', () => {
+            lineType = r.id;
+        });
+    });
+
+    const pencilBtn = document.getElementById("pencilBtn");
+    const deleteBtn = document.getElementById("deleteBtn");
+    const svg = document.getElementById("drawSvg");
+    const userLine = document.getElementById("userLine");
+    const gridBoard = document.getElementById("gridBoard");
+    let drawingEnabled = false;
+    let isDrawing = false;
+    let start = { x: 0, y: 0 };
+    const BLUE_LINE_ANGLE = 41.12; // degrees
+
+    pencilBtn.addEventListener("click", () => {
+        drawingEnabled = true;
+    });
+
+    deleteBtn.addEventListener("click", () => {
+        userLine.setAttribute("visibility", "hidden");
+        drawingEnabled = false;
+    });
+
+
+    function getScaledPoint(e, element) {
+        const rect = element.getBoundingClientRect();
+        return {
+            x: (e.clientX - rect.left) / CURRENT_SCALE,
+            y: (e.clientY - rect.top) / CURRENT_SCALE
+        };
+    }
+
+    svg.addEventListener("mousedown", (e) => {
+        if (!drawingEnabled) return;
+        isDrawing = true;
+        const p = getScaledPoint(e, svg);
+        start = p;
+        userLine.setAttribute("x1", p.x);
+        userLine.setAttribute("y1", p.y);
+        userLine.setAttribute("x2", p.x);
+        userLine.setAttribute("y2", p.y);
+        userLine.setAttribute("visibility", "visible");
+    });
+
+    svg.addEventListener("mousemove", (e) => {
+        if (!isDrawing) return;
+        const p = getScaledPoint(e, svg);
+        userLine.setAttribute("x2", p.x);
+        userLine.setAttribute("y2", p.y);
+        checkPerpendicular(start, p);
+    });
+
+
+    window.addEventListener("mouseup", () => {
+        isDrawing = false;
+    });
+
+    // Touch support added
+    svg.addEventListener("touchstart", (e) => {
+        if (!drawingEnabled) return;
+        e.preventDefault();
+        isDrawing = true;
+        const touch = e.touches[0];
+        const p = getScaledPoint(touch, svg);
+        start = p;
+        userLine.setAttribute("x1", p.x);
+        userLine.setAttribute("y1", p.y);
+        userLine.setAttribute("x2", p.x);
+        userLine.setAttribute("y2", p.y);
+        userLine.setAttribute("visibility", "visible");
+    });
+
+    svg.addEventListener("touchmove", (e) => {
+        if (!isDrawing) return;
+        e.preventDefault();
+        const touch = e.touches[0];
+        const p = getScaledPoint(touch, svg);
+        userLine.setAttribute("x2", p.x);
+        userLine.setAttribute("y2", p.y);
+        checkPerpendicular(start, p);
+    });
+
+    window.addEventListener("touchend", () => {
+        isDrawing = false;
+    });
+
+    function checkPerpendicular(p1, p2) {
+        const userAngle = angleBetween(p1, p2);
+        const blueLine = document.getElementById("lineImg");
+        const blueAngle = getElementRotation(blueLine);
+        // console.log("userAngle:::::" + userAngle + "::::::blueAngle:::" + blueAngle);
+        const diff = angleDiff(userAngle, blueAngle);
+        const TOLERANCE = 1; // degrees (visually perfect)
+        if(lineType === 'parallel') {
+            if (Math.abs(diff - 42) <= TOLERANCE) {
+                userLine.setAttribute("stroke", "#28c840"); // GREEN
+            } else {
+                userLine.setAttribute("stroke", "#e53935"); // RED
+            }
+        } else {
+            if (Math.abs(diff - 48) <= TOLERANCE) {
+                userLine.setAttribute("stroke", "#28c840"); // GREEN
+            } else {
+                userLine.setAttribute("stroke", "#e53935"); // RED
+            }
+        }
+        
+    }
 })();
