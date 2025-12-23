@@ -19,12 +19,34 @@
 
     <!-- MAIN CONTENT -->
     <div class="content-area">
-        <!-- GRID CANVAS -->
         <div class="grid-board">
-            <div class="grid-overlay"></div>
+            <div style="position: relative; top: -78px">
+                <svg id="angleCanvas" viewBox="0 0 1000 450" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <!-- Arrow Head -->
+                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6"
+                            orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#2c2c2c" />
+                        </marker>
+                    </defs>
+                    <!-- PARALLEL LINES (CENTERED) -->
+                    <line x1="80" y1="190" x2="920" y2="190" class="parallel-line" marker-start="url(#arrow)"
+                        marker-end="url(#arrow)" />
+                    <line x1="80" y1="290" x2="920" y2="290" class="parallel-line" marker-start="url(#arrow)"
+                        marker-end="url(#arrow)" />
+                    <!-- TRANSVERSAL -->
+                    <line id="transversal" x1="450" y1="400" x2="550" y2="50" class="transversal-line"
+                        marker-start="url(#arrow)" marker-end="url(#arrow)" />
+                    <!-- INTERSECTIONS -->
+                    <g id="topIntersection"></g>
+                    <g id="bottomIntersection"></g>
+                </svg>
+            </div>
         </div>
     </div>
 
+
+    <div id="submitBtn" class="btn"><img src="assets/images/challengescreen/submit-btn.png"></div>
     <!-- BOTTOM RIGHT BUTTONS -->
     <div class="bottom-right-buttons">
         <div id="challengeResetBtn"><img src="assets/images/common/reset.svg" style="width: 90px;"></div>

@@ -19,7 +19,17 @@ function angleDiff(a, b) {
 
 // function calculates the angle of a line formed by two points with respect to the positive X-axis, and returns that angle in degrees
 function angleBetween(p1, p2) {
-    const dx = p2.x - p1.x;
-    const dy = p2.y - p1.y;
-    return Math.atan2(dy, dx) * (180 / Math.PI);
+  const dx = p2.x - p1.x;
+  const dy = p2.y - p1.y;
+  return Math.atan2(dy, dx) * (180 / Math.PI);
+}
+
+
+function drawAngleCircle(cx, cy, r) {
+  const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  circle.setAttribute("cx", cx);
+  circle.setAttribute("cy", cy);
+  circle.setAttribute("r", r);
+  circle.setAttribute("fill", "rgba(180,180,180,0.7)");
+  return circle;
 }

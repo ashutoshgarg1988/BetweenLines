@@ -26,3 +26,37 @@
   position: relative;
   overflow: hidden;
 }
+
+#submitBtn {
+  position: absolute;
+  left: 43%;
+  bottom: 36px;
+}
+
+/* Lines draw */
+.parallel-line,
+.transversal-line {
+  stroke: #2c2c2c;
+  stroke-width: 3;   /* reduced from 4 */
+}
+
+.angle-arc {
+  fill: rgba(180, 180, 180, 0.7);
+}
+
+.angle-arc.given {
+  fill: #f6b3d8;
+}
+
+.angle-text {
+  font-size: 26px;
+  font-weight: 700;
+  fill: #000;
+}
+
+.angle-input {
+  fill: #fff;
+  stroke: #b0b0b0;
+  stroke-width: 2;
+  rx: 10;
+}
