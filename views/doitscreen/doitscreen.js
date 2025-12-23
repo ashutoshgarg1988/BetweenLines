@@ -29,6 +29,11 @@
         rotateBlueLineRandomly();
     });
 
+    // Next button click
+    document.getElementById("doitNextBtn").addEventListener("click", () => {
+        loadView("menu");
+    });
+
     // Change the type of Paper
     document.querySelectorAll('input[name="paperType"]').forEach(r => {
         r.addEventListener('change', () => {
