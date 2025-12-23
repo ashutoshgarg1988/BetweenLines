@@ -27,6 +27,8 @@
     // Reset button click
     document.getElementById("doitResetBtn").addEventListener("click", () => {
         rotateBlueLineRandomly();
+        userLine.setAttribute("visibility", "hidden");
+        drawingEnabled = false;
     });
 
     // Next button click
