@@ -96,3 +96,21 @@
   left: 22%;
   transform: translate(-50%, -50%);
 }
+
+.wheel-pointer {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  width: 110px;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+}
+@keyframes pointerBounce {
+  0% { transform: translateX(-50%) rotate(0); }
+  40% { transform: translateX(-50%) rotate(-12deg); }
+  100% { transform: translateX(-50%) rotate(0); }
+}
+.pointer-bounce {
+  animation: pointerBounce 0.4s ease-out;
+}
