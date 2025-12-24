@@ -21,17 +21,31 @@
     let disclaimerVisible = false;
     let disclaimerTimeout = null;
 
+    const pencilBtn = document.getElementById("pencilBtn");
+    const deleteBtn = document.getElementById("deleteBtn");
+    const svg = document.getElementById("drawSvg");
+    const userLine = document.getElementById("userLine");
+    const gridBoard = document.getElementById("gridBoard");
+    let drawingEnabled = false;
+    let isDrawing = false;
+    let start = { x: 0, y: 0 };
+    let blueLineAngle = 41.12;
+
     // Show info popup when screen loads
     // function showInfoPopup() {
     //     showPopup("info", { text: "Pick your favorite object - a cake, pizza, pie, or chocolate bar! Drag the knife or clock hand to make a slice or an angle." });
     // }
     // showInfoPopup();
 
+    function resetLine() {
+        userLine.setAttribute("visibility", "hidden");
+        drawingEnabled = false;
+    }
+
     // Reset button click
     document.getElementById("doitResetBtn").addEventListener("click", () => {
         rotateBlueLineRandomly();
-        userLine.setAttribute("visibility", "hidden");
-        drawingEnabled = false;
+        resetLine();
     });
 
     // Next button click
@@ -69,21 +83,13 @@
     // Change the type of lines
     document.querySelectorAll('input[name="lineType"]').forEach(r => {
         r.addEventListener('change', () => {
+            userLine.setAttribute("visibility", "hidden");
             lineType = r.id;
         });
     });
 
-    const pencilBtn = document.getElementById("pencilBtn");
-    const deleteBtn = document.getElementById("deleteBtn");
-    const svg = document.getElementById("drawSvg");
-    const userLine = document.getElementById("userLine");
-    const gridBoard = document.getElementById("gridBoard");
-    let drawingEnabled = false;
-    let isDrawing = false;
-    let start = { x: 0, y: 0 };
-    let blueLineAngle = 41.12;
+    
     rotateBlueLineRandomly();
-
     function rotateBlueLineRandomly() {
         blueLineAngle = Math.random() * 180; // 0–180 is enough
         lineImg.style.transform = `rotate(${blueLineAngle}deg)`;
@@ -94,8 +100,7 @@
     });
 
     deleteBtn.addEventListener("click", () => {
-        userLine.setAttribute("visibility", "hidden");
-        drawingEnabled = false;
+        resetLine();
     });
 
 
