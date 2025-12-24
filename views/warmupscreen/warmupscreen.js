@@ -16,7 +16,10 @@
   });
   const soundBtn = document.getElementById("soundBtn");
   document.querySelector(".spin-center").addEventListener("click", spinWheel);
+  const spinWheelArea = document.getElementById("spinWheelArea");
+  const userSelectionArea = document.getElementById("userSelectionArea");
   const pointer = document.querySelector(".wheel-pointer")
+  const selectedImg = document.getElementById("selectedImg");
   // Sound button functionality
   soundBtn.addEventListener("click", () => {
     SoundManager.play("click");
@@ -116,9 +119,29 @@
       currentRotation = settleTarget;
     }, 2800);
     // FINAL slice detection 
-      // setTimeout(() => {
-      //   wheelImages.splice(finalIndex, 1);
-      //   renderWheel();
-      // }, 600);
+    setTimeout(() => {
+      selectedImg.src = `assets/images/warmupscreen/${wheelImages[randomIndex]}`;
+      showHideSpinPlayArea(false);
+      wheelImages.splice(randomIndex, 1);
+      renderWheel();
+    }, 3000);
   }
+
+  function showHideSpinPlayArea(isVisible) {
+    if(isVisible) {
+      spinWheelArea.style.opacity = 1;
+      userSelectionArea.style.opacity = 0;
+    } else {
+      spinWheelArea.style.opacity = 0;
+      userSelectionArea.style.opacity = 1;
+    }
+  }
+
+  document.getElementById("parallelBtn").addEventListener("click", () => {
+    showHideSpinPlayArea(true);
+  });
+
+  document.getElementById("perpendicularBtn").addEventListener("click", () => {
+    showHideSpinPlayArea(true);
+  });
 })();

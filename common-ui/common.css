@@ -328,3 +328,9 @@ img {
   flex-direction: row; 
   gap: 8px;
 }
+
+.disp-flex-row {
+  display: flex; 
+  flex-direction: column; 
+  gap: 8px;
+}

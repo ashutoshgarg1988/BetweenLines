@@ -6,16 +6,27 @@
     font-family: 'Raleway';
 }
 
-/* LEFT PANEL */
+/* user selection area */
+.main-area1 {
+    display: flex;
+    width: 100%;
+    position: relative;
+    top: 208px;
+    padding: 20px 40px;
+}
+
 .bg-panel {
-    top: 66px;
-    height: 690px;
+    height: 720px;
+    width: 70%;
     background: white;
     border-radius: 35px;
     position: relative;
     overflow: hidden;
     background-size: cover;
     background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .workspace {
@@ -29,9 +40,8 @@
 .main-area {
     position: absolute;
     top: 300px;
-    width: 97%;
     height: 60%;
-    left: 28px;
+    left: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
