@@ -90,10 +90,10 @@
 
 .slice img {
   position: absolute;
-  width: 90px;
-  height: 90px;
-  top: 18%;
-  left: 22%;
+  width: 130px; 
+  height: 130px;
+  top: 16%;
+  left: 11%;
   transform: translate(-50%, -50%);
 }
 
