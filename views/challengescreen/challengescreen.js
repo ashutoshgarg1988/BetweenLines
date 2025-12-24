@@ -18,7 +18,6 @@
     musicBtn: true,
     copyright: true
   });
-  resetAngles();
 
   soundBtn.addEventListener("click", () => {
     SoundManager.play("click");
@@ -58,12 +57,14 @@
   });
 
 
+  /* Functionality for creating intersecting line and angles + input boxes*/
   const CENTER_X = 500;
   const TOP_LINE_Y = 190;
   const BOTTOM_LINE_Y = 290;
   const CENTER_Y = TOP_LINE_Y;   // top intersection
   const BOTTOM_CENTER_Y = BOTTOM_LINE_Y;
-
+  let correctAngles = {};
+  let currentRotationDeg = 0;
   function polar(cx, cy, r, angle) {
     const rad = (angle - 90) * Math.PI / 180;
     return {
@@ -119,17 +120,18 @@
       G: given,
       H: 180 - given
     };
-    console.log("📐 ALL ANGLES OBJECT:", angles);
+    // console.log("ALL ANGLES OBJECT:", angles);
     return angles;
   }
 
   // Function to reset intersecting line
   function resetAngles() {
-    const given = Math.floor(Math.random() * 90) + 60;
+    const given = Math.floor(Math.random() * 90) + 40;
+    currentRotationDeg = given - 90;
     document.getElementById("transversal")
       .setAttribute(
         "transform",
-        `rotate(${given - 90}, 500, 240)`
+        `rotate(${currentRotationDeg}, 500, 240)`
       );
     correctAngles = computeAllAngles(given);
     drawTopIntersection(given);
@@ -141,7 +143,7 @@
     const box = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
     box.setAttribute("x", x);
     box.setAttribute("y", y);
-    box.setAttribute("width", 80);
+    box.setAttribute("width", 60);
     box.setAttribute("height", 42);
     box.innerHTML = `
       <div xmlns="http://www.w3.org/1999/xhtml">
@@ -150,8 +152,9 @@
               style="
                 width:100%;
                 height:100%;
-                border-radius:10px;
-                border:2px solid #bbb;
+                border-radius:7px;
+                border:1px solid #000;
+                background: rgba(236, 233, 233, 1);
                 font-size:18px;
                 text-align:center;
               " />
@@ -164,40 +167,49 @@
   function drawTopIntersection(givenAngle) {
     const g = document.getElementById("topIntersection");
     g.innerHTML = "";
-    const cx = 500;
-    const cy = 190;
-    const r = 62;
+    const intersection = getIntersectionPoint(TOP_LINE_Y, currentRotationDeg);
+    const cx = intersection.x;
+    const cy = intersection.y;
+    const r = 30;
     // FULL GREY CIRCLE
     g.appendChild(drawAngleCircle(cx, cy, r));
     // PINK GIVEN ARC
-    g.appendChild(drawPinkArc(cx, cy, r, 200, givenAngle));
+    g.appendChild(drawPinkArc(cx, cy, r, 273, givenAngle+10));
     // GIVEN TEXT
     const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    txt.setAttribute("x", cx + 25);
-    txt.setAttribute("y", cy - 22);
+    txt.setAttribute("x", cx - 55);
+    txt.setAttribute("y", cy - 25);
     txt.setAttribute("class", "angle-text");
     txt.textContent = givenAngle + "°";
     g.appendChild(txt);
     // INPUT BOXES (3 sides)
-    g.appendChild(drawInputBox(cx + 70, cy - 20, "B"));
-    g.appendChild(drawInputBox(cx - 150, cy + 10, "D"));
+    g.appendChild(drawInputBox(cx + 70, cy - 30, "B"));
+    g.appendChild(drawInputBox(cx - 100, cy + 10, "D"));
     g.appendChild(drawInputBox(cx + 70, cy + 10, "C"));
+    const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
   }
 
   // Bottom intersection functionality
   function drawBottomIntersection() {
     const g = document.getElementById("bottomIntersection");
     g.innerHTML = "";
-    const cx = 500;
-    const cy = 290;
-    const r = 60;
+    const intersection = getIntersectionPoint(BOTTOM_LINE_Y, currentRotationDeg);
+    const cx = intersection.x;
+    const cy = intersection.y;
+    const r = 30;
     // FULL GREY CIRCLE
     g.appendChild(drawAngleCircle(cx, cy, r));
     // INPUT BOXES (ALL 4)
-    g.appendChild(drawInputBox(cx - 150, cy - 20, "E"));
-    g.appendChild(drawInputBox(cx + 70,  cy - 20, "F"));
-    g.appendChild(drawInputBox(cx - 150, cy + 10, "H"));
+    g.appendChild(drawInputBox(cx - 100, cy - 45, "E"));
+    g.appendChild(drawInputBox(cx + 70,  cy - 30, "F"));
+    g.appendChild(drawInputBox(cx - 120, cy + 20, "H"));
     g.appendChild(drawInputBox(cx + 70,  cy + 10, "G"));
+    const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    // dot.setAttribute("cx", cx);
+    // dot.setAttribute("cy", cy);
+    // dot.setAttribute("r", 3);
+    // dot.setAttribute("fill", "red");
+    // g.appendChild(dot);
   }
 
   function validateOnSubmit() {
@@ -226,5 +238,5 @@
       showPopup("info", { text: "Sorry! Try again" });
     }
   }
-
+  resetAngles();
 })();
