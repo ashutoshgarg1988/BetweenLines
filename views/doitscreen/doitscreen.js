@@ -17,6 +17,9 @@
     let lineType = ''; //perpendicular or parallel
     const centerPanel = document.getElementById('gridBoard');
     centerPanel.style.backgroundImage = "url('assets/images/easyscreen/mathsline.svg')";
+    const disclaimerBox = document.querySelector(".disclaimer-box");
+    let disclaimerVisible = false;
+    let disclaimerTimeout = null;
 
     // Show info popup when screen loads
     // function showInfoPopup() {
@@ -35,6 +38,22 @@
     document.getElementById("doitNextBtn").addEventListener("click", () => {
         loadView("menu");
     });
+
+    // Info button click
+    document.getElementById("doitInfoBtn").addEventListener("click", () => {
+        showDisclaimer();
+    });
+
+    function showDisclaimer() {
+        if (disclaimerVisible) return;
+        disclaimerVisible = true;
+        disclaimerBox.classList.add("show");
+        // Auto hide after 5 seconds
+        disclaimerTimeout = setTimeout(() => {
+            disclaimerBox.classList.remove("show");
+            disclaimerVisible = false;
+        }, 5000);
+    }
 
     // Change the type of Paper
     document.querySelectorAll('input[name="paperType"]').forEach(r => {
@@ -165,3 +184,5 @@
         
     }
 })();
+
+// Move your line slowly until it turns green. A green line means it is correctly parallel or perpendicular to the fixed line.
