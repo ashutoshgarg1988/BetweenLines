@@ -51,11 +51,11 @@
     SoundManager.play("click");
   });
 
-
-
-
   /* Wheel functionality */
-  const ALL_IMAGES = ["img1.svg","img2.svg","img3.svg","img4.svg","img5.svg","img6.svg","img7.svg"];
+  const MAIN_SPIN_TURNS = 9;
+  const OVERSHOOT_DEG = 0;//15;
+  const rotatePonterBased = -155;
+  const ALL_IMAGES = ["img0.svg","img1.svg","img2.svg","img3.svg","img4.svg","img5.svg","img6.svg"];
   let wheelImages = [];
   let currentRotation = 0;
 
@@ -74,8 +74,8 @@
     wheelImages.forEach((img, index) => {
       const slice = document.createElement("div");
       slice.className = "slice";
-      const rotate = index * sliceAngle;
       const skew = 90 - sliceAngle;
+      const rotate = index * sliceAngle;
       slice.style.transform = `rotate(${rotate}deg) skewY(${skew}deg)`;
       const image = document.createElement("img");
       image.src = `assets/images/warmupscreen/${img}`;
@@ -83,41 +83,42 @@
       slice.appendChild(image);
       wheel.appendChild(slice);
     });
+    // Instant base rotation (no animation)
+    wheel.style.transition = "none";
+    wheel.style.transform = `rotate(${rotatePonterBased}deg)`;
+    wheel.offsetHeight;
+    wheel.style.transition = "";
   }
 
-  const MAIN_SPIN_TURNS = 9;
-  const OVERSHOOT_DEG = 15;     // how much extra it goes
-  const SETTLE_DEG = 10;        // how much it comes back
   function spinWheel() {
     const wheel = document.getElementById("wheel");
     const sliceCount = wheelImages.length;
     if (sliceCount === 0) return;
     const sliceAngle = 360 / sliceCount;
     const randomIndex = Math.floor(Math.random() * sliceCount);
-    // FINAL correct stop angle (center of slice under pointer)
-    const finalStop = 360 - randomIndex * sliceAngle - sliceAngle / 2;
-    // PHASE 1: big spin + overshoot
-    const overshootTarget = currentRotation + 360 * MAIN_SPIN_TURNS + finalStop + OVERSHOOT_DEG;
+    console.log("randomIndex:::", randomIndex);
+    console.log("selectedImg::::", wheelImages[randomIndex]);
+    // Final desired angle for this slice
+    const finalStop = 360 - randomIndex * sliceAngle + rotatePonterBased;
+    // Normalize current rotation (0–360)
+    const normalizedCurrent = ((currentRotation % 360) + 360) % 360;
+    // Find forward-only delta to target
+    const delta = (finalStop - normalizedCurrent + 360) % 360;
+    const overshootTarget = currentRotation + 360 * MAIN_SPIN_TURNS + delta + OVERSHOOT_DEG;
     wheel.style.transition = "transform 2.8s cubic-bezier(0.15, 0.85, 0.25, 1)";
     wheel.style.transform = `rotate(${overshootTarget}deg)`;
-    // PHASE 2: small reverse settle
     setTimeout(() => {
-      const settleTarget = overshootTarget - SETTLE_DEG;
+      const settleTarget = overshootTarget - OVERSHOOT_DEG;
       wheel.style.transition = "transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
       wheel.style.transform = `rotate(${settleTarget}deg)`;
       pointer.classList.add("pointer-bounce");
       setTimeout(() => pointer.classList.remove("pointer-bounce"), 400);
       currentRotation = settleTarget;
-      // FINAL slice detection
-      setTimeout(() => {
-        const normalized = (360 - (currentRotation % 360) + 360) % 360;
-        const finalIndex = Math.floor(normalized / sliceAngle);
-        const selectedImage = wheelImages[finalIndex];
-        console.log("FINAL STOP:", selectedImage);
-        wheelImages.splice(finalIndex, 1);
-        renderWheel();
-      }, 6000);
     }, 2800);
+    // FINAL slice detection 
+      // setTimeout(() => {
+      //   wheelImages.splice(finalIndex, 1);
+      //   renderWheel();
+      // }, 600);
   }
-
 })();
