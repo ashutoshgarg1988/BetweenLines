@@ -23,15 +23,47 @@
     <div class="work-area">
       <!-- GRID CANVAS -->
       <div class="grid-board" id="gridBoard">
-        <!-- PLACE YOUR CANVAS / SVG HERE -->
-        <div class="grid-overlay"></div>
-
+        <div class="grid-overlay">
+          <div style="position: relative; top: 19px">
+            <svg id="angleCanvas" viewBox="0 0 1000 450" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <!-- Arrow Head -->
+                <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6"
+                  orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#2c2c2c" />
+                </marker>
+              </defs>
+              <!-- PARALLEL LINES (CENTERED) -->
+              <line x1="80" y1="190" x2="920" y2="190" class="parallel-line" marker-start="url(#arrow)"
+                marker-end="url(#arrow)" />
+              <line x1="80" y1="290" x2="920" y2="290" class="parallel-line" marker-start="url(#arrow)"
+                marker-end="url(#arrow)" />
+              <!-- TRANSVERSAL -->
+              <line id="transversal" x1="450" y1="400" x2="550" y2="50" class="transversal-line"
+                marker-start="url(#arrow)" marker-end="url(#arrow)" />
+              <!-- INTERSECTIONS -->
+              <g id="topIntersection"></g>
+              <g id="bottomIntersection"></g>
+            </svg>
+          </div>
+        </div>
         <!-- PAPER STYLE -->
         <div class="paper-style">
-          <span style="font-size: 24px; font-weight: 900;">Paper Style</span>
-          <div>
-            <label><input type="checkbox" name="paperStyle" value="grid" checked/> Grid</label>
-            <label><input type="checkbox" name="paperStyle" value="dots"/> Dots</label>
+          <div class="disp-flex-row">
+            <img src="assets/images/doitscreen/copy.svg" style="width: 20px;">
+            <span style="font-size: 24px; font-weight: 900;">Paper Style</span>
+          </div>
+          <div class="disp-flex-row">
+            <label class="custom-option" for="grid">
+              <input type="radio" name="paperType" id="grid" checked />
+              <span class="custom-box"></span>
+              <span class="option-text">Grid</span>
+            </label>
+            <label class="custom-option" for="dots">
+              <input type="radio" name="paperType" id="dots" />
+              <span class="custom-box"></span>
+              <span class="option-text">Dots</span>
+            </label>
           </div>
         </div>
       </div>
@@ -51,7 +83,7 @@
       <!-- ANGLES -->
       <div class="panel-section" style="height: 73%;">
         <div class="panel-title">
-          <div class="icon-img"></div>
+          <div class="icon-img"><img src="assets/images/easyscreen/angle.svg" style="width: 90%;"></div>
           <span>Angles</span>
         </div>
 
@@ -156,7 +188,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 

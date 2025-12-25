@@ -186,7 +186,6 @@
     g.appendChild(drawInputBox(cx + 70, cy - 30, "B"));
     g.appendChild(drawInputBox(cx - 100, cy + 10, "D"));
     g.appendChild(drawInputBox(cx + 70, cy + 10, "C"));
-    const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
   }
 
   // Bottom intersection functionality
@@ -204,7 +203,7 @@
     g.appendChild(drawInputBox(cx + 70,  cy - 30, "F"));
     g.appendChild(drawInputBox(cx - 120, cy + 20, "H"));
     g.appendChild(drawInputBox(cx + 70,  cy + 10, "G"));
-    const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    // const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     // dot.setAttribute("cx", cx);
     // dot.setAttribute("cy", cy);
     // dot.setAttribute("r", 3);

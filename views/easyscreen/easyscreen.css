@@ -32,20 +32,6 @@
   height: 100%;
 }
 
-.paper-style {
-  position: absolute;
-  bottom: 12px;
-  right: 14px;
-  background: rgba(255,255,255,0.9);
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-}
-
 /* CONTROL PANEL */
 .control-panel {
   width: 425px;
@@ -174,4 +160,28 @@
 
 .panel-title .checkmark {
   margin-left: auto;
+}
+
+
+
+
+
+
+
+
+
+
+/* Lines draw */
+.parallel-line,
+.transversal-line {
+  stroke: #2c2c2c;
+  stroke-width: 3;   /* reduced from 4 */
+}
+
+.angle-arc {
+  fill: rgba(180, 180, 180, 0.7);
+}
+
+.angle-arc.given {
+  fill: #f6b3d8;
 }
