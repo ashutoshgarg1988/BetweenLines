@@ -14,6 +14,7 @@
     musicBtn: true,
     copyright: true
   });
+  SoundManager.playSceneBg("warmUp");
   const soundBtn = document.getElementById("soundBtn");
   document.querySelector(".spin-center").addEventListener("click", spinWheel);
   const spinWheelArea = document.getElementById("spinWheelArea");

@@ -14,6 +14,7 @@
         musicBtn: true,
         copyright: true
     });
+    SoundManager.playSceneBg("doItYouself");
     let lineType = ''; //perpendicular or parallel
     const centerPanel = document.getElementById('gridBoard');
     centerPanel.style.backgroundImage = "url('assets/images/easyscreen/mathsline.svg')";
@@ -26,6 +27,7 @@
     const svg = document.getElementById("drawSvg");
     const userLine = document.getElementById("userLine");
     const gridBoard = document.getElementById("gridBoard");
+    const soundBtn = document.getElementById("soundBtn");
     let drawingEnabled = false;
     let isDrawing = false;
     let start = { x: 0, y: 0 };
@@ -36,6 +38,19 @@
     //     showPopup("info", { text: "Pick your favorite object - a cake, pizza, pie, or chocolate bar! Drag the knife or clock hand to make a slice or an angle." });
     // }
     // showInfoPopup();
+
+     // Sound button functionality
+    soundBtn.addEventListener("click", () => {
+        SoundManager.play("click");
+        const muted = SoundManager.toggleVoiceMute();
+        if (muted) {
+        soundBtn.src = "assets/images/common/audio-off.svg";
+        soundBtn.setAttribute("title", "Unmute");
+        } else {
+        soundBtn.src = "assets/images/common/sound-btn.svg";
+        soundBtn.setAttribute("title", "Mute");
+        }
+    });
 
     function resetLine() {
         userLine.setAttribute("visibility", "hidden");

@@ -8,7 +8,7 @@
 
 const SOUNDS = {
   challange: {
-    src: "assets/sounds/challange.mp3",
+    src: "assets/sounds/challenge.mp3",
     // loop: true,
     // volume: 0.4
   },
@@ -23,6 +23,9 @@ const SOUNDS = {
   },
   warmUp: {
     src: "assets/sounds/warmUp.mp3"
+  },
+  doItYouself: {
+    src: "assets/sounds/doItYouself.mp3"
   },
   click: {
     src: "assets/sounds/click.mp3"
