@@ -35,14 +35,7 @@
   });
 
   warmupNextBtn.addEventListener("click", () => {
-    if (correctCounter < 3) return;
-    SoundManager.play("click");
-    if(level === 0) {
-      level++;
-      handleLevelChanges();
-    }else {
-      loadView("challengescreen");
-    }
+    loadView("challengescreen");
   });
 
   // CLEAR BUTTON
@@ -60,6 +53,7 @@
   const OVERSHOOT_DEG = 0;//15;
   const rotatePonterBased = -155;
   const ALL_IMAGES = ["img0.svg","img1.svg","img2.svg","img3.svg","img4.svg","img5.svg","img6.svg"];
+  // const ALL_IMAGES = ["img0.svg","img1.svg"];
   let wheelImages = [];
   let currentRotation = 0;
 
@@ -74,25 +68,35 @@
     const wheel = document.getElementById("wheel");
     wheel.innerHTML = "";
     const sliceCount = wheelImages.length;
+    // SPECIAL CASE FOR 2
+    if (sliceCount === 2) {
+      wheelImages.forEach((img, index) => {
+        const slice = document.createElement("div");
+        slice.className = "slice half";
+        slice.style.transform = `rotate(${index * 180}deg)`;
+        const image = document.createElement("img");
+        image.src = `assets/images/warmupscreen/${img}`;
+        image.style.transform = "rotate(90deg)";
+        slice.appendChild(image);
+        wheel.appendChild(slice);
+      });
+      return;
+    }
+    // NORMAL FLOW (3+ slices)
     const sliceAngle = 360 / sliceCount;
+    const skew = 90 - sliceAngle;
     wheelImages.forEach((img, index) => {
       const slice = document.createElement("div");
       slice.className = "slice";
-      const skew = 90 - sliceAngle;
-      const rotate = index * sliceAngle;
-      slice.style.transform = `rotate(${rotate}deg) skewY(${skew}deg)`;
+      slice.style.transform = `rotate(${index * sliceAngle}deg) skewY(${skew}deg)`;
       const image = document.createElement("img");
       image.src = `assets/images/warmupscreen/${img}`;
       image.style.transform = `skewY(${-skew}deg) rotate(${sliceAngle / 2}deg)`;
       slice.appendChild(image);
       wheel.appendChild(slice);
     });
-    // Instant base rotation (no animation)
-    wheel.style.transition = "none";
-    wheel.style.transform = `rotate(${rotatePonterBased}deg)`;
-    wheel.offsetHeight;
-    wheel.style.transition = "";
   }
+
 
   function spinWheel() {
     const wheel = document.getElementById("wheel");
@@ -100,8 +104,6 @@
     if (sliceCount === 0) return;
     const sliceAngle = 360 / sliceCount;
     const randomIndex = Math.floor(Math.random() * sliceCount);
-    console.log("randomIndex:::", randomIndex);
-    console.log("selectedImg::::", wheelImages[randomIndex]);
     // Final desired angle for this slice
     const finalStop = 360 - randomIndex * sliceAngle + rotatePonterBased;
     // Normalize current rotation (0–360)
@@ -138,11 +140,22 @@
     }
   }
 
+  function updateAfterClick() {
+    if(wheelImages.length === 0) {
+      showPopup("greatWork", { step: 1, description: "" });
+    } else if(wheelImages.length === 1) {
+      selectedImg.src = `assets/images/warmupscreen/${wheelImages[0]}`;
+      wheelImages.splice(0, 1);
+    } else {
+      showHideSpinPlayArea(true);
+    }
+  }
+
   document.getElementById("parallelBtn").addEventListener("click", () => {
-    showHideSpinPlayArea(true);
+    updateAfterClick();
   });
 
   document.getElementById("perpendicularBtn").addEventListener("click", () => {
-    showHideSpinPlayArea(true);
+    updateAfterClick();
   });
 })();

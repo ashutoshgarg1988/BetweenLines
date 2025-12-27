@@ -204,5 +204,3 @@
         
     }
 })();
-
-// Move your line slowly until it turns green. A green line means it is correctly parallel or perpendicular to the fixed line.
