@@ -107,23 +107,6 @@
     return path;
   }
 
-
-  function drawPinkArc(cx, cy, r, startAngle, sweepAngle) {
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    const start = polar(cx, cy, r, startAngle);
-    const end = polar(cx, cy, r, startAngle + sweepAngle);
-    const largeArc = sweepAngle > 180 ? 1 : 0;
-    const d = `
-      M ${cx} ${cy}
-      L ${start.x} ${start.y}
-      A ${r} ${r} 0 ${largeArc} 1 ${end.x} ${end.y}
-      Z
-    `;
-    path.setAttribute("d", d);
-    path.setAttribute("fill", "#f6b3d8");
-    return path;
-  }
-
   function computeAllAngles(given) {
     const angles = {
       A: 180 - given,
@@ -234,17 +217,70 @@
     bottom: { length: null },
     transversal: { length: null }
   };
+  const HANDLE_OFFSET = 50;
 
-  function initLineLength(lineId, key) {
-    const line = document.getElementById(lineId);
-    const dx = line.x2.baseVal.value - line.x1.baseVal.value;
-    const dy = line.y2.baseVal.value - line.y1.baseVal.value;
-    lineData[key].length = Math.hypot(dx, dy);
+  function positionHandlesInsideLine(lineKey) {
+    const line = lineKey === "top" ? topLine : lineKey === "bottom" ? bottomLine : transversal;
+    const pts = document.querySelectorAll(`.drag-point[data-line="${lineKey}"]`);
+    const x1 = +line.getAttribute("x1");
+    const y1 = +line.getAttribute("y1");
+    const x2 = +line.getAttribute("x2");
+    const y2 = +line.getAttribute("y2");
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const len = Math.hypot(dx, dy);
+    const ux = dx / len;
+    const uy = dy / len;
+    // point 1 → inside from start
+    pts[0].setAttribute("cx", x1 + ux * HANDLE_OFFSET);
+    pts[0].setAttribute("cy", y1 + uy * HANDLE_OFFSET);
+    // point 2 → inside from end
+    pts[1].setAttribute("cx", x2 - ux * HANDLE_OFFSET);
+    pts[1].setAttribute("cy", y2 - uy * HANDLE_OFFSET);
   }
 
-  initLineLength("topLine", "top");
-  initLineLength("bottomLine", "bottom");
-  initLineLength("transversal", "transversal");
+  positionHandlesInsideLine("top");
+  positionHandlesInsideLine("bottom");
+  positionHandlesInsideLine("transversal");
+
+  function rotateLineWithHandle(handle, mouse) {
+    const lineKey = handle.dataset.line;
+    if (!lineKey) return;
+    const line =
+      lineKey === "top" ? document.getElementById("topLine") :
+      lineKey === "bottom" ? document.getElementById("bottomLine") :
+      lineKey === "transversal" ? document.getElementById("transversal") :
+      null;
+    if (!line) return;
+    const x1 = parseFloat(line.getAttribute("x1"));
+    const y1 = parseFloat(line.getAttribute("y1"));
+    const x2 = parseFloat(line.getAttribute("x2"));
+    const y2 = parseFloat(line.getAttribute("y2"));
+    if ([x1, y1, x2, y2].some(isNaN)) return;
+    // center of the FULL line
+    const cx = (x1 + x2) / 2;
+    const cy = (y1 + y2) / 2;
+    const dx0 = x2 - x1;
+    const dy0 = y2 - y1;
+    const len = Math.hypot(dx0, dy0);
+    if (!len) return;
+    const halfLen = len / 2;
+    // angle from center to mouse
+    const angle = Math.atan2(mouse.y - cy, mouse.x - cx);
+    const dx = halfLen * Math.cos(angle);
+    const dy = halfLen * Math.sin(angle);
+    const nx1 = cx - dx;
+    const ny1 = cy - dy;
+    const nx2 = cx + dx;
+    const ny2 = cy + dy;
+    // update line safely
+    line.setAttribute("x1", nx1);
+    line.setAttribute("y1", ny1);
+    line.setAttribute("x2", nx2);
+    line.setAttribute("y2", ny2);
+    // reposition handles INSIDE the line
+    positionHandlesInsideLine(lineKey);
+  }
 
   function svgPoint(evt) {
     const pt = svg.createSVGPoint();
@@ -295,36 +331,6 @@
       const angle = angleBetweenLines(bottomLine, transversal);
       drawBottomIntersectionFromPoint(botI, angle);
     }
-  }
-
-
-  function rotateLineWithHandle(handle, mouse) {
-    const lineKey = handle.dataset.line;
-    const pointIndex = handle.dataset.point;
-    const line =
-      lineKey === "top" ? document.getElementById("topLine") :
-        lineKey === "bottom" ? document.getElementById("bottomLine") :
-          document.getElementById("transversal");
-    const pts = document.querySelectorAll(
-      `.drag-point[data-line="${lineKey}"]`
-    );
-
-    const moving = pointIndex === "1" ? pts[0] : pts[1];
-    const pivot = pointIndex === "1" ? pts[1] : pts[0];
-    const px = +pivot.getAttribute("cx");
-    const py = +pivot.getAttribute("cy");
-    // angle ONLY (mouse is used just to get direction)
-    const angle = Math.atan2(mouse.y - py, mouse.x - px);
-    const L = lineData[lineKey].length;
-    // recompute endpoint on the line
-    const nx = px + L * Math.cos(angle);
-    const ny = py + L * Math.sin(angle);
-    moving.setAttribute("cx", nx);
-    moving.setAttribute("cy", ny);
-    line.setAttribute("x1", pts[0].getAttribute("cx"));
-    line.setAttribute("y1", pts[0].getAttribute("cy"));
-    line.setAttribute("x2", pts[1].getAttribute("cx"));
-    line.setAttribute("y2", pts[1].getAttribute("cy"));
   }
 
 })();
