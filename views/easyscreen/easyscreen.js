@@ -92,27 +92,17 @@
     return path;
   }
 
-  /*
-    TOP INTERSECTION
-      A | B
-      -----
-      D | C
-    BOTTOM INTERSECTION
-      E | F
-      -----
-      H | G
-  */
   function computeAllAngles(given) {
     const angles = {
-      A: given,
-      B: 180 - given,
-      C: given,
-      D: 180 - given,
+      A: 180 - given,
+      B: given,
+      C: 180 - given,
+      D: given,
 
-      E: given,
-      F: 180 - given,
-      G: given,
-      H: 180 - given
+      E: 180 - given,
+      F: given,
+      G: 180 - given,
+      H: given
     };
     // console.log("ALL ANGLES OBJECT:", angles);
     return angles;
@@ -121,6 +111,7 @@
   // Top intersection functionality
   function drawTopIntersectionFromPoint(pt, angle) {
     const g = document.getElementById("topIntersection");
+    const angles = computeAllAngles(angle);
     g.innerHTML = "";
     const r = 30;
     const cx = pt.x;
@@ -128,12 +119,12 @@
     g.appendChild(drawAngleCircle(cx, cy, r));
     // arc orientation based on transversal direction
     const arcStart = 270;
-    g.appendChild(drawPinkArc(cx, cy, r, arcStart, angle));
+    g.appendChild(drawPinkArc(cx, cy, r, arcStart, angles.A));
     const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
     txt.setAttribute("x", cx - 45);
     txt.setAttribute("y", cy - 25);
     txt.setAttribute("class", "angle-text");
-    txt.textContent = angle + "°";
+    txt.textContent = angles.A + "°";
     g.appendChild(txt);
   }
 
