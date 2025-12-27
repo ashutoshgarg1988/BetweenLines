@@ -123,50 +123,14 @@
     return angles;
   }
 
-  // Top intersection functionality
-  function drawTopIntersectionFromPoint(pt, angle) {
-    const g = document.getElementById("topIntersection");
-    g.innerHTML = "";
-    const angles = computeAllAngles(angle);
-    const cx = pt.x;
-    const cy = pt.y;
-    const r = 30;
-    g.appendChild(drawAngleCircle(cx, cy, r));
-    const base = 270;
-    g.appendChild(drawArcSector(cx, cy, r, base, angles.A, ANGLE_COLORS.A));
-    g.appendChild(drawArcSector(cx, cy, r, base + angles.A, angles.B, ANGLE_COLORS.B));
-    g.appendChild(drawArcSector(cx, cy, r, base + angles.A + angles.B, angles.C, ANGLE_COLORS.C));
-    g.appendChild(drawArcSector(cx, cy, r, base + angles.A + angles.B + angles.C, angles.D, ANGLE_COLORS.D));
-
-    txtA.setAttribute("x", cx - 45);
-    txtA.setAttribute("y", cy - 25);
-    txtA.setAttribute("class", "angle-text");
-    txtA.textContent = angles.A + "°";
-    g.appendChild(txtA);
-
-    txtB.setAttribute("x", cx + 25);
-    txtB.setAttribute("y", cy - 25);
-    txtB.setAttribute("class", "angle-text");
-    txtB.textContent = angles.B + "°";
-    g.appendChild(txtB);
-
-    txtC.setAttribute("x", cx + 30);
-    txtC.setAttribute("y", cy + 25);
-    txtC.setAttribute("class", "angle-text");
-    txtC.textContent = angles.C + "°";
-    g.appendChild(txtC);
-
-    txtD.setAttribute("x", cx - 50);
-    txtD.setAttribute("y", cy + 25);
-    txtD.setAttribute("class", "angle-text");
-    txtD.textContent = angles.D + "°";
-    g.appendChild(txtD);
-  }
-
-
-  // Bottom intersection functionality
-  function drawBottomIntersectionFromPoint(pt, angle) {
-    const g = document.getElementById("bottomIntersection");
+  function drawIntersectionFromPoint({
+    groupId,
+    pt,
+    angle,
+    angleKeys,     // ["A","B","C","D"] OR ["E","F","G","H"]
+    textNodes      // [txtA, txtB, txtC, txtD] OR [txtE, txtF, txtG, txtH]
+  }) {
+    const g = document.getElementById(groupId);
     g.innerHTML = "";
     const angles = computeAllAngles(angle);
     const cx = pt.x;
@@ -174,42 +138,33 @@
     const r = 30;
     const base = 270;
     g.appendChild(drawAngleCircle(cx, cy, r));
-    g.appendChild(drawArcSector(cx, cy, r, base, angles.E, ANGLE_COLORS.A));
-    g.appendChild(drawArcSector(cx, cy, r, base + angles.E, angles.F, ANGLE_COLORS.B));
-    g.appendChild(drawArcSector(cx, cy, r, base + angles.E + angles.F, angles.G, ANGLE_COLORS.C));
-    g.appendChild(drawArcSector(cx, cy, r, base + angles.E + angles.F + angles.G, angles.H, ANGLE_COLORS.D));
-    
-    txtE.setAttribute("x", cx - 45);
-    txtE.setAttribute("y", cy - 25);
-    txtE.setAttribute("class", "angle-text");
-    txtE.textContent = angles.E + "°";
-    g.appendChild(txtE);
-
-    txtF.setAttribute("x", cx + 25);
-    txtF.setAttribute("y", cy - 25);
-    txtF.setAttribute("class", "angle-text");
-    txtF.textContent = angles.F + "°";
-    g.appendChild(txtF);
-
-    txtG.setAttribute("x", cx + 30);
-    txtG.setAttribute("y", cy + 25);
-    txtG.setAttribute("class", "angle-text");
-    txtG.textContent = angles.G + "°";
-    g.appendChild(txtG);
-
-    txtH.setAttribute("x", cx - 50);
-    txtH.setAttribute("y", cy + 25);
-    txtH.setAttribute("class", "angle-text");
-    txtH.textContent = angles.H + "°";
-    g.appendChild(txtH);
+    let start = base;
+    angleKeys.forEach((key, i) => {
+      g.appendChild(
+        drawArcSector(cx, cy, r, start, angles[key], ANGLE_COLORS[Object.keys(ANGLE_COLORS)[i]])
+      );
+      start += angles[key];
+    });
+    const positions = [
+      { x: cx - 45, y: cy - 25 },
+      { x: cx + 25, y: cy - 25 },
+      { x: cx + 30, y: cy + 25 },
+      { x: cx - 50, y: cy + 25 }
+    ];
+    textNodes.forEach((txt, i) => {
+      txt.setAttribute("x", positions[i].x);
+      txt.setAttribute("y", positions[i].y);
+      txt.setAttribute("class", "angle-text");
+      txt.textContent = angles[angleKeys[i]] + "°";
+      g.appendChild(txt);
+    });
   }
-
   redrawAngles();
 
 
 
 
-
+  // Line movements handling 
   const svg = document.getElementById("angleCanvas");
   let activePoint = null;
   const lineData = {
@@ -325,11 +280,23 @@
     const botI = intersect(bottomLine, transversal);
     if (topI) {
       const angle = angleBetweenLines(topLine, transversal);
-      drawTopIntersectionFromPoint(topI, angle);
+      drawIntersectionFromPoint({
+        groupId: "topIntersection",
+        pt: topI,
+        angle,
+        angleKeys: ["A", "B", "C", "D"],
+        textNodes: [txtA, txtB, txtC, txtD]
+      });
     }
     if (botI) {
       const angle = angleBetweenLines(bottomLine, transversal);
-      drawBottomIntersectionFromPoint(botI, angle);
+      drawIntersectionFromPoint({
+        groupId: "bottomIntersection",
+        pt: botI,
+        angle,
+        angleKeys: ["E", "F", "G", "H"],
+        textNodes: [txtE, txtF, txtG, txtH]
+      });
     }
   }
 
