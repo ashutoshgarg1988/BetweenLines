@@ -105,6 +105,24 @@ function angleBetweenLines(lineA, lineB) {
   return Math.round(angle);
 }
 
-
+// rotate a line by direction vector
+function rotateLineByDirection(line, dirX, dirY) {
+  const x1 = +line.getAttribute("x1");
+  const y1 = +line.getAttribute("y1");
+  const x2 = +line.getAttribute("x2");
+  const y2 = +line.getAttribute("y2");
+  const cx = (x1 + x2) / 2;
+  const cy = (y1 + y2) / 2;
+  const len = Math.hypot(x2 - x1, y2 - y1);
+  const half = len / 2;
+  const nx1 = cx - dirX * half;
+  const ny1 = cy - dirY * half;
+  const nx2 = cx + dirX * half;
+  const ny2 = cy + dirY * half;
+  line.setAttribute("x1", nx1);
+  line.setAttribute("y1", ny1);
+  line.setAttribute("x2", nx2);
+  line.setAttribute("y2", ny2);
+}
 
 

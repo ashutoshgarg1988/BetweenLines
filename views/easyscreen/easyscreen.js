@@ -18,6 +18,8 @@
 
   const centerPanel = document.getElementById('gridBoard');
   centerPanel.style.backgroundImage = "url('assets/images/easyscreen/mathsline.svg')";
+  let isParallelMode = false;
+
 
   // Show info popup when screen loads
   // showPopup("info", { text: "Drag the angle arm to build an angle" });
@@ -61,6 +63,7 @@
     if (e.target.tagName !== "INPUT") {
       checkbox.checked = !checkbox.checked;
     }
+    isParallelMode = checkbox.checked;
     updateParallelMode(checkbox.checked);
   });
 
@@ -219,41 +222,34 @@
   function rotateLineWithHandle(handle, mouse) {
     const lineKey = handle.dataset.line;
     if (!lineKey) return;
-    const line =
-      lineKey === "top" ? document.getElementById("topLine") :
-      lineKey === "bottom" ? document.getElementById("bottomLine") :
-      lineKey === "transversal" ? document.getElementById("transversal") :
-      null;
-    if (!line) return;
-    const x1 = parseFloat(line.getAttribute("x1"));
-    const y1 = parseFloat(line.getAttribute("y1"));
-    const x2 = parseFloat(line.getAttribute("x2"));
-    const y2 = parseFloat(line.getAttribute("y2"));
-    if ([x1, y1, x2, y2].some(isNaN)) return;
-    // center of the FULL line
+    const line = lineKey === "top" ? topLine : lineKey === "bottom" ? bottomLine : transversal;
+    const x1 = +line.getAttribute("x1");
+    const y1 = +line.getAttribute("y1");
+    const x2 = +line.getAttribute("x2");
+    const y2 = +line.getAttribute("y2");
     const cx = (x1 + x2) / 2;
     const cy = (y1 + y2) / 2;
-    const dx0 = x2 - x1;
-    const dy0 = y2 - y1;
-    const len = Math.hypot(dx0, dy0);
-    if (!len) return;
-    const halfLen = len / 2;
+    const len = Math.hypot(x2 - x1, y2 - y1);
+    const half = len / 2;
     // angle from center to mouse
     const angle = Math.atan2(mouse.y - cy, mouse.x - cx);
-    const dx = halfLen * Math.cos(angle);
-    const dy = halfLen * Math.sin(angle);
-    const nx1 = cx - dx;
-    const ny1 = cy - dy;
-    const nx2 = cx + dx;
-    const ny2 = cy + dy;
-    // update line safely
-    line.setAttribute("x1", nx1);
-    line.setAttribute("y1", ny1);
-    line.setAttribute("x2", nx2);
-    line.setAttribute("y2", ny2);
-    // reposition handles INSIDE the line
+    const dirX = Math.cos(angle);
+    const dirY = Math.sin(angle);
+    // rotate THIS line
+    line.setAttribute("x1", cx - dirX * half);
+    line.setAttribute("y1", cy - dirY * half);
+    line.setAttribute("x2", cx + dirX * half);
+    line.setAttribute("y2", cy + dirY * half);
     positionHandlesInsideLine(lineKey);
+    // PARALLEL MODE LOGIC
+    if (isParallelMode && (lineKey === "top" || lineKey === "bottom")) {
+      const otherLine = lineKey === "top" ? bottomLine : topLine;
+      rotateLineByDirection(otherLine, dirX, dirY);
+      // reposition handles for the other line
+      positionHandlesInsideLine(lineKey === "top" ? "bottom" : "top");
+    }
   }
+
 
   function svgPoint(evt) {
     const pt = svg.createSVGPoint();
