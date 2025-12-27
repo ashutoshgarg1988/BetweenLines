@@ -58,8 +58,6 @@
 
 
   /* Functionality for creating intersecting line and angles + input boxes*/
-  const TOP_LINE_Y = 190;
-  const BOTTOM_LINE_Y = 290;
   let currentRotationDeg = 90;
   function polar(cx, cy, r, angle) {
     const rad = (angle - 90) * Math.PI / 180;
@@ -120,59 +118,35 @@
     return angles;
   }
 
-  // Function to reset intersecting line
-  function resetAngles() {
-    // const given = Math.floor(Math.random() * 90) + 40;
-    // currentRotationDeg = given - 90;
-    // document.getElementById("transversal")
-    //   .setAttribute(
-    //     "transform",
-    //     `rotate(${currentRotationDeg}, 500, 240)`
-    //   );
-    correctAngles = computeAllAngles(currentRotationDeg);
-    drawTopIntersection(currentRotationDeg);
-    drawBottomIntersection();
-  }
-
   // Top intersection functionality
-  function drawTopIntersection(givenAngle) {
+  function drawTopIntersectionFromPoint(pt, angle) {
     const g = document.getElementById("topIntersection");
     g.innerHTML = "";
-    const intersection = getIntersectionPoint(TOP_LINE_Y, currentRotationDeg);
-    const cx = intersection.x;
-    const cy = intersection.y;
     const r = 30;
-    // FULL GREY CIRCLE
+    const cx = pt.x;
+    const cy = pt.y;
     g.appendChild(drawAngleCircle(cx, cy, r));
-    // PINK GIVEN ARC
-    g.appendChild(drawPinkArc(cx, cy, r, 273, givenAngle + 10));
-    // GIVEN TEXT
+    // arc orientation based on transversal direction
+    const arcStart = 270;
+    g.appendChild(drawPinkArc(cx, cy, r, arcStart, angle));
     const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    txt.setAttribute("x", cx - 55);
+    txt.setAttribute("x", cx - 45);
     txt.setAttribute("y", cy - 25);
     txt.setAttribute("class", "angle-text");
-    txt.textContent = givenAngle + "°";
+    txt.textContent = angle + "°";
     g.appendChild(txt);
   }
 
   // Bottom intersection functionality
-  function drawBottomIntersection() {
+  function drawBottomIntersectionFromPoint(pt, angle) {
     const g = document.getElementById("bottomIntersection");
     g.innerHTML = "";
-    const intersection = getIntersectionPoint(BOTTOM_LINE_Y, currentRotationDeg);
-    const cx = intersection.x;
-    const cy = intersection.y;
     const r = 30;
-    // FULL GREY CIRCLE
+    const cx = pt.x;
+    const cy = pt.y;
     g.appendChild(drawAngleCircle(cx, cy, r));
-    // const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    // dot.setAttribute("cx", cx);
-    // dot.setAttribute("cy", cy);
-    // dot.setAttribute("r", 3);
-    // dot.setAttribute("fill", "red");
-    // g.appendChild(dot);
   }
-  resetAngles();
+  redrawAngles();
 
 
 
@@ -218,23 +192,9 @@
     redrawAngles();
   });
 
+
   svg.addEventListener("mouseup", () => activePoint = null);
   svg.addEventListener("mouseleave", () => activePoint = null);
-
-
-  function updateLineFromPoints(lineName) {
-    const pts = [...document.querySelectorAll(
-      `.drag-point[data-line="${lineName}"]`
-    )];
-    const line =
-      lineName === "top" ? document.getElementById("topLine") :
-        lineName === "bottom" ? document.getElementById("bottomLine") :
-          document.getElementById("transversal");
-    line.setAttribute("x1", pts[0].getAttribute("cx"));
-    line.setAttribute("y1", pts[0].getAttribute("cy"));
-    line.setAttribute("x2", pts[1].getAttribute("cx"));
-    line.setAttribute("y2", pts[1].getAttribute("cy"));
-  }
 
   function intersect(l1, l2) {
     const x1 = +l1.x1.baseVal.value, y1 = +l1.y1.baseVal.value;
@@ -252,9 +212,16 @@
   function redrawAngles() {
     const topI = intersect(topLine, transversal);
     const botI = intersect(bottomLine, transversal);
-    if (topI) drawTopIntersectionFromPoint(topI);
-    if (botI) drawBottomIntersectionFromPoint(botI);
+    if (topI) {
+      const angle = angleBetweenLines(topLine, transversal);
+      drawTopIntersectionFromPoint(topI, angle);
+    }
+    if (botI) {
+      const angle = angleBetweenLines(bottomLine, transversal);
+      drawBottomIntersectionFromPoint(botI, angle);
+    }
   }
+
 
   function rotateLineWithHandle(handle, mouse) {
     const lineKey = handle.dataset.line;
@@ -284,10 +251,5 @@
     line.setAttribute("x2", pts[1].getAttribute("cx"));
     line.setAttribute("y2", pts[1].getAttribute("cy"));
   }
-
-
-
-
-
 
 })();

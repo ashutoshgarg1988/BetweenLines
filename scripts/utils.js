@@ -90,5 +90,21 @@ function rotatePoint(x, y, cx, cy, angleDeg) {
   };
 }
 
+// Compute angle BETWEEN two lines
+function angleBetweenLines(lineA, lineB) {
+  const ax = lineA.x2.baseVal.value - lineA.x1.baseVal.value;
+  const ay = lineA.y2.baseVal.value - lineA.y1.baseVal.value;
+  const bx = lineB.x2.baseVal.value - lineB.x1.baseVal.value;
+  const by = lineB.y2.baseVal.value - lineB.y1.baseVal.value;
+  const dot = ax * bx + ay * by;
+  const magA = Math.hypot(ax, ay);
+  const magB = Math.hypot(bx, by);
+  let angle = Math.acos(dot / (magA * magB));
+  angle = angle * 180 / Math.PI;
+  // always show acute / obtuse correctly
+  return Math.round(angle);
+}
+
+
 
 
