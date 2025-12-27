@@ -162,16 +162,17 @@
   margin-left: auto;
 }
 
-
-
-
-
-
-
-
-
-
 /* Lines draw */
+.angle-text {
+  font-size: 16px;
+  fill: grey;
+  background: none !important;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .parallel-line,
 .transversal-line {
   stroke: #2c2c2c;

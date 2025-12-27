@@ -58,7 +58,21 @@
 
 
   /* Functionality for creating intersecting line and angles + input boxes*/
-  let currentRotationDeg = 90;
+  const ANGLE_COLORS = {
+    A: "#ffbdc0",
+    B: "#90e2ff",
+    C: "#b1ffc5",
+    D: "#f39fff"
+  };
+  const txtA = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  const txtB = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  const txtC = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  const txtD = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  const txtE = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  const txtF = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  const txtG = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  const txtH = document.createElementNS("http://www.w3.org/2000/svg", "text");
+
   function polar(cx, cy, r, angle) {
     const rad = (angle - 90) * Math.PI / 180;
     return {
@@ -75,6 +89,24 @@
     circle.setAttribute("fill", "rgba(180,180,180,0.7)");
     return circle;
   }
+
+  function drawArcSector(cx, cy, r, startAngle, sweepAngle, color) {
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    const start = polar(cx, cy, r, startAngle);
+    const end = polar(cx, cy, r, startAngle + sweepAngle);
+    const largeArc = sweepAngle > 180 ? 1 : 0;
+    const d = `
+      M ${cx} ${cy}
+      L ${start.x} ${start.y}
+      A ${r} ${r} 0 ${largeArc} 1 ${end.x} ${end.y}
+      Z
+    `;
+    path.setAttribute("d", d);
+    path.setAttribute("fill", color);
+    path.setAttribute("opacity", 0.9);
+    return path;
+  }
+
 
   function drawPinkArc(cx, cy, r, startAngle, sweepAngle) {
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
@@ -111,32 +143,84 @@
   // Top intersection functionality
   function drawTopIntersectionFromPoint(pt, angle) {
     const g = document.getElementById("topIntersection");
-    const angles = computeAllAngles(angle);
     g.innerHTML = "";
-    const r = 30;
+    const angles = computeAllAngles(angle);
     const cx = pt.x;
     const cy = pt.y;
+    const r = 30;
     g.appendChild(drawAngleCircle(cx, cy, r));
-    // arc orientation based on transversal direction
-    const arcStart = 270;
-    g.appendChild(drawPinkArc(cx, cy, r, arcStart, angles.A));
-    const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    txt.setAttribute("x", cx - 45);
-    txt.setAttribute("y", cy - 25);
-    txt.setAttribute("class", "angle-text");
-    txt.textContent = angles.A + "°";
-    g.appendChild(txt);
+    const base = 270;
+    g.appendChild(drawArcSector(cx, cy, r, base, angles.A, ANGLE_COLORS.A));
+    g.appendChild(drawArcSector(cx, cy, r, base + angles.A, angles.B, ANGLE_COLORS.B));
+    g.appendChild(drawArcSector(cx, cy, r, base + angles.A + angles.B, angles.C, ANGLE_COLORS.C));
+    g.appendChild(drawArcSector(cx, cy, r, base + angles.A + angles.B + angles.C, angles.D, ANGLE_COLORS.D));
+
+    txtA.setAttribute("x", cx - 45);
+    txtA.setAttribute("y", cy - 25);
+    txtA.setAttribute("class", "angle-text");
+    txtA.textContent = angles.A + "°";
+    g.appendChild(txtA);
+
+    txtB.setAttribute("x", cx + 25);
+    txtB.setAttribute("y", cy - 25);
+    txtB.setAttribute("class", "angle-text");
+    txtB.textContent = angles.B + "°";
+    g.appendChild(txtB);
+
+    txtC.setAttribute("x", cx + 30);
+    txtC.setAttribute("y", cy + 25);
+    txtC.setAttribute("class", "angle-text");
+    txtC.textContent = angles.C + "°";
+    g.appendChild(txtC);
+
+    txtD.setAttribute("x", cx - 50);
+    txtD.setAttribute("y", cy + 25);
+    txtD.setAttribute("class", "angle-text");
+    txtD.textContent = angles.D + "°";
+    g.appendChild(txtD);
   }
+
 
   // Bottom intersection functionality
   function drawBottomIntersectionFromPoint(pt, angle) {
     const g = document.getElementById("bottomIntersection");
     g.innerHTML = "";
-    const r = 30;
+    const angles = computeAllAngles(angle);
     const cx = pt.x;
     const cy = pt.y;
+    const r = 30;
+    const base = 270;
     g.appendChild(drawAngleCircle(cx, cy, r));
+    g.appendChild(drawArcSector(cx, cy, r, base, angles.E, ANGLE_COLORS.A));
+    g.appendChild(drawArcSector(cx, cy, r, base + angles.E, angles.F, ANGLE_COLORS.B));
+    g.appendChild(drawArcSector(cx, cy, r, base + angles.E + angles.F, angles.G, ANGLE_COLORS.C));
+    g.appendChild(drawArcSector(cx, cy, r, base + angles.E + angles.F + angles.G, angles.H, ANGLE_COLORS.D));
+    
+    txtE.setAttribute("x", cx - 45);
+    txtE.setAttribute("y", cy - 25);
+    txtE.setAttribute("class", "angle-text");
+    txtE.textContent = angles.E + "°";
+    g.appendChild(txtE);
+
+    txtF.setAttribute("x", cx + 25);
+    txtF.setAttribute("y", cy - 25);
+    txtF.setAttribute("class", "angle-text");
+    txtF.textContent = angles.F + "°";
+    g.appendChild(txtF);
+
+    txtG.setAttribute("x", cx + 30);
+    txtG.setAttribute("y", cy + 25);
+    txtG.setAttribute("class", "angle-text");
+    txtG.textContent = angles.G + "°";
+    g.appendChild(txtG);
+
+    txtH.setAttribute("x", cx - 50);
+    txtH.setAttribute("y", cy + 25);
+    txtH.setAttribute("class", "angle-text");
+    txtH.textContent = angles.H + "°";
+    g.appendChild(txtH);
   }
+
   redrawAngles();
 
 
