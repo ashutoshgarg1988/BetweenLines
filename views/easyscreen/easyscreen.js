@@ -56,6 +56,24 @@
     });
   });
 
+  const checkbox = document.getElementById("lineType");
+  checkbox.addEventListener("change", (e) => {
+    if (e.target.tagName !== "INPUT") {
+      checkbox.checked = !checkbox.checked;
+    }
+    updateParallelMode(checkbox.checked);
+  });
+
+  function updateParallelMode(isEnabled) {
+    if (isEnabled) {
+      console.log("checked");
+    } else {
+      console.log("Unchecked");
+    }
+  }
+
+
+
 
   /* Functionality for creating intersecting line and angles + input boxes*/
   const ANGLE_COLORS = {
