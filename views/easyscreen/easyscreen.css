@@ -185,3 +185,16 @@
 .angle-arc.given {
   fill: #f6b3d8;
 }
+
+circle:hover {
+  stroke-width: 2.5;
+}
+
+.drag-point {
+  fill: #000;
+  stroke: #000;
+  cursor: pointer;
+}
+.drag-point:hover {
+  stroke-width: 2.5;
+}

@@ -25,7 +25,7 @@
       <div class="grid-board" id="gridBoard">
         <div class="grid-overlay">
           <div style="position: relative; top: 19px">
-            <svg id="angleCanvas" viewBox="0 0 1000 450" preserveAspectRatio="xMidYMid meet">
+            <svg id="angleCanvas" viewBox="0 0 1000 550" preserveAspectRatio="xMidYMid meet">
               <defs>
                 <!-- Arrow Head -->
                 <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6"
@@ -33,14 +33,27 @@
                   <path d="M 0 0 L 10 5 L 0 10 z" fill="#2c2c2c" />
                 </marker>
               </defs>
-              <!-- PARALLEL LINES (CENTERED) -->
-              <line x1="80" y1="190" x2="920" y2="190" class="parallel-line" marker-start="url(#arrow)"
+              <!-- TOP PARALLEL LINE -->
+              <line id="topLine" x1="80" y1="190" x2="920" y2="190" class="parallel-line" marker-start="url(#arrow)"
                 marker-end="url(#arrow)" />
-              <line x1="80" y1="290" x2="920" y2="290" class="parallel-line" marker-start="url(#arrow)"
+
+              <circle class="drag-point" data-line="top" data-point="1" cx="80" cy="190" r="7" />
+              <circle class="drag-point" data-line="top" data-point="2" cx="920" cy="190" r="7" />
+
+              <!-- BOTTOM PARALLEL LINE -->
+              <line id="bottomLine" x1="80" y1="290" x2="920" y2="290" class="parallel-line" marker-start="url(#arrow)"
                 marker-end="url(#arrow)" />
+
+              <circle class="drag-point" data-line="bottom" data-point="1" cx="80" cy="290" r="7" />
+              <circle class="drag-point" data-line="bottom" data-point="2" cx="920" cy="290" r="7" />
+
               <!-- TRANSVERSAL -->
-              <line id="transversal" x1="450" y1="400" x2="550" y2="50" class="transversal-line"
+              <line id="transversal" x1="500" y1="400" x2="500" y2="50" class="transversal-line"
                 marker-start="url(#arrow)" marker-end="url(#arrow)" />
+
+              <circle class="drag-point" data-line="transversal" data-point="1" cx="500" cy="400" r="7" />
+              <circle class="drag-point" data-line="transversal" data-point="2" cx="500" cy="50" r="7" />
+
               <!-- INTERSECTIONS -->
               <g id="topIntersection"></g>
               <g id="bottomIntersection"></g>
@@ -76,7 +89,10 @@
         <div class="panel-title">
           <div class="icon-img"></div>
           <span>Parallel Lines</span>
-          <input type="checkbox" />
+          <label class="custom-option" for="grid">
+            <input type="radio" name="paperType" id="grid" checked />
+            <span class="custom-box"></span>
+          </label>
         </div>
       </div>
 

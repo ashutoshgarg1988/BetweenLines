@@ -41,7 +41,7 @@
     }
   });
 
-  document.getElementById("easyResetBtn").addEventListener("click", ()=> {
+  document.getElementById("easyResetBtn").addEventListener("click", () => {
     SoundManager.play("click");
   });
 
@@ -57,18 +57,10 @@
   });
 
 
-
-
-
-
   /* Functionality for creating intersecting line and angles + input boxes*/
-  const CENTER_X = 500;
   const TOP_LINE_Y = 190;
   const BOTTOM_LINE_Y = 290;
-  const CENTER_Y = TOP_LINE_Y;   // top intersection
-  const BOTTOM_CENTER_Y = BOTTOM_LINE_Y;
-  let correctAngles = {};
-  let currentRotationDeg = 0;
+  let currentRotationDeg = 90;
   function polar(cx, cy, r, angle) {
     const rad = (angle - 90) * Math.PI / 180;
     return {
@@ -130,15 +122,15 @@
 
   // Function to reset intersecting line
   function resetAngles() {
-    const given = Math.floor(Math.random() * 90) + 40;
-    currentRotationDeg = given - 90;
-    document.getElementById("transversal")
-      .setAttribute(
-        "transform",
-        `rotate(${currentRotationDeg}, 500, 240)`
-      );
-    correctAngles = computeAllAngles(given);
-    drawTopIntersection(given);
+    // const given = Math.floor(Math.random() * 90) + 40;
+    // currentRotationDeg = given - 90;
+    // document.getElementById("transversal")
+    //   .setAttribute(
+    //     "transform",
+    //     `rotate(${currentRotationDeg}, 500, 240)`
+    //   );
+    correctAngles = computeAllAngles(currentRotationDeg);
+    drawTopIntersection(currentRotationDeg);
     drawBottomIntersection();
   }
 
@@ -153,7 +145,7 @@
     // FULL GREY CIRCLE
     g.appendChild(drawAngleCircle(cx, cy, r));
     // PINK GIVEN ARC
-    g.appendChild(drawPinkArc(cx, cy, r, 273, givenAngle+10));
+    g.appendChild(drawPinkArc(cx, cy, r, 273, givenAngle + 10));
     // GIVEN TEXT
     const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
     txt.setAttribute("x", cx - 55);
@@ -180,7 +172,122 @@
     // dot.setAttribute("fill", "red");
     // g.appendChild(dot);
   }
-
   resetAngles();
-  
+
+
+
+
+
+  const svg = document.getElementById("angleCanvas");
+  let activePoint = null;
+  const lineData = {
+    top: { length: null },
+    bottom: { length: null },
+    transversal: { length: null }
+  };
+
+  function initLineLength(lineId, key) {
+    const line = document.getElementById(lineId);
+    const dx = line.x2.baseVal.value - line.x1.baseVal.value;
+    const dy = line.y2.baseVal.value - line.y1.baseVal.value;
+    lineData[key].length = Math.hypot(dx, dy);
+  }
+
+  initLineLength("topLine", "top");
+  initLineLength("bottomLine", "bottom");
+  initLineLength("transversal", "transversal");
+
+  function svgPoint(evt) {
+    const pt = svg.createSVGPoint();
+    pt.x = evt.clientX;
+    pt.y = evt.clientY;
+    return pt.matrixTransform(svg.getScreenCTM().inverse());
+  }
+
+  document.querySelectorAll(".drag-point").forEach(p => {
+    p.addEventListener("mousedown", e => {
+      activePoint = p;
+      e.stopPropagation();
+    });
+  });
+
+  svg.addEventListener("mousemove", e => {
+    if (!activePoint) return;
+    const p = svgPoint(e);
+    rotateLineWithHandle(activePoint, p);
+    redrawAngles();
+  });
+
+  svg.addEventListener("mouseup", () => activePoint = null);
+  svg.addEventListener("mouseleave", () => activePoint = null);
+
+
+  function updateLineFromPoints(lineName) {
+    const pts = [...document.querySelectorAll(
+      `.drag-point[data-line="${lineName}"]`
+    )];
+    const line =
+      lineName === "top" ? document.getElementById("topLine") :
+        lineName === "bottom" ? document.getElementById("bottomLine") :
+          document.getElementById("transversal");
+    line.setAttribute("x1", pts[0].getAttribute("cx"));
+    line.setAttribute("y1", pts[0].getAttribute("cy"));
+    line.setAttribute("x2", pts[1].getAttribute("cx"));
+    line.setAttribute("y2", pts[1].getAttribute("cy"));
+  }
+
+  function intersect(l1, l2) {
+    const x1 = +l1.x1.baseVal.value, y1 = +l1.y1.baseVal.value;
+    const x2 = +l1.x2.baseVal.value, y2 = +l1.y2.baseVal.value;
+    const x3 = +l2.x1.baseVal.value, y3 = +l2.y1.baseVal.value;
+    const x4 = +l2.x2.baseVal.value, y4 = +l2.y2.baseVal.value;
+    const d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+    if (!d) return null;
+    return {
+      x: ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4)) / d,
+      y: ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)) / d
+    };
+  }
+
+  function redrawAngles() {
+    const topI = intersect(topLine, transversal);
+    const botI = intersect(bottomLine, transversal);
+    if (topI) drawTopIntersectionFromPoint(topI);
+    if (botI) drawBottomIntersectionFromPoint(botI);
+  }
+
+  function rotateLineWithHandle(handle, mouse) {
+    const lineKey = handle.dataset.line;
+    const pointIndex = handle.dataset.point;
+    const line =
+      lineKey === "top" ? document.getElementById("topLine") :
+        lineKey === "bottom" ? document.getElementById("bottomLine") :
+          document.getElementById("transversal");
+    const pts = document.querySelectorAll(
+      `.drag-point[data-line="${lineKey}"]`
+    );
+
+    const moving = pointIndex === "1" ? pts[0] : pts[1];
+    const pivot = pointIndex === "1" ? pts[1] : pts[0];
+    const px = +pivot.getAttribute("cx");
+    const py = +pivot.getAttribute("cy");
+    // angle ONLY (mouse is used just to get direction)
+    const angle = Math.atan2(mouse.y - py, mouse.x - px);
+    const L = lineData[lineKey].length;
+    // recompute endpoint on the line
+    const nx = px + L * Math.cos(angle);
+    const ny = py + L * Math.sin(angle);
+    moving.setAttribute("cx", nx);
+    moving.setAttribute("cy", ny);
+    line.setAttribute("x1", pts[0].getAttribute("cx"));
+    line.setAttribute("y1", pts[0].getAttribute("cy"));
+    line.setAttribute("x2", pts[1].getAttribute("cx"));
+    line.setAttribute("y2", pts[1].getAttribute("cy"));
+  }
+
+
+
+
+
+
 })();
