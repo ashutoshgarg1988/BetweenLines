@@ -20,6 +20,21 @@
   centerPanel.style.backgroundImage = "url('assets/images/easyscreen/mathsline.svg')";
   let isParallelMode = false;
 
+  const ANGLE_COLORS = {
+    A: "#ffbdc0",
+    B: "#90e2ff",
+    C: "#b1ffc5",
+    D: "#f39fff"
+  };
+  const txtA = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  const txtB = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  const txtC = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  const txtD = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  const txtE = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  const txtF = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  const txtG = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  const txtH = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  hideAllAngleTxt();
 
   // Show info popup when screen loads
   // showPopup("info", { text: "Drag the angle arm to build an angle" });
@@ -75,25 +90,114 @@
     }
   }
 
+  document.querySelector(".angle-group").addEventListener("change", (e) => {
+    if (e.target.type !== "radio") return;
+    const angleType = e.target.dataset.angle;
+    const pairNo = e.target.dataset.pair;
+    console.log("Angle Type:", angleType);
+    console.log("Pair Selected:", pairNo);
+    hideAllAngleTxt();
+    handleAnglePair(angleType, pairNo);
+  });
 
+  function hideAllAngleTxt() {
+    txtA.style.visibility = "hidden";
+    txtB.style.visibility = "hidden";
+    txtC.style.visibility = "hidden";
+    txtD.style.visibility = "hidden";
+    txtE.style.visibility = "hidden";
+    txtF.style.visibility = "hidden";
+    txtG.style.visibility = "hidden";
+    txtH.style.visibility = "hidden";
+  }
+
+  function handleAnglePair(angleType, pairNo) {
+    switch (angleType) {
+      case "corresponding":
+        highlightCorresponding(pairNo);
+        break;
+      case "verticallyOpposite":
+        highlightVertical(pairNo);
+        break;
+      case "alternateInterior":
+        highlightAlternateInterior(pairNo);
+        break;
+      case "alternateExterior":
+        highlightAlternateExterior(pairNo);
+        break;
+    }
+  }
+
+  function highlightCorresponding(pairNo) {
+    switch (Number(pairNo)) {
+      case 1 : 
+        txtA.style.visibility = "visible";
+        txtE.style.visibility = "visible";
+        break;
+      case 2 :
+        txtB.style.visibility = "visible";
+        txtF.style.visibility = "visible";
+        break;
+      case 3 :
+        txtC.style.visibility = "visible";
+        txtG.style.visibility = "visible";
+        break;
+      case 4 :
+        txtD.style.visibility = "visible";
+        txtH.style.visibility = "visible";
+        break;
+    }
+  }
+
+  function highlightVertical(pairNo) {
+    switch (Number(pairNo)) {
+      case 1 : 
+        txtA.style.visibility = "visible";
+        txtD.style.visibility = "visible";
+        break;
+      case 2 :
+        txtB.style.visibility = "visible";
+        txtC.style.visibility = "visible";
+        break;
+      case 3 :
+        txtE.style.visibility = "visible";
+        txtH.style.visibility = "visible";
+        break;
+      case 4 :
+        txtF.style.visibility = "visible";
+        txtG.style.visibility = "visible";
+        break;
+    }
+  }
+
+  function highlightAlternateInterior(pairNo) {
+    switch (Number(pairNo)) {
+      case 1 : 
+        txtC.style.visibility = "visible";
+        txtF.style.visibility = "visible";
+        break;
+      case 2 :
+        txtD.style.visibility = "visible";
+        txtE.style.visibility = "visible";
+        break;
+    }
+  }
+
+  function highlightAlternateExterior(pairNo) {
+    switch (Number(pairNo)) {
+      case 1 : 
+        txtA.style.visibility = "visible";
+        txtH.style.visibility = "visible";
+        break;
+      case 2 :
+        txtB.style.visibility = "visible";
+        txtG.style.visibility = "visible";
+        break;
+    }
+  }
 
 
   /* Functionality for creating intersecting line and angles + input boxes*/
-  const ANGLE_COLORS = {
-    A: "#ffbdc0",
-    B: "#90e2ff",
-    C: "#b1ffc5",
-    D: "#f39fff"
-  };
-  const txtA = document.createElementNS("http://www.w3.org/2000/svg", "text");
-  const txtB = document.createElementNS("http://www.w3.org/2000/svg", "text");
-  const txtC = document.createElementNS("http://www.w3.org/2000/svg", "text");
-  const txtD = document.createElementNS("http://www.w3.org/2000/svg", "text");
-  const txtE = document.createElementNS("http://www.w3.org/2000/svg", "text");
-  const txtF = document.createElementNS("http://www.w3.org/2000/svg", "text");
-  const txtG = document.createElementNS("http://www.w3.org/2000/svg", "text");
-  const txtH = document.createElementNS("http://www.w3.org/2000/svg", "text");
-
   function polar(cx, cy, r, angle) {
     const rad = (angle - 90) * Math.PI / 180;
     return {
@@ -183,8 +287,6 @@
   redrawAngles();
 
 
-
-
   // Line movements handling 
   const svg = document.getElementById("angleCanvas");
   let activePoint = null;
@@ -249,7 +351,6 @@
       positionHandlesInsideLine(lineKey === "top" ? "bottom" : "top");
     }
   }
-
 
   function svgPoint(evt) {
     const pt = svg.createSVGPoint();
