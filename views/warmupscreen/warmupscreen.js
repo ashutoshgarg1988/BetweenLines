@@ -102,6 +102,7 @@
 
 
   function spinWheel() {
+    SoundManager.play("click");
     const wheel = document.getElementById("wheel");
     const sliceCount = wheelImages.length;
     if (sliceCount === 0) return;
@@ -175,6 +176,7 @@
   const perpendicularBtn = document.getElementById("perpendicularBtn");
 
   parallelBtn.addEventListener("click", () => {
+    SoundManager.play("click");
     const isCorrect = parallelImgArr.includes(selectedImgName);
     if (isCorrect) {
       showCorrect(parallelBtn);
@@ -188,6 +190,7 @@
   });
 
   perpendicularBtn.addEventListener("click", () => {
+    SoundManager.play("click");
     const isCorrect = !parallelImgArr.includes(selectedImgName); 
     if (isCorrect) {
       showCorrect(perpendicularBtn);
