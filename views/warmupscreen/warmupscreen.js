@@ -21,6 +21,7 @@
   const userSelectionArea = document.getElementById("userSelectionArea");
   const pointer = document.querySelector(".wheel-pointer")
   const selectedImg = document.getElementById("selectedImg");
+  let selectedImgName = '';
   // Sound button functionality
   soundBtn.addEventListener("click", () => {
     SoundManager.play("click");
@@ -46,6 +47,8 @@
 
   document.getElementById("warmupResetBtn").addEventListener("click", () => {
     SoundManager.play("click");
+    wheelImages = pickRandomImages(7);
+    renderWheel();
   });
 
   /* Wheel functionality */
@@ -53,7 +56,7 @@
   const OVERSHOOT_DEG = 0;//15;
   const rotatePonterBased = -155;
   const ALL_IMAGES = ["img0.svg","img1.svg","img2.svg","img3.svg","img4.svg","img5.svg","img6.svg"];
-  // const ALL_IMAGES = ["img0.svg","img1.svg"];
+  const parallelImgArr = ['img1.svg', 'img2.svg', 'img5.svg', 'img6.svg'];
   let wheelImages = [];
   let currentRotation = 0;
 
@@ -124,6 +127,7 @@
     // FINAL slice detection 
     setTimeout(() => {
       selectedImg.src = `assets/images/warmupscreen/${wheelImages[randomIndex]}`;
+      selectedImgName = wheelImages[randomIndex];
       showHideSpinPlayArea(false);
       wheelImages.splice(randomIndex, 1);
       renderWheel();
@@ -145,17 +149,54 @@
       showPopup("greatWork", { step: 1, description: "" });
     } else if(wheelImages.length === 1) {
       selectedImg.src = `assets/images/warmupscreen/${wheelImages[0]}`;
+      selectedImgName = wheelImages[0];
       wheelImages.splice(0, 1);
     } else {
       showHideSpinPlayArea(true);
     }
   }
 
-  document.getElementById("parallelBtn").addEventListener("click", () => {
-    updateAfterClick();
+  function resetSelectionButtons() {
+    document.querySelectorAll(".big-btn").forEach(btn => {
+      btn.classList.remove("selected", "wrong");
+      btn.style.pointerEvents = "auto";
+    });
+  }
+
+  function showCorrect(btn) {
+    btn.classList.add("selected");
+  }
+
+  function showWrong(btn) {
+    btn.classList.add("wrong");
+  }
+
+  const parallelBtn = document.getElementById("parallelBtn");
+  const perpendicularBtn = document.getElementById("perpendicularBtn");
+
+  parallelBtn.addEventListener("click", () => {
+    const isCorrect = parallelImgArr.includes(selectedImgName);
+    if (isCorrect) {
+      showCorrect(parallelBtn);
+    } else {
+      showWrong(parallelBtn);
+    }
+    setTimeout(() => {
+      resetSelectionButtons();
+      updateAfterClick();
+    }, 2000);
   });
 
-  document.getElementById("perpendicularBtn").addEventListener("click", () => {
-    updateAfterClick();
+  perpendicularBtn.addEventListener("click", () => {
+    const isCorrect = !parallelImgArr.includes(selectedImgName); 
+    if (isCorrect) {
+      showCorrect(perpendicularBtn);
+    } else {
+      showWrong(perpendicularBtn);
+    }
+    setTimeout(() => {
+      resetSelectionButtons();
+      updateAfterClick();
+    }, 2000);
   });
 })();
