@@ -77,7 +77,7 @@
         <div class="title-banner">
           <img src="assets/images/discovermenu/simulation-heading.svg" style="width: 100%;" />
         </div>
-
+    
         <div class="cards-row">
           <div class="card" id="easyCard">
             <div class="card-inner">
@@ -105,7 +105,7 @@
               </div>
             </div>
           </div>
-
+    
           <div class="card" id="challengeCard">
             <div class="card-inner">
               <img class="card-bg" src="assets/images/discovermenu/challenge-box.svg" />
@@ -126,83 +126,87 @@
     <!-- INTRO SCREEN -->
     <template id="view-introscreen">
       <div id="intro-screen">
-        <!-- <img class="intro-title fade-in" src="assets/images/introscreen/title-introduction.svg"> -->
-        <div class="title-audio-wrapper fade-in" style="--d:0s; display: inline-block; position: relative;">
-          <img class="intro-title" src="assets/images/introscreen/title-introduction.svg">
-          <img id="soundBtn" src="assets/images/common/sound-btn.svg"
-            style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); width: 60px; height: 66px; left: 380px;cursor: pointer;">
+    
+        <!-- TITLE + SOUND -->
+        <div class="title-audio-wrapper">
+          <img class="intro-title" src="assets/images/introscreen/title-introduction.svg" />
+          <img id="soundBtn" src="assets/images/common/sound-btn.svg" />
         </div>
+    
+        <!-- MAIN WHITE CONTAINER -->
         <div class="intro-box">
-          <div class="fade-in maintxt" style="--d:0s">Algebraic Expressions</div>
-          <div class="fade-in subtext" style="--d:0.2s">An Algebraic Expression is the combination of constant and
-            variables.
-            We use the operations like addition, subtraction <br> etc. to form an algebraic expression.</div>
-
-          <div class="two-col">
-            <div style="width: 40%;">
-              <div class="fade-in maintxt" style="--d:0.4s">Variable</div>
-              <div class="fade-in subtext" style="--d:0.6s">A variable does not have a fixed value. It can be varied.
-                It <br> is represented by letters
-                like <em>a, y, p, m</em> etc.</div>
-            </div>
-
-            <div>
-              <div class="fade-in maintxt" style="--d:0.8s">Constant</div>
-              <div class="fade-in subtext" style="--d:1.0s">A constant has a fixed value. Any number without<br> a
-                variable is a constant.</div>
-            </div>
-          </div>
-
-          <div class="fade-in maintxt" style="--d:1.0s">Example: <span class="bold-eq">2x + 7</span></div>
-          <div class="fade-in subtext" style="--d:1.2s">Here we got this expression by multiplying 2 and x and then
-            adding
-            7 to it.<br>
-            In the above expression, the variable is x and the constant is 7.</div>
-
-          <div class="example-row">
-            <div style="display: flex; flex-direction:column">
-              <div>
-                <div class="fade-in maintxt" style="--d:1.4s">Expressions with One Variable</div>
-                <div class="fade-in subtext" style="--d:1.6s">If we know the value of the variable in the expression
-                  then we can<br>easily find the numerical value of the given expression.
-                </div>
+    
+          <div class="content-grid">
+            <!-- PARALLEL LINES -->
+            <div class="content-col">
+              <div class="section-title fade-in" style="--d:0.2s">Parallel lines</div>
+              <div class="section-desc fade-in" style="--d:0.4s">
+                Parallel lines are those that never intersect and are always the same distance apart.
               </div>
-              <div style="margin-top: 29px;">
-                <div>
-                  <strong class="maintxt fade-in" style="--d:1.8s">Example:</strong>
-                  <span class="fade-in subtext" style="--d:2.0s">Find the value of the expression </span>
-                  <strong class="fade-in subtext" style="--d:2.0s">2x + 7</strong>
-                  <span class="fade-in subtext" style="--d:2.0s">if</span>
-                  <strong class="fade-in subtext" style="--d:2.0s">x = 3</strong>.
+              <!-- Diagram -->
+              <div class="diagram-img">
+                <img class="w-38 fade-in" style="--d:0.6s" src="assets/images/introscreen/parallel-lines1.svg" />
+                <img class="w-38 fade-in" style="--d:0.8s" src="assets/images/introscreen/parallel-lines2.svg" />
+              </div>
+              <div class="example-title fade-in" style="--d:1.0s">Example</div>
+              <!-- Example Images -->
+              <div class="example-stack">
+                <div class="example-img">
+                  <img class="w-9 fade-in" style="--d:1.2s" src="assets/images/introscreen/parallelL-eg1.svg" />
+                </div>
+                <div class="example-img">
+                  <img class="parallelL-eg2 fade-in" style="--d:1.4s" src="assets/images/introscreen/parallelL-eg2.svg" />
+                </div>
+                <div class="example-img">
+                  <img class="parallelL-eg3 fade-in" style="--d:1.6s" src="assets/images/introscreen/parallelL-eg3.svg" />
                 </div>
               </div>
             </div>
-
-            <div class="workings">
-              <div class="fade-in subtext" style="--d:2.2s; margin-top: 29px;">
-                We have to put the value of <strong>x = 3.</strong><br>
-                <strong>
-                  = 2x + 7<br>
-                  = 2(3) + 7<br>
-                  = 6 + 7<br>
-                  = 13
-                </strong>
-                <div>
+    
+            <!-- PERPENDICULAR LINES -->
+            <div class="content-col">
+              <div class="section-title fade-in" style="--d:1.8s">Perpendicular lines</div>
+              <div class="section-desc fade-in" style="--d:2.0s">
+                Perpendicular lines are those that always intersect each other at right angles.
+              </div>
+    
+              <div class="diagram-img">
+                <img class="w-50 fade-in" style="--d:2.2s" src="assets/images/introscreen/perpendicular-lines1.svg" />
+                <img class="w-23 fade-in" style="--d:2.4s" src="assets/images/introscreen/perpendicular-lines2.svg" />
+              </div>
+    
+              <div class="example-title fade-in" style="--d:2.6s">Example</div>
+    
+              <div class="example-row">
+                <div class="example-img small top-94">
+                  <img class="fade-in" style="--d:2.8s" src="assets/images/introscreen/perpendicularL-eg1.svg" />
+                </div>
+                <div class="example-img small">
+                  <img class="fade-in" style="--d:3.0s" src="assets/images/introscreen/perpendicularL-eg2.svg" />
+                </div>
+                <div class="example-img small top-121">
+                  <img class="fade-in" style="--d:3.2s" src="assets/images/introscreen/perpendicularL-eg3.svg" />
                 </div>
               </div>
-
-              <div class="equation-section fade-in" class="" style="--d:2.4s">
-                <img class="equation" src="assets/images/introscreen/equation.svg">
-                <img class="coefcient" src="assets/images/introscreen/coefcient.svg">
-                <img class="constant" src="assets/images/introscreen/constant.svg">
-                <img class="variable" src="assets/images/introscreen/variable.svg">
+            </div>
+    
+            <!-- TRANSVERSAL LINES -->
+            <div class="content-col">
+              <div class="section-title fade-in" style="--d:3.4s">Transversal lines</div>
+              <div class="section-desc fade-in" style="--d:3.6s">
+                A transversal is a line that intersects at least two other lines.
+              </div>
+    
+              <div class="diagram-img tall">
+                <img class="w100 fade-in" style="--d:3.8s" src="assets/images/introscreen/transversal-lines.svg" />
               </div>
             </div>
+    
           </div>
         </div>
-
-        <!-- Skip Button -->
-        <img id="skipBtn" class="btn skip-btn fade-in" style="--d:2.6s" src="assets/images/introscreen/skip-btn.png" />
+    
+        <!-- SKIP BUTTON -->
+        <img id="skipBtn" class="btn skip-btn fade-in" style="--d:4.0" src="assets/images/introscreen/skip-btn.png" />
       </div>
     </template>
 
@@ -211,16 +215,203 @@
       <div id="easy-screen">
         <!-- TOP BANNER -->
         <div class="top-banner">
-          <span>Title</span>
+          <span>Adjust the lines to form parallel or Perpendicular positions and observe the changing angles.</span>
           <div class="sound-wrapper">
             <img src="assets/images/common/sound-btn.svg" class="btn sound-btn" id="soundBtn">
-            <!-- <div class="mute-tag">Mute</div> -->
           </div>
         </div>
-
+      
         <!-- MAIN CONTENT -->
-        <div class="content-area"></div>
-
+        <div class="content-area">
+          <!-- LEFT WORK AREA -->
+          <div class="work-area">
+            <!-- GRID CANVAS -->
+            <div class="grid-board" id="gridBoard">
+              <div class="grid-overlay">
+                <div style="position: relative;">
+                  <svg id="angleCanvas" viewBox="0 0 1000 550" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                      <!-- Arrow Head -->
+                      <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6"
+                        orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#2c2c2c" />
+                      </marker>
+                    </defs>
+      
+                    <!-- INTERSECTIONS -->
+                    <g id="topIntersection"></g>
+                    <g id="bottomIntersection"></g>
+      
+                    <!-- TOP PARALLEL LINE -->
+                    <line id="topLine" x1="80" y1="190" x2="920" y2="190" class="parallel-line" marker-start="url(#arrow)"
+                      marker-end="url(#arrow)" />
+      
+                    <circle class="drag-point" data-line="top" data-point="1" cx="130" cy="190" r="7" />
+                    <circle class="drag-point" data-line="top" data-point="2" cx="870" cy="190" r="7" />
+      
+                    <!-- BOTTOM PARALLEL LINE -->
+                    <line id="bottomLine" x1="80" y1="290" x2="920" y2="290" class="parallel-line" marker-start="url(#arrow)"
+                      marker-end="url(#arrow)" />
+      
+                    <circle class="drag-point" data-line="bottom" data-point="1" cx="130" cy="290" r="7" />
+                    <circle class="drag-point" data-line="bottom" data-point="2" cx="870" cy="290" r="7" />
+      
+                    <!-- TRANSVERSAL -->
+                    <line id="transversal" x1="500" y1="520" x2="500" y2="10" class="transversal-line"
+                      marker-start="url(#arrow)" marker-end="url(#arrow)" />
+      
+                    <circle class="drag-point" data-line="transversal" data-point="1" cx="500" cy="470" r="7" />
+                    <circle class="drag-point" data-line="transversal" data-point="2" cx="500" cy="60" r="7" />
+                  </svg>
+                </div>
+              </div>
+              <!-- PAPER STYLE -->
+              <div class="paper-style">
+                <div class="disp-flex-row">
+                  <img src="assets/images/doitscreen/copy.svg" style="width: 20px;">
+                  <span style="font-size: 24px; font-weight: 900;">Paper Style</span>
+                </div>
+                <div class="disp-flex-row">
+                  <label class="custom-option" for="grid">
+                    <input type="radio" name="paperType" id="grid" checked />
+                    <span class="custom-box"></span>
+                    <span class="option-text">Grid</span>
+                  </label>
+                  <label class="custom-option" for="dots">
+                    <input type="radio" name="paperType" id="dots" />
+                    <span class="custom-box"></span>
+                    <span class="option-text">Dots</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <!-- RIGHT CONTROL PANEL -->
+          <div class="control-panel">
+            <!-- PARALLEL LINES -->
+            <div class="panel-section" id="parallelPanel">
+              <div class="panel-title">
+                <div class="icon-img"></div>
+                <span>Parallel Lines</span>
+                <label class="custom-option">
+                  <input type="checkbox" id="lineType" />
+                  <span class="custom-box"></span>
+                </label>
+              </div>
+            </div>
+      
+            <!-- ANGLES -->
+            <div class="panel-section" style="height: 73%;">
+              <div class="panel-title">
+                <div class="icon-img"><img src="assets/images/easyscreen/angle.svg" style="width: 90%;"></div>
+                <span>Angles</span>
+              </div>
+      
+              <div class="angle-group">
+                <label class="ui-check heading-txt">
+                  <input type="checkbox" />
+                  <span class="checkmark"></span>
+                  Corresponding
+                </label>
+      
+                <div class="radio-row">
+                  <label class="ui-radio chkbox-txt">
+                    <input type="radio" name="corr" />
+                    <span class="radiomark"></span>
+                    Pair 1
+                  </label>
+      
+                  <label class="ui-radio chkbox-txt">
+                    <input type="radio" name="corr" />
+                    <span class="radiomark"></span>
+                    Pair 2
+                  </label>
+      
+                  <label class="ui-radio chkbox-txt">
+                    <input type="radio" name="corr" />
+                    <span class="radiomark"></span>
+                    Pair 3
+                  </label>
+      
+                  <label class="ui-radio chkbox-txt">
+                    <input type="radio" name="corr" />
+                    <span class="radiomark"></span>
+                    Pair 4
+                  </label>
+                </div>
+      
+                <label class="ui-check heading-txt">
+                  <input type="checkbox" />
+                  <span class="checkmark"></span>
+                  Vertically Opposite
+                </label>
+      
+                <div class="radio-row">
+                  <label class="ui-radio chkbox-txt">
+                    <input type="radio" name="corr" />
+                    <span class="radiomark"></span>
+                    Pair 1
+                  </label>
+                  <label class="ui-radio chkbox-txt">
+                    <input type="radio" name="corr" />
+                    <span class="radiomark"></span>
+                    Pair 2
+                  </label>
+                  <label class="ui-radio chkbox-txt">
+                    <input type="radio" name="corr" />
+                    <span class="radiomark"></span>
+                    Pair 3
+                  </label>
+                  <label class="ui-radio chkbox-txt">
+                    <input type="radio" name="corr" />
+                    <span class="radiomark"></span>
+                    Pair 4
+                  </label>
+                </div>
+      
+                <label class="ui-check heading-txt">
+                  <input type="checkbox" />
+                  <span class="checkmark"></span>
+                  Alternate Interior
+                </label>
+      
+                <div class="radio-row">
+                  <label class="ui-radio chkbox-txt">
+                    <input type="radio" name="corr" />
+                    <span class="radiomark"></span>
+                    Pair 2
+                  </label>
+                  <label class="ui-radio chkbox-txt">
+                    <input type="radio" name="corr" />
+                    <span class="radiomark"></span>
+                    Pair 2
+                  </label>
+                </div>
+      
+                <label class="ui-check heading-txt">
+                  <input type="checkbox" />
+                  <span class="checkmark"></span>
+                  Alternate Exterior
+                </label>
+      
+                <div class="radio-row">
+                  <label class="ui-radio chkbox-txt">
+                    <input type="radio" name="corr" />
+                    <span class="radiomark"></span>
+                    Pair 1
+                  </label>
+                  <label class="ui-radio chkbox-txt">
+                    <input type="radio" name="corr" />
+                    <span class="radiomark"></span>
+                    Pair 2
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
         <!-- BOTTOM RIGHT BUTTONS -->
         <div class="bottom-right-buttons">
           <div id="easyResetBtn"><img src="assets/images/common/reset.svg" style="width: 90px;"></div>
@@ -234,16 +425,34 @@
       <div id="warmup-screen">
         <!-- TOP BANNER -->
         <div class="top-banner">
-          <span>Title</span>
+          <span>Spin the wheel and identify the types of lines based on the image details.</span>
           <div class="sound-wrapper">
             <img src="assets/images/common/sound-btn.svg" class="btn sound-btn" id="soundBtn">
-            <!-- <div class="mute-tag">Mute</div> -->
           </div>
         </div>
-
+    
         <!-- MAIN CONTENT -->
-        <div class="main-area"></div>
-
+        <div class="main-area1" id="userSelectionArea" style="gap: 30px; opacity: 0;">
+          <div class="bg-panel">
+            <img src="assets/images/warmupscreen/img2.svg" id="selectedImg" style="width: 35%;">
+          </div>
+          <div class="disp-flex-column">
+            <div id="parallelBtn" class="big-btn"><img src="assets/images/warmupscreen/parallel-btn.png"></div>
+            <div id="perpendicularBtn" class="big-btn"><img src="assets/images/warmupscreen/perpendicular-btn.png"></div>
+          </div>
+        </div>
+    
+        <div class="main-area" id="spinWheelArea" style="opacity: 1;">
+          <div class="wheel-container">
+            <img src="assets/images/warmupscreen/wheel.svg" class="wheel-img">
+            <div class="place-center white-circle"></div>
+            <div class="wheel" id="wheel"></div>
+            <img src="assets/images/warmupscreen/spin-center.png" class="place-center spin-center">
+            <img src="assets/images/warmupscreen/pointer.svg" class="wheel-pointer">
+          </div>
+        </div>
+    
+    
         <!-- BOTTOM RIGHT BUTTONS -->
         <div class="bottom-right-buttons">
           <div id="warmupResetBtn"><img src="assets/images/common/reset.svg" style="width: 90px;"></div>
@@ -257,15 +466,42 @@
       <div id="challenge-screen">
         <!-- TOP BANNER -->
         <div class="top-banner">
-          <span>Title</span>
+          <span>Study the angle already shown to determine all the missing angles in the setup.</span>
           <div class="sound-wrapper">
             <img src="assets/images/common/sound-btn.svg" class="btn sound-btn" id="soundBtn">
           </div>
         </div>
-
+    
         <!-- MAIN CONTENT -->
-        <div class="main-area"></div>
-
+        <div class="content-area">
+          <div class="grid-board">
+            <div style="position: relative; top: -78px">
+              <svg id="angleCanvas" viewBox="0 0 1000 450" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <!-- Arrow Head -->
+                  <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6"
+                    orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#2c2c2c" />
+                  </marker>
+                </defs>
+                <!-- INTERSECTIONS -->
+                <g id="topIntersection"></g>
+                <g id="bottomIntersection"></g>
+                <!-- PARALLEL LINES (CENTERED) -->
+                <line x1="80" y1="190" x2="920" y2="190" class="parallel-line" marker-start="url(#arrow)"
+                  marker-end="url(#arrow)" />
+                <line x1="80" y1="290" x2="920" y2="290" class="parallel-line" marker-start="url(#arrow)"
+                  marker-end="url(#arrow)" />
+                <!-- TRANSVERSAL -->
+                <line id="transversal" x1="450" y1="400" x2="550" y2="50" class="transversal-line"
+                  marker-start="url(#arrow)" marker-end="url(#arrow)" />
+              </svg>
+            </div>
+          </div>
+        </div>
+    
+    
+        <div id="submitBtn" class="btn"><img src="assets/images/challengescreen/submit-btn.png"></div>
         <!-- BOTTOM RIGHT BUTTONS -->
         <div class="bottom-right-buttons">
           <div id="challengeResetBtn"><img src="assets/images/common/reset.svg" style="width: 90px;"></div>
@@ -278,16 +514,78 @@
     <template id="view-doitscreen">
       <div id="doit-screen">
         <!-- TOP HEADING BAR -->
-        <div class="top-bar">
-          <span>Title</span>
-          <img src="assets/images/common/sound-btn.svg" class="sound-icon" />
+        <div class="top-banner">
+          <span>Use the drawing tools to create a line that matches the given condition - parallel or perpendicular to the
+            line shown.</span>
+          <div class="sound-wrapper">
+            <img src="assets/images/common/sound-btn.svg" class="btn sound-btn" id="soundBtn">
+          </div>
         </div>
+    
+    
+        <!-- MAIN CONTENT -->
+        <div class="content-area">
+          <!-- GRID CANVAS -->
+          <div class="grid-board" id="gridBoard">
+            <!-- PLACE YOUR CANVAS / SVG HERE -->
+            <div class="grid-overlay">
+              <img src="assets/images/doitscreen/line.svg" class="line-img" id="lineImg">
+            </div>
+            <!-- SVG drawing layer -->
+            <svg id="drawSvg" width="100%" height="100%" style="position:absolute; inset:0;">
+              <!-- user drawn line -->
+              <line id="userLine" x1="0" y1="0" x2="0" y2="0" stroke="red" stroke-width="6" stroke-linecap="round"
+                visibility="hidden" />
+            </svg>
+            <!-- Line options -->
+            <div class="option-card">
+              <label class="custom-option" for="perpendicular">
+                <input type="radio" name="lineType" id="perpendicular" checked />
+                <span class="custom-box"></span>
+                <span class="option-text">Perpendicular Line</span>
+              </label>
+              <label class="custom-option" for="parallel">
+                <input type="radio" name="lineType" id="parallel" />
+                <span class="custom-box"></span>
+                <span class="option-text">Parallel Line</span>
+              </label>
+            </div>
+            <!-- User action buttons -->
+            <div class="user-action">
+              <div id="pencilBtn" class="btn"><img src="assets/images/doitscreen/pencil.svg" style="width: 65px;"></div>
+              <div id="deleteBtn" class="btn"><img src="assets/images/doitscreen/delete.svg" style="width: 65px;"></div>
+            </div>
+    
+            <!-- PAPER STYLE -->
+            <div class="paper-style">
+              <div class="disp-flex-row">
+                <img src="assets/images/doitscreen/copy.svg" style="width: 20px;">
+                <span style="font-size: 24px; font-weight: 900;">Paper Style</span>
+              </div>
+              <div class="disp-flex-row">
+                <label class="custom-option" for="grid">
+                  <input type="radio" name="paperType" id="grid" checked />
+                  <span class="custom-box"></span>
+                  <span class="option-text">Grid</span>
+                </label>
+                <label class="custom-option" for="dots">
+                  <input type="radio" name="paperType" id="dots" />
+                  <span class="custom-box"></span>
+                  <span class="option-text">Dots</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="disclaimer-box"><b>Disclaimer:-</b> Move your line slowly until it turns green. A green line means it is
+          correctly parallel or perpendicular to the fixed line.</div>
     
         <!-- BOTTOM RIGHT BUTTONS -->
         <div class="bottom-right-buttons">
-          <div id="easyResetBtn"><img src="assets/images/common/reset.svg" style="width: 90px;"></div>
-          <div id="easyNextBtn"><img src="assets/images/common/next.svg" style="width: 110px;"></div>
-          <div><img id="resetBtn" src="assets/images/common/reset.svg" style="width: 90px;"></div>
+          <div id="doitInfoBtn"><img src="assets/images/doitscreen/info.svg" style="width: 90px;"></div>
+          <div id="doitNextBtn"><img src="assets/images/common/next.svg" style="width: 110px;"></div>
+          <div><img id="doitResetBtn" src="assets/images/common/reset.svg" style="width: 90px;"></div>
         </div>
       </div>
     </template>
@@ -313,6 +611,7 @@
 
   <script src="scripts/scale.js"></script>
   <script src="scripts/router.js"></script>
+  <script src="scripts/utils.js"></script>
   <script src="scripts/soundManager.js"></script>
   <script src="common-ui/common.js"></script>
   <script src="common-ui/popup.js"></script>
