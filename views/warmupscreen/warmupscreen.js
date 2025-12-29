@@ -49,6 +49,7 @@
     SoundManager.play("click");
     wheelImages = pickRandomImages(7);
     renderWheel();
+    showHideSpinPlayArea(true);
   });
 
   /* Wheel functionality */
