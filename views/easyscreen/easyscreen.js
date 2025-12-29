@@ -26,6 +26,7 @@
     C: "#b1ffc5",
     D: "#f39fff"
   };
+  const angleGroup = document.querySelector(".angle-group");
   const txtA = document.createElementNS("http://www.w3.org/2000/svg", "text");
   const txtB = document.createElementNS("http://www.w3.org/2000/svg", "text");
   const txtC = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -195,6 +196,30 @@
         break;
     }
   }
+
+  const headingCheckboxes = angleGroup.querySelectorAll('.ui-check input[type="checkbox"]');
+  document.querySelectorAll('.angle-group input[type="radio"]').forEach(r => (r.disabled = true));
+
+  headingCheckboxes.forEach(cb => {
+    cb.addEventListener("change", e => {
+      if (!cb.checked) return;
+      const activeAngle = cb.dataset.angle;
+      // Uncheck all other checkboxes
+      headingCheckboxes.forEach(other => {
+        if (other !== cb) other.checked = false;
+      });
+      // Enable radios of active section, disable others
+      angleGroup.querySelectorAll('input[type="radio"]').forEach(radio => {
+        const sameGroup = radio.dataset.angle === activeAngle;
+        radio.disabled = !sameGroup;
+        if (!sameGroup) radio.checked = false;
+      });
+      // AUTO-SELECT first radio of active group
+      // const firstRadio = angleGroup.querySelector(`input[type="radio"][data-angle="${activeAngle}"]`);
+      // if (firstRadio) firstRadio.checked = true;
+    });
+  });
+
 
 
   /* Functionality for creating intersecting line and angles + input boxes*/
