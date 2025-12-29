@@ -203,6 +203,7 @@
   headingCheckboxes.forEach(cb => {
     cb.addEventListener("change", e => {
       if (!cb.checked) return;
+      hideAllAngleTxt();
       const activeAngle = cb.dataset.angle;
       // Uncheck all other checkboxes
       headingCheckboxes.forEach(other => {
