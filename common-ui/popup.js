@@ -55,7 +55,14 @@ function hidePopup() {
 
 // button callbacks here:
 function goToGame() {
-  console.log("Navigate to game...");
+  SoundManager.play("click");
+  loadView('discovermenu')
+  SoundManager.stopAll();
+  setTimeout(() => {
+    if (!SoundManager.isBgmMuted()) {
+      SoundManager.playBgm("bgm");
+    }
+  }, 500);
 }
 
 function restartStep() {
