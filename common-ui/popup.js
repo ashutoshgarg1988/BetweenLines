@@ -56,6 +56,7 @@ function hidePopup() {
 // button callbacks here:
 function goToGame() {
   SoundManager.play("click");
+  hidePopup();
   loadView('discovermenu')
   SoundManager.stopAll();
   setTimeout(() => {
