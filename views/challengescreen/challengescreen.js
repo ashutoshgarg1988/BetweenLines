@@ -149,6 +149,11 @@
       <div xmlns="http://www.w3.org/1999/xhtml">
         <input type="text"
               data-angle="${key}"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              oninput="
+                this.value = this.value.replace(/[^0-9]/g, '');
+                if (this.value !== '' && +this.value > 360) this.value = '';"
               style="
                 width:100%;
                 height:100%;
@@ -156,6 +161,7 @@
                 border:1px solid #000;
                 background: rgba(236, 233, 233, 1);
                 font-size:18px;
+                font-family: sans-serif;
                 text-align:center;
               " />
       </div>
