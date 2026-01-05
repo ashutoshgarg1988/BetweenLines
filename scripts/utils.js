@@ -125,4 +125,13 @@ function rotateLineByDirection(line, dirX, dirY) {
   line.setAttribute("y2", ny2);
 }
 
+// actual angle of the transversal
+function lineAngleDeg(line) {
+  const x1 = +line.getAttribute("x1");
+  const y1 = +line.getAttribute("y1");
+  const x2 = +line.getAttribute("x2");
+  const y2 = +line.getAttribute("y2");
+  return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+}
+
 
