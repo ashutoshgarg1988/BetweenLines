@@ -32,7 +32,8 @@
     let isDrawing = false;
     let start = { x: 0, y: 0 };
     let blueLineAngle = 41.12;
-
+    const PENCIL_OFFSET = { x: 0, y: -27 };
+    
     // Show info popup when screen loads
     // function showInfoPopup() {
     //     showPopup("info", { text: "Pick your favorite object - a cake, pizza, pie, or chocolate bar! Drag the knife or clock hand to make a slice or an angle." });
@@ -106,26 +107,61 @@
     
     rotateBlueLineRandomly();
     function rotateBlueLineRandomly() {
-        blueLineAngle = Math.random() * 180; // 0–180 is enough
-        lineImg.style.transform = `rotate(${blueLineAngle}deg)`;
+        const gridRect = gridBoard.getBoundingClientRect();
+        const angleDeg = Math.random() * 180;
+        blueLineAngle = angleDeg;
+        const θ = angleDeg * Math.PI / 180;
+        const W = gridRect.width;
+        const H = gridRect.height;
+        const cos = Math.abs(Math.cos(θ));
+        const sin = Math.abs(Math.sin(θ));
+        // Real rendered height of the SVG (arrow thickness)
+        const h = lineImg.getBoundingClientRect().height;
+        const maxLenByWidth = cos < 0.0001 ? Infinity : (W - h * sin) / cos;
+        const maxLenByHeight = sin < 0.0001 ? Infinity : (H - h * cos) / sin;
+        let maxLength = Math.min(maxLenByWidth, maxLenByHeight);
+        // maxLength *= 0.95;
+        if(angleDeg >= 96 && angleDeg <= 166) {
+            maxLength = 490;
+        }else {
+            maxLength = 600;
+        }
+        lineImg.style.width = `${maxLength}px`;
+        lineImg.style.transform = `translate(-50%, -50%) rotate(${angleDeg}deg)`;
     }
 
     pencilBtn.addEventListener("click", () => {
         drawingEnabled = true;
+        gridBoard.classList.add("pencil-cursor");
+        svg.classList.add("pencil-cursor");
     });
 
     deleteBtn.addEventListener("click", () => {
         resetLine();
+        drawingEnabled = false;
+        gridBoard.classList.remove("pencil-cursor");
+        svg.classList.remove("pencil-cursor");
     });
 
+
+    // function getScaledPoint(e, element) {
+    //     const rect = element.getBoundingClientRect();
+    //     return {
+    //         x: (e.clientX - rect.left) / CURRENT_SCALE,
+    //         y: (e.clientY - rect.top) / CURRENT_SCALE
+    //     };
+    // }
 
     function getScaledPoint(e, element) {
         const rect = element.getBoundingClientRect();
         return {
-            x: (e.clientX - rect.left) / CURRENT_SCALE,
-            y: (e.clientY - rect.top) / CURRENT_SCALE
+            x: (e.clientX - rect.left - PENCIL_OFFSET.x) / CURRENT_SCALE,
+            y: (e.clientY - rect.top - PENCIL_OFFSET.y) / CURRENT_SCALE
         };
     }
+    window.addEventListener("mouseup", () => {
+        isDrawing = false;
+    });
 
     svg.addEventListener("mousedown", (e) => {
         if (!drawingEnabled) return;

@@ -26,11 +26,22 @@
   background-repeat: repeat;
 }
 
-.line-img {
+/* .line-img {
   width: 37%;
   left: 37%;
   position: relative;
+  top: 36px
+} */
+
+.line-img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center center;
+  pointer-events: none;
 }
+
+
 
 .user-action {
   position: absolute;
@@ -65,4 +76,9 @@
 .disclaimer-box.show {
   opacity: 1;
   pointer-events: auto;
+}
+
+/* Pencil cursor */
+.pencil-cursor {
+  cursor: url("/assets/images/doitscreen/pencil.png") 0 -27, auto;
 }
