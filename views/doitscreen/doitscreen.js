@@ -38,7 +38,7 @@
     //     showPopup("info", { text: "Pick your favorite object - a cake, pizza, pie, or chocolate bar! Drag the knife or clock hand to make a slice or an angle." });
     // }
     // showInfoPopup();
-
+    SoundManager.muteVoice();
     // Sound button functionality
     soundBtn.addEventListener("click", () => {
         SoundManager.play("click");

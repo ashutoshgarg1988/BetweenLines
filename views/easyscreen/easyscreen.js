@@ -99,7 +99,7 @@
     SoundManager.play("click");
     loadView("warmupscreen");
   });
-
+  SoundManager.muteVoice();
   // Sound button functionality
   soundBtn.addEventListener("click", () => {
     SoundManager.play("click");

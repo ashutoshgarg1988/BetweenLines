@@ -9,6 +9,7 @@
   });
   const soundBtn = document.getElementById("soundBtn");
   const skipBtn = document.getElementById("skipBtn");
+  SoundManager.muteVoice();
   soundBtn.addEventListener("click", () => {
     SoundManager.play("click");
     const muted = SoundManager.toggleVoiceMute();

@@ -21,6 +21,7 @@
   const pointer = document.querySelector(".wheel-pointer")
   const selectedImg = document.getElementById("selectedImg");
   let selectedImgName = '';
+  SoundManager.muteVoice();
   // Sound button functionality
   soundBtn.addEventListener("click", () => {
     SoundManager.play("click");

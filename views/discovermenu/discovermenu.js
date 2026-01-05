@@ -15,7 +15,7 @@
     musicBtn: true,
     copyright: true
   });
-
+  SoundManager.muteVoice();
   const soundBtn = document.getElementById("soundBtn");
   soundBtn.addEventListener("click", () => {
     SoundManager.play("click");
@@ -24,7 +24,7 @@
       soundBtn.src = "assets/images/common/audio-off.svg";
       soundBtn.setAttribute("title", "Unmute");
     } else {
-      SoundManager.playSceneBg("introduction");
+      SoundManager.playSceneBg("simulation");
       soundBtn.src = "assets/images/common/sound-btn.svg";
       soundBtn.setAttribute("title", "Mute");
     }
@@ -61,6 +61,7 @@
       const willOpen = !wrapper.classList.contains("active");
       wrapper.classList.toggle("active");
       if (willOpen && openSound) {
+        SoundManager.muteVoice();
         SoundManager.play(openSound);
       }
     });

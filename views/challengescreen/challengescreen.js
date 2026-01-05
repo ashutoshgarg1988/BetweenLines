@@ -17,7 +17,7 @@
     musicBtn: true,
     copyright: true
   });
-
+  SoundManager.muteVoice();
   // Sound button functionality
   soundBtn.addEventListener("click", () => {
     SoundManager.play("click");
