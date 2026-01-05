@@ -14,7 +14,6 @@
     musicBtn: true,
     copyright: true
   });
-  SoundManager.playSceneBg("warmUp");
   const soundBtn = document.getElementById("soundBtn");
   document.querySelector(".spin-center").addEventListener("click", spinWheel);
   const spinWheelArea = document.getElementById("spinWheelArea");
@@ -30,6 +29,7 @@
       soundBtn.src = "assets/images/common/audio-off.svg";
       soundBtn.setAttribute("title", "Unmute");
     } else {
+      SoundManager.playSceneBg("warmUp");
       soundBtn.src = "assets/images/common/sound-btn.svg";
       soundBtn.setAttribute("title", "Mute");
     }

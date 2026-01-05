@@ -10,7 +10,6 @@
   const challengeResetBtn = document.getElementById("challengeResetBtn");
   const challengeNextBtn = document.getElementById("challengeNextBtn");
   let muted = false;
-  SoundManager.playSceneBg("challange");
   setCommonUI({
     btnHome: true,
     btnPlay: true,
@@ -19,6 +18,7 @@
     copyright: true
   });
 
+  // Sound button functionality
   soundBtn.addEventListener("click", () => {
     SoundManager.play("click");
     const muted = SoundManager.toggleVoiceMute();
@@ -26,6 +26,7 @@
       soundBtn.src = "assets/images/common/audio-off.svg";
       soundBtn.setAttribute("title", "Unmute");
     } else {
+      SoundManager.playSceneBg("challange");
       soundBtn.src = "assets/images/common/sound-btn.svg";
       soundBtn.setAttribute("title", "Mute");
     }

@@ -7,7 +7,6 @@
  ***************************************************************/
 
 (function initEasyScreen() {
-  SoundManager.playSceneBg("easy");
   setCommonUI({
     btnHome: true,
     btnPlay: true,
@@ -109,6 +108,7 @@
       soundBtn.src = "assets/images/common/audio-off.svg";
       soundBtn.setAttribute("title", "Unmute");
     } else {
+      SoundManager.playSceneBg("easy");
       soundBtn.src = "assets/images/common/sound-btn.svg";
       soundBtn.setAttribute("title", "Mute");
     }

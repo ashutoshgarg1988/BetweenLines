@@ -14,7 +14,6 @@
         musicBtn: true,
         copyright: true
     });
-    SoundManager.playSceneBg("doItYouself");
     let lineType = ''; //perpendicular or parallel
     const centerPanel = document.getElementById('gridBoard');
     centerPanel.style.backgroundImage = "url('assets/images/easyscreen/mathsline.svg')";
@@ -40,16 +39,17 @@
     // }
     // showInfoPopup();
 
-     // Sound button functionality
+    // Sound button functionality
     soundBtn.addEventListener("click", () => {
         SoundManager.play("click");
         const muted = SoundManager.toggleVoiceMute();
         if (muted) {
-        soundBtn.src = "assets/images/common/audio-off.svg";
-        soundBtn.setAttribute("title", "Unmute");
+            soundBtn.src = "assets/images/common/audio-off.svg";
+            soundBtn.setAttribute("title", "Unmute");
         } else {
-        soundBtn.src = "assets/images/common/sound-btn.svg";
-        soundBtn.setAttribute("title", "Mute");
+            SoundManager.playSceneBg("doItYouself");
+            soundBtn.src = "assets/images/common/sound-btn.svg";
+            soundBtn.setAttribute("title", "Mute");
         }
     });
 
