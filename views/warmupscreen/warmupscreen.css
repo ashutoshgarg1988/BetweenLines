@@ -166,7 +166,6 @@
 }
 
 .big-btn.wrong {
-  pointer-events: none;
   animation: shake 0.4s ease;
   box-shadow: 0 0 18px rgba(230,57,70,0.6);
 }

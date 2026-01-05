@@ -178,6 +178,7 @@
 
   parallelBtn.addEventListener("click", () => {
     SoundManager.play("click");
+    disableButtons();
     const isCorrect = parallelImgArr.includes(selectedImgName);
     if (isCorrect) {
       showCorrect(parallelBtn);
@@ -187,12 +188,14 @@
     setTimeout(() => {
       resetSelectionButtons();
       updateAfterClick();
+      enableButtons();
     }, 2000);
   });
 
   perpendicularBtn.addEventListener("click", () => {
     SoundManager.play("click");
-    const isCorrect = !parallelImgArr.includes(selectedImgName); 
+    disableButtons();
+    const isCorrect = !parallelImgArr.includes(selectedImgName);
     if (isCorrect) {
       showCorrect(perpendicularBtn);
     } else {
@@ -201,6 +204,18 @@
     setTimeout(() => {
       resetSelectionButtons();
       updateAfterClick();
+      enableButtons();
     }, 2000);
   });
+
+  function disableButtons() {
+    parallelBtn.style.pointerEvents = "none";
+    perpendicularBtn.style.pointerEvents = "none";
+  }
+
+  function enableButtons() {
+    parallelBtn.style.pointerEvents = "auto";
+    perpendicularBtn.style.pointerEvents = "auto";
+  }
+
 })();
