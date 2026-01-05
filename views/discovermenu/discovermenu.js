@@ -75,12 +75,12 @@
       e.stopPropagation();
       const muted = SoundManager.toggleVoiceMute();
       if (muted) {
-        soundBtn.src = "assets/images/common/audio-off.svg";
-        soundBtn.setAttribute("title", "Unmute");
+        soundIcon.src = "assets/images/common/audio-off.svg";
+        soundIcon.setAttribute("title", "Unmute");
       } else {
-        SoundManager.playSceneBg("introduction");
-        soundBtn.src = "assets/images/common/sound-btn.svg";
-        soundBtn.setAttribute("title", "Mute");
+        SoundManager.playSceneBg(openSound);
+        soundIcon.src = "assets/images/common/sound-btn.svg";
+        soundIcon.setAttribute("title", "Mute");
       }
     });
   });
