@@ -17,23 +17,18 @@
   });
 
   const soundBtn = document.getElementById("soundBtn");
-  let introMuted = false;
-
-  if (soundBtn) {
-    soundBtn.addEventListener("click", () => {
-      SoundManager.play("click");
-      introMuted = !introMuted;
-      if (introMuted) {
-        SoundManager.stop("introduction");
-        soundBtn.src = "assets/images/common/audio-off.svg";
-        soundBtn.setAttribute("title", "Unmute");
-      } else {
-        SoundManager.playSceneBg("introduction");
-        soundBtn.src = "assets/images/common/sound-btn.svg";
-        soundBtn.setAttribute("title", "Mute");
-      }
-    });
-  }
+  soundBtn.addEventListener("click", () => {
+    SoundManager.play("click");
+    const muted = SoundManager.toggleVoiceMute();
+    if (muted) {
+      soundBtn.src = "assets/images/common/audio-off.svg";
+      soundBtn.setAttribute("title", "Unmute");
+    } else {
+      SoundManager.playSceneBg("introduction");
+      soundBtn.src = "assets/images/common/sound-btn.svg";
+      soundBtn.setAttribute("title", "Mute");
+    }
+  });
 
   // Card Click Events
   document.getElementById("easyCard").addEventListener("click", () => {
@@ -55,6 +50,7 @@
   tooltips.forEach(wrapper => {
     const openIcon = wrapper.querySelector(".tooltip-icon");
     const closeIcon = wrapper.querySelector(".tooltip-close");
+    const soundIcon = wrapper.querySelector(".tooltip-sound");
     const openSound = wrapper.dataset.openSound;
     const closeSound = wrapper.dataset.closeSound;
     openIcon.addEventListener("click", (e) => {
@@ -73,6 +69,18 @@
       wrapper.classList.remove("active");
       if (closeSound) {
         SoundManager.play(closeSound);
+      }
+    });
+    soundIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const muted = SoundManager.toggleVoiceMute();
+      if (muted) {
+        soundBtn.src = "assets/images/common/audio-off.svg";
+        soundBtn.setAttribute("title", "Unmute");
+      } else {
+        SoundManager.playSceneBg("introduction");
+        soundBtn.src = "assets/images/common/sound-btn.svg";
+        soundBtn.setAttribute("title", "Mute");
       }
     });
   });
