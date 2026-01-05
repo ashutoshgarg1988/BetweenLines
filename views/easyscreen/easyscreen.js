@@ -35,6 +35,61 @@
   const txtF = document.createElementNS("http://www.w3.org/2000/svg", "text");
   const txtG = document.createElementNS("http://www.w3.org/2000/svg", "text");
   const txtH = document.createElementNS("http://www.w3.org/2000/svg", "text");
+
+  const INITIAL_LINES = {
+    top: {
+      x1: +topLine.getAttribute("x1"),
+      y1: +topLine.getAttribute("y1"),
+      x2: +topLine.getAttribute("x2"),
+      y2: +topLine.getAttribute("y2")
+    },
+    bottom: {
+      x1: +bottomLine.getAttribute("x1"),
+      y1: +bottomLine.getAttribute("y1"),
+      x2: +bottomLine.getAttribute("x2"),
+      y2: +bottomLine.getAttribute("y2")
+    },
+    transversal: {
+      x1: +transversal.getAttribute("x1"),
+      y1: +transversal.getAttribute("y1"),
+      x2: +transversal.getAttribute("x2"),
+      y2: +transversal.getAttribute("y2")
+    }
+  };
+
+  function resetLine(line, data) {
+    line.setAttribute("x1", data.x1);
+    line.setAttribute("y1", data.y1);
+    line.setAttribute("x2", data.x2);
+    line.setAttribute("y2", data.y2);
+  }
+
+  function resetEasyScreenState() {
+    /* Reset lines */
+    resetLine(topLine, INITIAL_LINES.top);
+    resetLine(bottomLine, INITIAL_LINES.bottom);
+    resetLine(transversal, INITIAL_LINES.transversal);
+    positionHandlesInsideLine("top");
+    positionHandlesInsideLine("bottom");
+    positionHandlesInsideLine("transversal");
+    /* Reset parallel mode */
+    isParallelMode = false;
+    const checkbox = document.getElementById("lineType");
+    checkbox.checked = false;
+    /* Reset paper type */
+    document.getElementById("grid").checked = true;
+    centerPanel.style.backgroundImage = "url('assets/images/easyscreen/mathsline.svg')";
+    /* Reset angle UI */
+    hideAllAngleTxt();
+    angleGroup.querySelectorAll('input[type="radio"]').forEach(r => {
+      r.checked = false;
+      r.disabled = true;
+    });
+    angleGroup.querySelectorAll('.ui-check input[type="checkbox"]').forEach(cb => cb.checked = false);
+    /* Redraw intersections cleanly */
+    redrawAngles();
+  }
+
   hideAllAngleTxt();
 
   // Show info popup when screen loads
@@ -61,6 +116,7 @@
 
   document.getElementById("easyResetBtn").addEventListener("click", () => {
     SoundManager.play("click");
+    resetEasyScreenState();
   });
 
   // Change the type of Paper
