@@ -142,6 +142,7 @@
   function updateParallelMode(isEnabled) {
     if (isEnabled) {
       console.log("checked");
+      makeTopAndBottomParallel();
     } else {
       console.log("Unchecked");
     }
@@ -378,6 +379,22 @@
     transversal: { length: null }
   };
   const HANDLE_OFFSET = 50;
+
+  function makeTopAndBottomParallel() {
+    const x1 = +topLine.getAttribute("x1");
+    const y1 = +topLine.getAttribute("y1");
+    const x2 = +topLine.getAttribute("x2");
+    const y2 = +topLine.getAttribute("y2");
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const len = Math.hypot(dx, dy);
+    const dirX = dx / len;
+    const dirY = dy / len;
+    rotateLineByDirection(bottomLine, dirX, dirY);
+    positionHandlesInsideLine("bottom");
+    redrawAngles();
+  }
+
 
   function positionHandlesInsideLine(lineKey) {
     const line = lineKey === "top" ? topLine : lineKey === "bottom" ? bottomLine : transversal;
