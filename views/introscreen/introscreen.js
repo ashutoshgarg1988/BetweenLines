@@ -9,25 +9,18 @@
   });
   const soundBtn = document.getElementById("soundBtn");
   const skipBtn = document.getElementById("skipBtn");
-  let introMuted = false;
-
-  if (soundBtn) {
-    soundBtn.addEventListener("click", () => {
-      SoundManager.play("click");
-      introMuted = !introMuted;
-      if (introMuted) {
-        SoundManager.stop("introduction");
-        soundBtn.src = "assets/images/common/audio-off.svg";
-        soundBtn.setAttribute("title", "Unmute");
-      } else {
-        console.log("no");
-
-        SoundManager.playSceneBg("introduction");
-        soundBtn.src = "assets/images/common/sound-btn.svg";
-        soundBtn.setAttribute("title", "Mute");
-      }
-    });
-  }
+  soundBtn.addEventListener("click", () => {
+    SoundManager.play("click");
+    const muted = SoundManager.toggleVoiceMute();
+    if (muted) {
+      soundBtn.src = "assets/images/common/audio-off.svg";
+      soundBtn.setAttribute("title", "Unmute");
+    } else {
+      SoundManager.playSceneBg("introduction");
+      soundBtn.src = "assets/images/common/sound-btn.svg";
+      soundBtn.setAttribute("title", "Mute");
+    }
+  });
   
   if (skipBtn) {
     skipBtn.addEventListener("click", () => {
