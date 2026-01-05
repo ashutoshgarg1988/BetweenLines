@@ -30,11 +30,20 @@ const SOUNDS = {
   click: {
     src: "assets/sounds/click.mp3"
   },
+  easyDiscover: {
+    src: "assets/sounds/easyDiscover.mp3"
+  },
+  warmUpDiscover: {
+    src: "assets/sounds/warmUpDiscover.mp3"
+  },
+  challengeDiscover: {
+    src: "assets/sounds/challengeDiscover.mp3"
+  },
   bgm: {
     src: "assets/sounds/bgm.mp3",
     loop: true,
     volume: 0.5
-  }
+  },
 };
 
 const SoundManager = (function () {
@@ -42,8 +51,7 @@ const SoundManager = (function () {
   let currentBgm = null;
   let currentSceneBg = null;
   let bgmMuted = false;     //  only bgm
-  let voiceMuted = false;   
-
+  let voiceMuted = true;   
   function loadFromMap(soundMap = {}) {
     Object.keys(soundMap).forEach((key) => {
       if (sounds[key]) return;
@@ -60,12 +68,14 @@ const SoundManager = (function () {
     audio.play().catch(() => {});
   }
 
+
   function play(key) {
     const audio = sounds[key];
     if (!audio || voiceMuted) return;
     audio.currentTime = 0;
     safePlay(audio);
   }
+
 
   function playBgm(key = "bgm") {
     const audio = sounds[key];
@@ -118,6 +128,7 @@ const SoundManager = (function () {
     currentSceneBg = null;
   }
 
+
   function muteBgm() {
     bgmMuted = true;
     if (currentBgm) currentBgm.pause();
@@ -133,26 +144,23 @@ const SoundManager = (function () {
   function isBgmMuted() {
     return bgmMuted;
   }
+
   
   function muteVoice() {
     voiceMuted = true;
     if (currentSceneBg) currentSceneBg.pause();
   }
-
   function unmuteVoice() {
     voiceMuted = false;
     if (currentSceneBg) safePlay(currentSceneBg);
   }
-
   function toggleVoiceMute() {
     voiceMuted ? unmuteVoice() : muteVoice();
     return voiceMuted;
   }
-
   function isVoiceMuted() {
     return voiceMuted;
   }
-
   function has(key) {
     return !!sounds[key];
   }

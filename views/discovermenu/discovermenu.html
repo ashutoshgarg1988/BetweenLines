@@ -9,8 +9,13 @@
 -->
 
 <div>
-  <div class="title-banner">
-    <img src="assets/images/discovermenu/simulation-heading.svg" style="width: 100%;" />
+  <!-- <div class="title-banner">
+          <img src="assets/images/discovermenu/simulation-heading.svg" style="width: 100%;"/>
+        </div> -->
+  <div class="title-audio-wrapper" style="--d:0s; display: inline-block; position: relative;">
+    <img class="intro-title" src="assets/images/discovermenu/simulation-heading.svg">
+    <img id="soundBtn" src="assets/images/common/sound-btn.svg"
+      style="position: absolute; right: 0px; top: 50%; transform: translateY(-50%); width: 60px; height: 66px; left: 380px;cursor: pointer;">
   </div>
 
   <div class="cards-row">
@@ -20,11 +25,12 @@
         <img class="card-icon" src="assets/images/discovermenu/easy-icon.svg" />
         <img class="card-name" style="width: 30%;" src="assets/images/discovermenu/easy.png" />
       </div>
-      <div class="tooltip-wrapper">
-        <img class="tooltip-icon" src="assets/images/discovermenu/tooltip-icon.svg" />
-        <div class="tooltip-img">
-          <img src="assets/images/discovermenu/easy-txt.svg" />
-        </div>
+    </div>
+    <div class="tooltip-wrapper easy" data-open-sound="easyDiscover" data-close-sound="click">
+      <img class="tooltip-icon" src="assets/images/discovermenu/tooltip-icon.svg" />
+      <div class="tooltip-img">
+        <img class="tooltip-close" src="assets/images/discovermenu/tooltip-icon.svg" alt="Close" />
+        <img src="assets/images/discovermenu/easy-txt.svg" />
       </div>
     </div>
     <div class="card" id="warmUpCard">
@@ -33,11 +39,12 @@
         <img class="card-icon" src="assets/images/discovermenu/warmup-icon.svg" />
         <img class="card-name" src="assets/images/discovermenu/warmup.png" />
       </div>
-      <div class="tooltip-wrapper">
-        <img class="tooltip-icon" src="assets/images/discovermenu/tooltip-icon.svg" />
-        <div class="tooltip-img">
-          <img src="assets/images/discovermenu/warmup-txt.svg" />
-        </div>
+    </div>
+    <div class="tooltip-wrapper warmup" data-open-sound="warmUpDiscover" data-close-sound="click">
+      <img class="tooltip-icon" src="assets/images/discovermenu/tooltip-icon.svg" />
+      <div class="tooltip-img">
+        <img class="tooltip-close" src="assets/images/discovermenu/tooltip-icon.svg" alt="Close" />
+        <img src="assets/images/discovermenu/warmup-txt.svg" />
       </div>
     </div>
 
@@ -47,11 +54,12 @@
         <img class="card-icon" src="assets/images/discovermenu/challenge-icon.svg" />
         <img class="card-name" src="assets/images/discovermenu/challenge.png" />
       </div>
-      <div class="tooltip-wrapper">
-        <img class="tooltip-icon" src="assets/images/discovermenu/tooltip-icon.svg" />
-        <div class="tooltip-img">
-          <img src="assets/images/discovermenu/challenge-txt.svg" />
-        </div>
+    </div>
+    <div class="tooltip-wrapper challenge" data-open-sound="challengeDiscover" data-close-sound="click">
+      <img class="tooltip-icon" src="assets/images/discovermenu/tooltip-icon.svg" />
+      <div class="tooltip-img">
+        <img class="tooltip-close" src="assets/images/discovermenu/tooltip-icon.svg" alt="Close" />
+        <img src="assets/images/discovermenu/challenge-txt.svg" />
       </div>
     </div>
   </div>
