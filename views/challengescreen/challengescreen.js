@@ -9,7 +9,7 @@
 (function initChallengeScreen() {
   const challengeResetBtn = document.getElementById("challengeResetBtn");
   const challengeNextBtn = document.getElementById("challengeNextBtn");
-  let muted = false;
+  let roundCounter = 0;
   setCommonUI({
     btnHome: true,
     btnPlay: true,
@@ -239,9 +239,14 @@
       }
     });
     if (allCorrect) {
-      showPopup("greatWork", { step: 1, description: "" });
+      roundCounter++;
+      if(roundCounter === 3) {
+        showPopup("greatJobSummary", { angleCount: 3, levelName: 'challenge' });
+      }else {
+        showPopup("info", { text: "Well done! Your answer is correct." });
+      }
     } else {
-      showPopup("info", { text: "Sorry! Try again" });
+      showPopup("info", { text: "Sorry! Try again." });
     }
   }
   resetAngles();

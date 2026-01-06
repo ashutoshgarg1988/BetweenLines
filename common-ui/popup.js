@@ -41,7 +41,7 @@ const popupTemplates = {
               ${levelName} complete!<br>
               You successfully made
             </p>
-            <p class="gjs-count">${angleCount} angles</p>
+            <p class="gjs-count">${angleCount} correct answers</p>
           </div>
         </div>
         <p class="gjs-sub">Tap Got it to continue.</p>

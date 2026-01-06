@@ -14,6 +14,7 @@
     musicBtn: true,
     copyright: true
   });
+  let roundCounter = 0;
   const soundBtn = document.getElementById("soundBtn");
   document.querySelector(".spin-center").addEventListener("click", spinWheel);
   const spinWheelArea = document.getElementById("spinWheelArea");
@@ -149,7 +150,13 @@
 
   function updateAfterClick() {
     if(wheelImages.length === 0) {
-      showPopup("greatWork", { step: 1, description: "" });
+      roundCounter++;
+      if(roundCounter === 3) {
+        showPopup("greatJobSummary", { angleCount: 3, levelName: 'Warm up' });
+      }else {
+        showPopup("info", { text: "Well done! Round is completed." });
+      }
+      // showPopup("greatWork", { step: 1, description: "" });
     } else if(wheelImages.length === 1) {
       selectedImg.src = `assets/images/warmupscreen/${wheelImages[0]}`;
       selectedImgName = wheelImages[0];

@@ -19,7 +19,7 @@
     centerPanel.style.backgroundImage = "url('assets/images/easyscreen/mathsline.svg')";
     const disclaimerBox = document.querySelector(".disclaimer-box");
     let disclaimerVisible = false;
-    let disclaimerTimeout = null;
+    let roundCounter = 0;
 
     const pencilBtn = document.getElementById("pencilBtn");
     const deleteBtn = document.getElementById("deleteBtn");
@@ -185,7 +185,18 @@
 
 
     window.addEventListener("mouseup", () => {
+        const strokeColor = userLine.getAttribute("stroke");
+        if(strokeColor === "#28c840" && drawingEnabled) {
+            roundCounter++;
+        }
         isDrawing = false;
+        drawingEnabled = false;
+        gridBoard.classList.remove("pencil-cursor");
+        svg.classList.remove("pencil-cursor");
+
+        if(roundCounter === 3) {
+            showPopup("greatJobSummary", { angleCount: 3, levelName: 'Do it challenge' });
+        }
     });
 
     // Touch support added
@@ -237,6 +248,5 @@
                 userLine.setAttribute("stroke", "#e53935"); // RED
             }
         }
-        
     }
 })();
