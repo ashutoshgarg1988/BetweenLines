@@ -90,10 +90,9 @@
     angleGroup.querySelectorAll('.ui-check input[type="checkbox"]').forEach(cb => cb.checked = false);
     /* Redraw intersections cleanly */
     redrawAngles();
+    hideAllAngleTxt();
+    hideAllArcs();
   }
-
-  hideAllAngleTxt();
-  hideAllArcs();
 
   // Show info popup when screen loads
   // showPopup("info", { text: "Drag the angle arm to build an angle" });
@@ -580,5 +579,6 @@
     redrawAngles();
   }
 
-
+  hideAllAngleTxt();
+  hideAllArcs();
 })();
