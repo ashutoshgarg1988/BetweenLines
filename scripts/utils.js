@@ -125,24 +125,26 @@ function rotateLineByDirection(line, dirX, dirY) {
   line.setAttribute("y2", ny2);
 }
 
-// actual angle of the transversal
-function lineAngleDeg(line) {
+function shiftLineY(line, dy) {
+  line.setAttribute("y1", +line.getAttribute("y1") + dy);
+  line.setAttribute("y2", +line.getAttribute("y2") + dy);
+}
+
+function previewAngle(handle, mouse) {
+  const lineKey = handle.dataset.line;
+  const line =
+    lineKey === "top" ? topLine :
+    lineKey === "bottom" ? bottomLine :
+    transversal;
   const x1 = +line.getAttribute("x1");
   const y1 = +line.getAttribute("y1");
   const x2 = +line.getAttribute("x2");
   const y2 = +line.getAttribute("y2");
-  return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-}
-
-function translateLine(line, dx, dy) {
-  line.setAttribute("x1", +line.getAttribute("x1") + dx);
-  line.setAttribute("y1", +line.getAttribute("y1") + dy);
-  line.setAttribute("x2", +line.getAttribute("x2") + dx);
-  line.setAttribute("y2", +line.getAttribute("y2") + dy);
-}
-
-function shiftLineY(line, dy) {
-  line.setAttribute("y1", +line.getAttribute("y1") + dy);
-  line.setAttribute("y2", +line.getAttribute("y2") + dy);
+  const cx = (x1 + x2) / 2;
+  const cy = (y1 + y2) / 2;
+  const angleRad = Math.atan2(mouse.y - cy, mouse.x - cx);
+  const angleDeg = Math.abs(angleRad * 180 / Math.PI);
+  // Normalize like your angles.A
+  return angleDeg > 180 ? 360 - angleDeg : angleDeg;
 }
 

@@ -18,7 +18,8 @@
   const centerPanel = document.getElementById('gridBoard');
   centerPanel.style.backgroundImage = "url('assets/images/easyscreen/mathsline.svg')";
   let isParallelMode = false;
-
+  let angles = [];
+  let lastValidMousePoint = null;
   const ANGLE_COLORS = {
     A: "#ffbdc0",
     B: "#90e2ff",
@@ -341,7 +342,7 @@
   }) {
     const g = document.getElementById(groupId);
     g.innerHTML = "";
-    const angles = computeAllAngles(angle);
+    angles = computeAllAngles(angle);
     const cx = pt.x;
     const cy = pt.y;
     const r = 30;
@@ -463,15 +464,37 @@
   document.querySelectorAll(".drag-point").forEach(p => {
     p.addEventListener("mousedown", e => {
       activePoint = p;
+      lastValidMousePoint = null;
       e.stopPropagation();
     });
   });
 
   svg.addEventListener("mousemove", e => {
     if (!activePoint) return;
+    const lineKey = activePoint.dataset.line;
     const p = svgPoint(e);
-    rotateLineWithHandle(activePoint, p);
-    redrawAngles();
+    // NO restriction for parallel lines
+    if (lineKey === "top" || lineKey === "bottom") {
+      rotateLineWithHandle(activePoint, p);
+      redrawAngles();
+      return;
+    }
+    // Restriction ONLY for transversal
+    if (lineKey === "transversal") {
+      const anglePreview = previewAngle(activePoint, p);
+      // Out of bounds → freeze everything
+      if (anglePreview <= 14 || anglePreview >= 166) {
+        if (lastValidMousePoint) {
+          rotateLineWithHandle(activePoint, lastValidMousePoint);
+          redrawAngles();
+        }
+        return;
+      }
+      // Valid → apply and store
+      rotateLineWithHandle(activePoint, p);
+      redrawAngles();
+      lastValidMousePoint = p;
+    }
   });
 
 
