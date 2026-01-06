@@ -30,7 +30,7 @@ const popupTemplates = {
   `,
 
   // NEW POPUP (Great Job summary)
-  greatJobSummary: (angleCount = 3) => `
+  greatJobSummary: (angleCount = 3, levelName) => `
     <div class="popup-overlay">
       <div class="greatjob-summary-popup">
         <h1 class="gjs-title">Great job!</h1>
@@ -38,7 +38,7 @@ const popupTemplates = {
           <span class="gjs-check">✔</span>
           <div>
             <p class="gjs-main">
-              Do It Yourself complete!<br>
+              ${levelName} complete!<br>
               You successfully made
             </p>
             <p class="gjs-count">${angleCount} angles</p>
