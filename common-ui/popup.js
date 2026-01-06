@@ -8,7 +8,6 @@
 
 // ========== POPUP TEMPLATES ==========
 const popupTemplates = {
-  
   info: (text) => `
     <div class="popup-overlay">
       <div class="info-popup">
@@ -18,12 +17,6 @@ const popupTemplates = {
     </div>
   `,
 
-  /*<div class="title">GREAT<br>WORK</div>
-  <div class="content">
-    <p>You’ve completed</p>
-    <h1>Step ${step}!</h1>
-    <p>${description}</p>
-  </div>*/
   greatWork: (step, description) => `
     <div class="popup-overlay">
       <div class="greatwork-popup">
@@ -32,11 +25,32 @@ const popupTemplates = {
           <img src="assets/images/common/reset.svg" class="btn gw-btn reset" onclick="restartStep()">
           <img src="assets/images/common/next.svg" class="btn gw-btn next" onclick="goNextStep()">
         </div>
+      </div>
+    </div>
+  `,
 
+  // NEW POPUP (Great Job summary)
+  greatJobSummary: (angleCount = 3) => `
+    <div class="popup-overlay">
+      <div class="greatjob-summary-popup">
+        <h1 class="gjs-title">Great job!</h1>
+        <div class="gjs-content">
+          <span class="gjs-check">✔</span>
+          <div>
+            <p class="gjs-main">
+              Do It Yourself complete!<br>
+              You successfully made
+            </p>
+            <p class="gjs-count">${angleCount} angles</p>
+          </div>
+        </div>
+        <p class="gjs-sub">Tap Got it to continue.</p>
+        <button class="gjs-btn" onclick="onGreatJobSummary()">Got it!</button>
       </div>
     </div>
   `,
 };
+
 
 // ========== SHOW POPUP ==========
 function showPopup(type, data = {}) {
@@ -72,4 +86,10 @@ function restartStep() {
 
 function goNextStep() {
   console.log("Go to next step...");
+}
+
+function onGreatJobSummary() {
+  SoundManager.play("click");
+  hidePopup();
+  goNextStep();
 }
