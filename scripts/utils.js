@@ -134,4 +134,15 @@ function lineAngleDeg(line) {
   return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
 }
 
+function translateLine(line, dx, dy) {
+  line.setAttribute("x1", +line.getAttribute("x1") + dx);
+  line.setAttribute("y1", +line.getAttribute("y1") + dy);
+  line.setAttribute("x2", +line.getAttribute("x2") + dx);
+  line.setAttribute("y2", +line.getAttribute("y2") + dy);
+}
+
+function shiftLineY(line, dy) {
+  line.setAttribute("y1", +line.getAttribute("y1") + dy);
+  line.setAttribute("y2", +line.getAttribute("y2") + dy);
+}
 

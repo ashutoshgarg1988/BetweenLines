@@ -71,6 +71,7 @@
     positionHandlesInsideLine("top");
     positionHandlesInsideLine("bottom");
     positionHandlesInsideLine("transversal");
+    alignParallelLinesVertically();
     /* Reset parallel mode */
     isParallelMode = false;
     const checkbox = document.getElementById("lineType");
@@ -419,6 +420,7 @@
   positionHandlesInsideLine("top");
   positionHandlesInsideLine("bottom");
   positionHandlesInsideLine("transversal");
+  alignParallelLinesVertically();
 
   function rotateLineWithHandle(handle, mouse) {
     const lineKey = handle.dataset.line;
@@ -513,5 +515,21 @@
       });
     }
   }
+
+  function alignParallelLinesVertically() {
+    const tY1 = +transversal.getAttribute("y1");
+    const tY2 = +transversal.getAttribute("y2");
+    const transversalCenter = (tY1 + tY2) / 2;
+    const topY = +topLine.getAttribute("y1");
+    const bottomY = +bottomLine.getAttribute("y1");
+    const parallelCenter = (topY + bottomY) / 2;
+    const deltaY = transversalCenter - parallelCenter;
+    shiftLineY(topLine, deltaY);
+    shiftLineY(bottomLine, deltaY);
+    positionHandlesInsideLine("top");
+    positionHandlesInsideLine("bottom");
+    redrawAngles();
+  }
+
 
 })();
