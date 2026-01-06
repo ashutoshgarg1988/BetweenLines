@@ -6,6 +6,7 @@
  *  Date        : 10-Dec-2025
  ***************************************************************/
 
+var isLocalBuild = true;
 window.onload = function () {
   loadView("intro"); // LOAD INTRO FIRST
   // loadView("warmupscreen");

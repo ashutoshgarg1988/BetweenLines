@@ -6,9 +6,17 @@
  *  Date        : 4-Dec-2025
  ***************************************************************/
 
-/*
-// Code to load views Locaally
 function loadView(viewName) {
+  if(isLocalBuild) {
+    loadViewLocal(viewName);
+  }else {
+    loadViewServer(viewName);
+  }
+}
+
+
+// Code to load views Locaally
+function loadViewLocal(viewName) {
   // Load HTML from <template>
   const tpl = document.getElementById(`view-${viewName}`);
   if (!tpl) {
@@ -31,12 +39,12 @@ function loadView(viewName) {
   js.src = `views/${viewName}/${viewName}.js`;
   js.setAttribute("data-view-js", viewName);
   document.body.appendChild(js);
-}*/
+}
 
 
 
 // Code for run on server using dynamic load using fetch
-async function loadView(viewName) {
+async function loadViewServer(viewName) {
   // Load HTML
   const html = await fetch(`views/${viewName}/${viewName}.html`).then(r => r.text());
   document.querySelector("#app").innerHTML = html;
