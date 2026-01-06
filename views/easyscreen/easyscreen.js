@@ -20,6 +20,7 @@
   let isParallelMode = false;
   let angles = [];
   let lastValidMousePoint = null;
+  let activeAngleFilter = null;
   const ANGLE_COLORS = {
     A: "#ffbdc0",
     B: "#90e2ff",
@@ -92,6 +93,7 @@
   }
 
   hideAllAngleTxt();
+  hideAllArcs();
 
   // Show info popup when screen loads
   // showPopup("info", { text: "Drag the angle arm to build an angle" });
@@ -154,8 +156,8 @@
     if (e.target.type !== "radio") return;
     const angleType = e.target.dataset.angle;
     const pairNo = e.target.dataset.pair;
-    console.log("Angle Type:", angleType);
-    console.log("Pair Selected:", pairNo);
+    // STORE STATE
+    activeAngleFilter = { type: angleType, pair: pairNo };
     hideAllAngleTxt();
     handleAnglePair(angleType, pairNo);
   });
@@ -189,20 +191,25 @@
   }
 
   function highlightCorresponding(pairNo) {
+    hideAllAngleTxt();
     switch (Number(pairNo)) {
       case 1 : 
+        showOnlyArcs(["A", "E"]);
         txtA.style.visibility = "visible";
         txtE.style.visibility = "visible";
         break;
       case 2 :
+        showOnlyArcs(["B", "F"]);
         txtB.style.visibility = "visible";
         txtF.style.visibility = "visible";
         break;
       case 3 :
+        showOnlyArcs(["C", "G"]);
         txtC.style.visibility = "visible";
         txtG.style.visibility = "visible";
         break;
       case 4 :
+        showOnlyArcs(["D", "H"]);
         txtD.style.visibility = "visible";
         txtH.style.visibility = "visible";
         break;
@@ -212,18 +219,22 @@
   function highlightVertical(pairNo) {
     switch (Number(pairNo)) {
       case 1 : 
+        showOnlyArcs(["A", "D"]);
         txtA.style.visibility = "visible";
         txtD.style.visibility = "visible";
         break;
       case 2 :
+        showOnlyArcs(["B", "C"]);
         txtB.style.visibility = "visible";
         txtC.style.visibility = "visible";
         break;
       case 3 :
+        showOnlyArcs(["E", "H"]);
         txtE.style.visibility = "visible";
         txtH.style.visibility = "visible";
         break;
       case 4 :
+        showOnlyArcs(["F", "G"]);
         txtF.style.visibility = "visible";
         txtG.style.visibility = "visible";
         break;
@@ -233,10 +244,12 @@
   function highlightAlternateInterior(pairNo) {
     switch (Number(pairNo)) {
       case 1 : 
+        showOnlyArcs(["C", "F"]);
         txtC.style.visibility = "visible";
         txtF.style.visibility = "visible";
         break;
       case 2 :
+        showOnlyArcs(["D", "E"]);
         txtD.style.visibility = "visible";
         txtE.style.visibility = "visible";
         break;
@@ -246,10 +259,12 @@
   function highlightAlternateExterior(pairNo) {
     switch (Number(pairNo)) {
       case 1 : 
+        showOnlyArcs(["A", "H"]);
         txtA.style.visibility = "visible";
         txtH.style.visibility = "visible";
         break;
       case 2 :
+        showOnlyArcs(["B", "G"]);
         txtB.style.visibility = "visible";
         txtG.style.visibility = "visible";
         break;
@@ -261,7 +276,12 @@
 
   headingCheckboxes.forEach(cb => {
     cb.addEventListener("change", e => {
-      if (!cb.checked) return;
+      if (!cb.checked) {
+        activeAngleFilter = null;
+        hideAllArcs();
+        hideAllAngleTxt();
+        return;
+      }
       hideAllAngleTxt();
       const activeAngle = cb.dataset.angle;
       // Uncheck all other checkboxes
@@ -296,7 +316,7 @@
     circle.setAttribute("cx", cx);
     circle.setAttribute("cy", cy);
     circle.setAttribute("r", r);
-    circle.setAttribute("fill", "rgba(180,180,180,0.7)");
+    circle.setAttribute("fill", "rgba(180,180,180,0)");
     return circle;
   }
 
@@ -314,6 +334,7 @@
     path.setAttribute("d", d);
     path.setAttribute("fill", color);
     path.setAttribute("opacity", 0.9);
+    path.setAttribute("class", "angle-arc");
     return path;
   }
 
@@ -350,9 +371,9 @@
     g.appendChild(drawAngleCircle(cx, cy, r));
     let start = base;
     angleKeys.forEach((key, i) => {
-      g.appendChild(
-        drawArcSector(cx, cy, r, start, angles[key], ANGLE_COLORS[Object.keys(ANGLE_COLORS)[i]])
-      );
+      const arc = drawArcSector(cx, cy, r, start, angles[key], ANGLE_COLORS[Object.keys(ANGLE_COLORS)[i]]);
+      arc.dataset.angle = key;
+      g.appendChild(arc);
       start += angles[key];
     });
     const positions = [
@@ -536,6 +557,11 @@
         angleKeys: ["E", "F", "G", "H"],
         textNodes: [txtE, txtF, txtG, txtH]
       });
+    }
+
+    // REAPPLY VISIBILITY FILTER
+    if (activeAngleFilter) {
+      handleAnglePair(activeAngleFilter.type, activeAngleFilter.pair);
     }
   }
 

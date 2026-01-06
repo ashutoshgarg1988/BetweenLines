@@ -148,3 +148,24 @@ function previewAngle(handle, mouse) {
   return angleDeg > 180 ? 360 - angleDeg : angleDeg;
 }
 
+
+function hideAllArcs() {
+  document.querySelectorAll(".angle-arc").forEach(a => {
+    a.style.opacity = "0";
+  });
+}
+
+function showAllArcs() {
+  document.querySelectorAll(".angle-arc").forEach(a => {
+    a.style.opacity = "0.9";
+  });
+}
+
+function showOnlyArcs(angleKeys) {
+  hideAllArcs();
+  angleKeys.forEach(key => {
+    document
+      .querySelectorAll(`.angle-arc[data-angle="${key}"]`)
+      .forEach(a => (a.style.opacity = "0.9"));
+  });
+}

@@ -181,14 +181,6 @@
   pointer-events: none;
 }
 
-.angle-arc {
-  fill: rgba(180, 180, 180, 0.7);
-}
-
-.angle-arc.given {
-  fill: #f6b3d8;
-}
-
 circle:hover {
   stroke-width: 2.5;
 }
