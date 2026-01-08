@@ -76,8 +76,19 @@
 }
 
 .spin-center {
-    width: 200px;
-    cursor: pointer;
+  width: 200px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.spin-center:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.spin-center.disabled {
+  cursor: default;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .white-circle{

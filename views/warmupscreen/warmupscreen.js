@@ -16,7 +16,8 @@
   });
   let roundCounter = 0;
   const soundBtn = document.getElementById("soundBtn");
-  document.querySelector(".spin-center").addEventListener("click", spinWheel);
+  const spinCenter = document.querySelector(".spin-center");
+  spinCenter.addEventListener("click", spinWheel);
   const spinWheelArea = document.getElementById("spinWheelArea");
   const userSelectionArea = document.getElementById("userSelectionArea");
   const pointer = document.querySelector(".wheel-pointer")
@@ -103,9 +104,20 @@
     });
   }
 
-
+  // Enable/Disable spin button
+  function setSpinEnabled(enabled) {
+    if (enabled) {
+      spinCenter.classList.remove("disabled");
+      spinCenter.style.pointerEvents = "auto";
+    } else {
+      spinCenter.classList.add("disabled");
+      spinCenter.style.pointerEvents = "none";
+    }
+  }
+  
   function spinWheel() {
     SoundManager.play("click");
+    setSpinEnabled(false);
     const wheel = document.getElementById("wheel");
     const sliceCount = wheelImages.length;
     if (sliceCount === 0) return;
@@ -154,6 +166,7 @@
       userSelectionArea.style.opacity = 0;
       userSelectionArea.classList.add("hidden");
       userSelectionArea.classList.remove("visible");
+      setSpinEnabled(true);
     } else {
       spinWheelArea.style.opacity = 0;
       spinWheelArea.classList.add("hidden");
@@ -162,6 +175,7 @@
       userSelectionArea.style.opacity = 1;
       userSelectionArea.classList.add("visible");
       userSelectionArea.classList.remove("hidden");
+      setSpinEnabled(false);
     }
   }
 
