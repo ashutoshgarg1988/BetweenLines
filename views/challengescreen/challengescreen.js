@@ -166,6 +166,20 @@
     return box;
   }
 
+  const TOP_OFFSET = {
+    A: {x: -100, y: -30},
+    B: {x: 40, y: -30},
+    C: {x: 40, y: 10},
+    D: {x: -100, y: 10}
+  };
+
+  const BOTTOM_OFFSET = {
+    E: {x: -100, y: -30},
+    F: {x: 40, y: -30},
+    G: {x: 40, y: 10},
+    H: {x: -100, y: 10}
+  };
+
   // Top intersection functionality
   function drawTopIntersection(givenAngle) {
     const g = document.getElementById("topIntersection");
@@ -185,10 +199,12 @@
     txt.setAttribute("class", "angle-text");
     txt.textContent = givenAngle + "°";
     g.appendChild(txt);
-    g.appendChild(drawInputBox(cx + 70, cy - 30, "B"));
-    g.appendChild(drawInputBox(cx - 100, cy + 10, "D"));
-    g.appendChild(drawInputBox(cx + 70, cy + 10, "C"));
+    g.appendChild(drawInputBox(cx + TOP_OFFSET.B.x, cy + TOP_OFFSET.B.y, "B"));
+    g.appendChild(drawInputBox(cx + TOP_OFFSET.D.x, cy + TOP_OFFSET.D.y, "D"));
+    g.appendChild(drawInputBox(cx + TOP_OFFSET.C.x, cy + TOP_OFFSET.C.y, "C"));
   }
+
+  
 
   // Bottom intersection functionality
   function drawBottomIntersection() {
@@ -200,10 +216,10 @@
     const r = 30;
     // FULL GREY CIRCLE
     g.appendChild(drawAngleCircle(cx, cy, r));
-    g.appendChild(drawInputBox(cx - 100, cy - 45, "E"));
-    g.appendChild(drawInputBox(cx + 70,  cy - 30, "F"));
-    g.appendChild(drawInputBox(cx - 120, cy + 20, "H"));
-    g.appendChild(drawInputBox(cx + 70,  cy + 10, "G"));
+    g.appendChild(drawInputBox(cx + BOTTOM_OFFSET.E.x, cy + BOTTOM_OFFSET.E.y, "E"));
+    g.appendChild(drawInputBox(cx + BOTTOM_OFFSET.F.x,  cy + BOTTOM_OFFSET.F.y, "F"));
+    g.appendChild(drawInputBox(cx + BOTTOM_OFFSET.H.x, cy + BOTTOM_OFFSET.H.y, "H"));
+    g.appendChild(drawInputBox(cx + + BOTTOM_OFFSET.G.x,  cy + BOTTOM_OFFSET.G.y, "G"));
   }
 
   function validateOnSubmit() {
