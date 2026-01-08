@@ -58,7 +58,7 @@
   const MAIN_SPIN_TURNS = 9;
   const OVERSHOOT_DEG = 0;//15;
   const rotatePonterBased = -155;
-  const ALL_IMAGES = ["img0.svg","img1.svg","img2.svg","img3.svg","img4.svg","img5.svg","img6.svg"];
+  const ALL_IMAGES = ["img0.svg", "img1.svg", "img2.svg", "img3.svg", "img4.svg", "img5.svg", "img6.svg"];
   const parallelImgArr = ['img1.svg', 'img2.svg', 'img5.svg', 'img6.svg'];
   let wheelImages = [];
   let currentRotation = 0;
@@ -113,13 +113,13 @@
     const randomIndex = Math.floor(Math.random() * sliceCount);
     // Final desired angle for this slice
     const finalStop = 360 - randomIndex * sliceAngle + rotatePonterBased;
-    // Normalize current rotation (0–360)
     const normalizedCurrent = ((currentRotation % 360) + 360) % 360;
-    // Find forward-only delta to target
     const delta = (finalStop - normalizedCurrent + 360) % 360;
     const overshootTarget = currentRotation + 360 * MAIN_SPIN_TURNS + delta + OVERSHOOT_DEG;
+
     wheel.style.transition = "transform 2.8s cubic-bezier(0.15, 0.85, 0.25, 1)";
     wheel.style.transform = `rotate(${overshootTarget}deg)`;
+
     setTimeout(() => {
       const settleTarget = overshootTarget - OVERSHOOT_DEG;
       wheel.style.transition = "transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
@@ -127,37 +127,55 @@
       pointer.classList.add("pointer-bounce");
       setTimeout(() => pointer.classList.remove("pointer-bounce"), 400);
       currentRotation = settleTarget;
-    }, 2800);
-    // FINAL slice detection 
-    setTimeout(() => {
-      selectedImg.src = `assets/images/warmupscreen/${wheelImages[randomIndex]}`;
-      selectedImgName = wheelImages[randomIndex];
-      showHideSpinPlayArea(false);
-      wheelImages.splice(randomIndex, 1);
-      renderWheel();
     }, 3000);
+
+    // Add zoom-in trigger after wheel settles
+    setTimeout(() => {
+      document.querySelector(".wheel-container").classList.add("zoom-in");
+      // wait for zoom transition (.5s) then do final logic
+      setTimeout(() => {
+        // Reset zoom after UI change
+        document.querySelector(".wheel-container").classList.remove("zoom-in");
+        selectedImg.src = `assets/images/warmupscreen/${wheelImages[randomIndex]}`;
+        selectedImgName = wheelImages[randomIndex];
+        showHideSpinPlayArea(false);
+        wheelImages.splice(randomIndex, 1);
+        renderWheel();
+      }, 500); // match CSS transition
+    }, 3600); // 3000 + 600 settle = ~3600
   }
 
   function showHideSpinPlayArea(isVisible) {
-    if(isVisible) {
+    if (isVisible) {
       spinWheelArea.style.opacity = 1;
+      spinWheelArea.classList.add("visible");
+      spinWheelArea.classList.remove("hidden");
+
       userSelectionArea.style.opacity = 0;
+      userSelectionArea.classList.add("hidden");
+      userSelectionArea.classList.remove("visible");
     } else {
       spinWheelArea.style.opacity = 0;
+      spinWheelArea.classList.add("hidden");
+      spinWheelArea.classList.remove("visible");
+
       userSelectionArea.style.opacity = 1;
+      userSelectionArea.classList.add("visible");
+      userSelectionArea.classList.remove("hidden");
     }
   }
 
+
   function updateAfterClick() {
-    if(wheelImages.length === 0) {
+    if (wheelImages.length === 0) {
       roundCounter++;
-      if(roundCounter === 3) {
+      if (roundCounter === 3) {
         showPopup("greatJobSummary", { angleCount: 3, levelName: 'Warm up' });
-      }else {
+      } else {
         showPopup("info", { text: "Well done! Round is completed." });
       }
       // showPopup("greatWork", { step: 1, description: "" });
-    } else if(wheelImages.length === 1) {
+    } else if (wheelImages.length === 1) {
       selectedImg.src = `assets/images/warmupscreen/${wheelImages[0]}`;
       selectedImgName = wheelImages[0];
       wheelImages.splice(0, 1);
