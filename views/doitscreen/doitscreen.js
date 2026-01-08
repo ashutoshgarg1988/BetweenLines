@@ -86,13 +86,21 @@
     }
 
     // Change the type of Paper
-    document.querySelectorAll('input[name="paperType"]').forEach(r => {
-        r.addEventListener('change', () => {
-            if(r.id === "grid") {
-                centerPanel.style.backgroundImage = "url('assets/images/easyscreen/mathsline.svg')";
-            }else {
-                centerPanel.style.backgroundImage = "url('assets/images/easyscreen/dotted.svg')";
-            }
+    let lastPaper = "grid";
+    document.querySelectorAll('input[name="paperType"]').forEach(radio => {
+        radio.addEventListener('click', (e) => {
+        // If clicking same radio again → unselect
+        if (lastPaper === radio.id && radio.checked) {
+            radio.checked = false;
+            lastPaper = null;
+            centerPanel.style.backgroundImage = ""; // remove paper bg
+            return;
+        }
+        // Normal behaviour → select & apply bg
+        lastPaper = radio.id;
+        centerPanel.style.backgroundImage = radio.id === "grid"
+            ? "url('assets/images/easyscreen/mathsline.svg')"
+            : "url('assets/images/easyscreen/dotted.svg')";
         });
     });
 
