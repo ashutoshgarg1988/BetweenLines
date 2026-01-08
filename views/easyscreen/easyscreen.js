@@ -243,14 +243,14 @@
   function highlightAlternateInterior(pairNo) {
     switch (Number(pairNo)) {
       case 1 : 
-        showOnlyArcs(["C", "F"]);
+        showOnlyArcs(["C", "E"]);
         txtC.style.visibility = "visible";
-        txtF.style.visibility = "visible";
+        txtE.style.visibility = "visible";
         break;
       case 2 :
-        showOnlyArcs(["D", "E"]);
+        showOnlyArcs(["D", "F"]);
         txtD.style.visibility = "visible";
-        txtE.style.visibility = "visible";
+        txtF.style.visibility = "visible";
         break;
     }
   }
@@ -258,14 +258,14 @@
   function highlightAlternateExterior(pairNo) {
     switch (Number(pairNo)) {
       case 1 : 
-        showOnlyArcs(["A", "H"]);
+        showOnlyArcs(["A", "G"]);
         txtA.style.visibility = "visible";
-        txtH.style.visibility = "visible";
+        txtG.style.visibility = "visible";
         break;
       case 2 :
-        showOnlyArcs(["B", "G"]);
+        showOnlyArcs(["B", "H"]);
         txtB.style.visibility = "visible";
-        txtG.style.visibility = "visible";
+        txtH.style.visibility = "visible";
         break;
     }
   }
