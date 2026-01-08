@@ -9,6 +9,7 @@
 (function initChallengeScreen() {
   const challengeResetBtn = document.getElementById("challengeResetBtn");
   const challengeNextBtn = document.getElementById("challengeNextBtn");
+  const GIVEN_KEYS = ["A","B","C","D","E","F","G","H"];
   let roundCounter = 0;
   setCommonUI({
     btnHome: true,
@@ -122,7 +123,7 @@
   // Function to reset intersecting line
   function resetAngles() {
     const given = Math.floor(Math.random() * 90) + 40;
-    currentRotationDeg = given - 90 - 15;
+    currentRotationDeg = given - 90 - 17;
     // console.log("given:::"+given+":::::currentRotationDeg::::"+currentRotationDeg);
     document.getElementById("transversal")
       .setAttribute(
@@ -184,7 +185,6 @@
     txt.setAttribute("class", "angle-text");
     txt.textContent = givenAngle + "°";
     g.appendChild(txt);
-    // INPUT BOXES (3 sides)
     g.appendChild(drawInputBox(cx + 70, cy - 30, "B"));
     g.appendChild(drawInputBox(cx - 100, cy + 10, "D"));
     g.appendChild(drawInputBox(cx + 70, cy + 10, "C"));
@@ -200,17 +200,10 @@
     const r = 30;
     // FULL GREY CIRCLE
     g.appendChild(drawAngleCircle(cx, cy, r));
-    // INPUT BOXES (ALL 4)
     g.appendChild(drawInputBox(cx - 100, cy - 45, "E"));
     g.appendChild(drawInputBox(cx + 70,  cy - 30, "F"));
     g.appendChild(drawInputBox(cx - 120, cy + 20, "H"));
     g.appendChild(drawInputBox(cx + 70,  cy + 10, "G"));
-    // const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    // dot.setAttribute("cx", cx);
-    // dot.setAttribute("cy", cy);
-    // dot.setAttribute("r", 3);
-    // dot.setAttribute("fill", "red");
-    // g.appendChild(dot);
   }
 
   function validateOnSubmit() {
