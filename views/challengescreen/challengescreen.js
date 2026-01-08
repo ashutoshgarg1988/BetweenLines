@@ -128,7 +128,8 @@
   // Function to reset intersecting line
   function resetAngles() {
     const given = Math.floor(Math.random() * 90) + 40;
-    currentRotationDeg = given - 90;
+    currentRotationDeg = given - 90 - 15;
+    // console.log("given:::"+given+":::::currentRotationDeg::::"+currentRotationDeg);
     document.getElementById("transversal")
       .setAttribute(
         "transform",
@@ -181,7 +182,7 @@
     // FULL GREY CIRCLE
     g.appendChild(drawAngleCircle(cx, cy, r));
     // PINK GIVEN ARC
-    g.appendChild(drawPinkArc(cx, cy, r, 273, givenAngle+10));
+    g.appendChild(drawPinkArc(cx, cy, r, 273, givenAngle));
     // GIVEN TEXT
     const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
     txt.setAttribute("x", cx - 55);
