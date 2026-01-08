@@ -32,9 +32,6 @@
     }
   });
 
-  // Show info popup when screen loads
-  // showPopup("info", { text: "Stop the moving arm as close as you can to the target angle." });
-
   challengeResetBtn.addEventListener("click", () => {
     SoundManager.play("click");
     resetAngles();
@@ -59,11 +56,8 @@
 
 
   /* Functionality for creating intersecting line and angles + input boxes*/
-  const CENTER_X = 500;
   const TOP_LINE_Y = 190;
   const BOTTOM_LINE_Y = 290;
-  const CENTER_Y = TOP_LINE_Y;   // top intersection
-  const BOTTOM_CENTER_Y = BOTTOM_LINE_Y;
   let correctAngles = {};
   let currentRotationDeg = 0;
   function polar(cx, cy, r, angle) {
