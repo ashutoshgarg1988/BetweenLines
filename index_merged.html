@@ -90,10 +90,10 @@
             </div>
           </div>
           <div class="tooltip-wrapper easy" data-open-sound="easyDiscover" data-close-sound="click">
-            <img class="tooltip-icon" src="assets/images/discovermenu/tooltip-icon.svg" />
+            <img class="tooltip-icon" src="assets/images/discovermenu/tooltip-icon.svg" title="Info" />
             <div class="tooltip-img">
-              <img class="tooltip-sound btn" src="assets/images/common/audio-off.svg" alt="sound" />
-              <img class="tooltip-close btn" src="assets/images/discovermenu/cross-icon.png" alt="Close" />
+              <img class="tooltip-sound btn" src="assets/images/common/audio-off.svg" alt="sound" title="Sound" />
+              <img class="tooltip-close btn" src="assets/images/discovermenu/cross-icon.png" alt="Close" title="Close" />
               <img src="assets/images/discovermenu/easy-txt.svg" />
             </div>
           </div>
@@ -105,10 +105,10 @@
             </div>
           </div>
           <div class="tooltip-wrapper warmup" data-open-sound="warmUpDiscover" data-close-sound="click">
-            <img class="tooltip-icon" src="assets/images/discovermenu/tooltip-icon.svg" />
+            <img class="tooltip-icon" src="assets/images/discovermenu/tooltip-icon.svg" title="Info" />
             <div class="tooltip-img">
-              <img class="tooltip-sound btn" src="assets/images/common/audio-off.svg" alt="sound" />
-              <img class="tooltip-close btn" src="assets/images/discovermenu/cross-icon.png" alt="Close" />
+              <img class="tooltip-sound btn" src="assets/images/common/audio-off.svg" alt="sound" title="Sound" />
+              <img class="tooltip-close btn" src="assets/images/discovermenu/cross-icon.png" alt="Close" title="Close" />
               <img src="assets/images/discovermenu/warmup-txt.svg" />
             </div>
           </div>
@@ -121,10 +121,10 @@
             </div>
           </div>
           <div class="tooltip-wrapper challenge" data-open-sound="challengeDiscover" data-close-sound="click">
-            <img class="tooltip-icon" src="assets/images/discovermenu/tooltip-icon.svg" />
+            <img class="tooltip-icon" src="assets/images/discovermenu/tooltip-icon.svg" title="Info" />
             <div class="tooltip-img">
-              <img class="tooltip-sound btn" src="assets/images/common/audio-off.svg" alt="sound" />
-              <img class="tooltip-close btn" src="assets/images/discovermenu/cross-icon.png" alt="Close" />
+              <img class="tooltip-sound btn" src="assets/images/common/audio-off.svg" alt="sound" title="Sound" />
+              <img class="tooltip-close btn" src="assets/images/discovermenu/cross-icon.png" alt="Close" title="Close" />
               <img src="assets/images/discovermenu/challenge-txt.svg" />
             </div>
           </div>
@@ -231,7 +231,7 @@
             <img src="assets/images/common/audio-off.svg" class="btn sound-btn" id="soundBtn">
           </div>
         </div>
-
+      
         <!-- MAIN CONTENT -->
         <div class="content-area">
           <!-- LEFT WORK AREA -->
@@ -248,29 +248,29 @@
                         <path d="M 0 0 L 10 5 L 0 10 z" fill="#2c2c2c" />
                       </marker>
                     </defs>
-
+      
                     <!-- INTERSECTIONS -->
                     <g id="topIntersection"></g>
                     <g id="bottomIntersection"></g>
-
+      
                     <!-- TOP PARALLEL LINE -->
-                    <line id="topLine" x1="80" y1="190" x2="920" y2="190" class="parallel-line"
-                      marker-start="url(#arrow)" marker-end="url(#arrow)" />
-
+                    <line id="topLine" x1="80" y1="190" x2="920" y2="190" class="parallel-line" marker-start="url(#arrow)"
+                      marker-end="url(#arrow)" />
+      
                     <circle class="drag-point" data-line="top" data-point="1" cx="130" cy="190" r="7" />
                     <circle class="drag-point" data-line="top" data-point="2" cx="870" cy="190" r="7" />
-
+      
                     <!-- BOTTOM PARALLEL LINE -->
-                    <line id="bottomLine" x1="80" y1="290" x2="920" y2="290" class="parallel-line"
-                      marker-start="url(#arrow)" marker-end="url(#arrow)" />
-
+                    <line id="bottomLine" x1="80" y1="290" x2="920" y2="290" class="parallel-line" marker-start="url(#arrow)"
+                      marker-end="url(#arrow)" />
+      
                     <circle class="drag-point" data-line="bottom" data-point="1" cx="130" cy="290" r="7" />
                     <circle class="drag-point" data-line="bottom" data-point="2" cx="870" cy="290" r="7" />
-
+      
                     <!-- TRANSVERSAL -->
                     <line id="transversal" x1="500" y1="520" x2="500" y2="10" class="transversal-line"
                       marker-start="url(#arrow)" marker-end="url(#arrow)" />
-
+      
                     <circle class="drag-point" data-line="transversal" data-point="1" cx="500" cy="470" r="7" />
                     <circle class="drag-point" data-line="transversal" data-point="2" cx="500" cy="60" r="7" />
                   </svg>
@@ -297,7 +297,7 @@
               </div>
             </div>
           </div>
-
+      
           <!-- RIGHT CONTROL PANEL -->
           <div class="control-panel">
             <!-- PARALLEL LINES -->
@@ -311,53 +311,53 @@
                 </label>
               </div>
             </div>
-
+      
             <!-- ANGLES -->
             <div class="panel-section" style="height: 73%;">
               <div class="panel-title">
                 <div class="icon-img"><img src="assets/images/easyscreen/angle.svg" style="width: 90%;"></div>
                 <span>Angles</span>
               </div>
-
+      
               <div class="angle-group">
                 <label class="ui-check heading-txt">
                   <input type="checkbox" data-angle="corresponding" />
                   <span class="checkmark"></span>
                   Corresponding
                 </label>
-
+      
                 <div class="radio-row">
                   <label class="ui-radio chkbox-txt">
                     <input type="radio" name="corresponding" data-angle="corresponding" data-pair="1" />
                     <span class="radiomark"></span>
                     Pair 1
                   </label>
-
+      
                   <label class="ui-radio chkbox-txt">
                     <input type="radio" name="corresponding" data-angle="corresponding" data-pair="2" />
                     <span class="radiomark"></span>
                     Pair 2
                   </label>
-
+      
                   <label class="ui-radio chkbox-txt">
                     <input type="radio" name="corresponding" data-angle="corresponding" data-pair="3" />
                     <span class="radiomark"></span>
                     Pair 3
                   </label>
-
+      
                   <label class="ui-radio chkbox-txt">
                     <input type="radio" name="corresponding" data-angle="corresponding" data-pair="4" />
                     <span class="radiomark"></span>
                     Pair 4
                   </label>
                 </div>
-
+      
                 <label class="ui-check heading-txt">
                   <input type="checkbox" data-angle="verticallyOpposite" />
                   <span class="checkmark"></span>
                   Vertically Opposite
                 </label>
-
+      
                 <div class="radio-row">
                   <label class="ui-radio chkbox-txt">
                     <input type="radio" name="verticallyOpposite" data-angle="verticallyOpposite" data-pair="1" />
@@ -380,13 +380,13 @@
                     Pair 4
                   </label>
                 </div>
-
+      
                 <label class="ui-check heading-txt">
                   <input type="checkbox" data-angle="alternateInterior" />
                   <span class="checkmark"></span>
                   Alternate Interior
                 </label>
-
+      
                 <div class="radio-row">
                   <label class="ui-radio chkbox-txt">
                     <input type="radio" name="alternateInterior" data-angle="alternateInterior" data-pair="1" />
@@ -399,13 +399,13 @@
                     Pair 2
                   </label>
                 </div>
-
+      
                 <label class="ui-check heading-txt">
                   <input type="checkbox" data-angle="alternateExterior" />
                   <span class="checkmark"></span>
                   Alternate Exterior
                 </label>
-
+      
                 <div class="radio-row">
                   <label class="ui-radio chkbox-txt">
                     <input type="radio" name="alternateExterior" data-angle="alternateExterior" data-pair="1" />
@@ -422,7 +422,7 @@
             </div>
           </div>
         </div>
-
+      
         <!-- BOTTOM RIGHT BUTTONS -->
         <div class="bottom-right-buttons">
           <div id="easyResetBtn"><img src="assets/images/common/reset.svg" style="width: 90px;"></div>
@@ -441,7 +441,7 @@
             <img src="assets/images/common/audio-off.svg" class="btn sound-btn" id="soundBtn">
           </div>
         </div>
-
+      
         <!-- MAIN CONTENT -->
         <div class="main-area1" id="userSelectionArea" style="gap: 30px; opacity: 0;">
           <div class="bg-panel">
@@ -449,11 +449,10 @@
           </div>
           <div class="disp-flex-column">
             <div id="parallelBtn" class="big-btn"><img src="assets/images/warmupscreen/parallel-btn.png"></div>
-            <div id="perpendicularBtn" class="big-btn"><img src="assets/images/warmupscreen/perpendicular-btn.png">
-            </div>
+            <div id="perpendicularBtn" class="big-btn"><img src="assets/images/warmupscreen/perpendicular-btn.png"></div>
           </div>
         </div>
-
+      
         <div class="main-area" id="spinWheelArea" style="opacity: 1;">
           <div class="wheel-container">
             <img src="assets/images/warmupscreen/wheel.svg" class="wheel-img">
@@ -463,8 +462,8 @@
             <img src="assets/images/warmupscreen/pointer.svg" class="wheel-pointer">
           </div>
         </div>
-
-
+      
+      
         <!-- BOTTOM RIGHT BUTTONS -->
         <div class="bottom-right-buttons">
           <div id="warmupResetBtn"><img src="assets/images/common/reset.svg" style="width: 90px;"></div>
@@ -483,7 +482,7 @@
             <img src="assets/images/common/audio-off.svg" class="btn sound-btn" id="soundBtn">
           </div>
         </div>
-
+      
         <!-- MAIN CONTENT -->
         <div class="content-area">
           <div class="grid-board">
@@ -505,14 +504,14 @@
                 <line x1="80" y1="290" x2="920" y2="290" class="parallel-line" marker-start="url(#arrow)"
                   marker-end="url(#arrow)" />
                 <!-- TRANSVERSAL -->
-                <line id="transversal" x1="450" y1="400" x2="550" y2="50" class="transversal-line"
-                  marker-start="url(#arrow)" marker-end="url(#arrow)" />
+                <line id="transversal" x1="500" y1="390" x2="500" y2="65" class="transversal-line" marker-start="url(#arrow)"
+                  marker-end="url(#arrow)" />
               </svg>
             </div>
           </div>
         </div>
-
-
+      
+      
         <div id="submitBtn" class="btn"><img src="assets/images/challengescreen/submit-btn.png"></div>
         <!-- BOTTOM RIGHT BUTTONS -->
         <div class="bottom-right-buttons">
@@ -527,15 +526,14 @@
       <div id="doit-screen">
         <!-- TOP HEADING BAR -->
         <div class="top-banner">
-          <span>Use the drawing tools to create a line that matches the given condition - parallel or perpendicular to
-            the
+          <span>Use the drawing tools to create a line that matches the given condition - parallel or perpendicular to the
             line shown.</span>
           <div class="sound-wrapper">
             <img src="assets/images/common/audio-off.svg" class="btn sound-btn" id="soundBtn">
           </div>
         </div>
-
-
+      
+      
         <!-- MAIN CONTENT -->
         <div class="content-area">
           <!-- GRID CANVAS -->
@@ -568,7 +566,7 @@
               <div id="pencilBtn" class="btn"><img src="assets/images/doitscreen/pencil.png" style="width: 65px;"></div>
               <div id="deleteBtn" class="btn"><img src="assets/images/doitscreen/delete.svg" style="width: 65px;"></div>
             </div>
-
+      
             <!-- PAPER STYLE -->
             <div class="paper-style">
               <div class="disp-flex-row">
@@ -590,10 +588,10 @@
             </div>
           </div>
         </div>
-
-        <div class="disclaimer-box"><b>Disclaimer:-</b> Move your line slowly until it turns green. A green line means
-          it is correctly parallel or perpendicular to the fixed line.</div>
-
+      
+        <div class="disclaimer-box"><b>Disclaimer:-</b> Move your line slowly until it turns green. A green line means it is
+          correctly parallel or perpendicular to the fixed line.</div>
+      
         <!-- BOTTOM RIGHT BUTTONS -->
         <div class="bottom-right-buttons">
           <div id="doitInfoBtn"><img src="assets/images/doitscreen/info.svg" style="width: 90px;"></div>
