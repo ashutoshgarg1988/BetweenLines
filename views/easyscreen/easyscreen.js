@@ -370,6 +370,14 @@
     return angles;
   }
 
+  function topRotation() {
+    return lineRotationDeg(topLine);
+  }
+
+  function bottomRotation() {
+    return lineRotationDeg(bottomLine);
+  }
+
   function drawIntersectionFromPoint({
     groupId,
     pt,
@@ -384,8 +392,15 @@
     const cy = pt.y;
     const r = 30;
     const base = 270;
-    g.appendChild(drawAngleCircle(cx, cy, r));
     let start = base;
+    let rot = 0;
+    if (groupId === "topIntersection") {
+      rot = lineRotationDeg(topLine);
+    } else if (groupId === "bottomIntersection") {
+      rot = lineRotationDeg(bottomLine);
+    }
+    g.setAttribute("transform", `rotate(${rot}, ${cx}, ${cy})`);
+    g.appendChild(drawAngleCircle(cx, cy, r));
     angleKeys.forEach((key, i) => {
       const arc = drawArcSector(cx, cy, r, start, angles[key], ANGLE_COLORS[Object.keys(ANGLE_COLORS)[i]]);
       arc.dataset.angle = key;

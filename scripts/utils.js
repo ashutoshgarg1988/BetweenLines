@@ -170,3 +170,9 @@ function showOnlyArcs(angleKeys) {
       .forEach(a => (a.style.opacity = "0.9"));
   });
 }
+
+function lineRotationDeg(line) {
+  const dx = line.x2.baseVal.value - line.x1.baseVal.value;
+  const dy = line.y2.baseVal.value - line.y1.baseVal.value;
+  return Math.atan2(dy, dx) * 180 / Math.PI;
+}
