@@ -337,6 +337,16 @@
     return path;
   }
 
+  /*
+    TOP INTERSECTION
+      A | B
+      -----
+      D | C
+    BOTTOM INTERSECTION
+      E | F
+      -----
+      H | G
+  */
   function computeAllAngles(given) {
     const angles = {
       A: 180 - given,
