@@ -10,6 +10,7 @@
   const challengeResetBtn = document.getElementById("challengeResetBtn");
   const challengeNextBtn = document.getElementById("challengeNextBtn");
   const GIVEN_KEYS = ["A","B","C","D","E","F","G","H"];
+  let hiddenArcs = ["B","C","D","E","F","G","H"];
   let roundCounter = 0;
   setCommonUI({
     btnHome: true,
@@ -62,7 +63,7 @@
   let correctAngles = {};
   let currentRotationDeg = 0;
   function polar(cx, cy, r, angle) {
-    const rad = (angle - 90) * Math.PI / 180;
+    const rad = angle * Math.PI / 180;
     return {
       x: cx + r * Math.cos(rad),
       y: cy + r * Math.sin(rad)
@@ -123,13 +124,9 @@
   // Function to reset intersecting line
   function resetAngles() {
     const given = Math.floor(Math.random() * 90) + 40;
-    currentRotationDeg = given - 90 - 17;
+    currentRotationDeg = given - 90;
     // console.log("given:::"+given+":::::currentRotationDeg::::"+currentRotationDeg);
-    document.getElementById("transversal")
-      .setAttribute(
-        "transform",
-        `rotate(${currentRotationDeg}, 500, 240)`
-      );
+    document.getElementById("transversal").setAttribute("transform", `rotate(${currentRotationDeg}, 500, 240)`);
     correctAngles = computeAllAngles(given);
     drawTopIntersection(given);
     drawBottomIntersection();
@@ -188,10 +185,9 @@
     const cx = intersection.x;
     const cy = intersection.y;
     const r = 30;
-    // FULL GREY CIRCLE
     g.appendChild(drawAngleCircle(cx, cy, r));
     // PINK GIVEN ARC
-    g.appendChild(drawPinkArc(cx, cy, r, 273, givenAngle));
+    g.appendChild(drawPinkArc(cx, cy, r, 180, givenAngle));
     // GIVEN TEXT
     const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
     txt.setAttribute("x", cx - 55);

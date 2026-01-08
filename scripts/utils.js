@@ -61,8 +61,8 @@ function lineIntersection(p1, p2, p3, p4) {
 // Function to get the intersection point x of two lines
 function getIntersectionPoint(horizontalY, rotationDeg) {
   // Original transversal endpoints (MUST match SVG)
-  const t1 = { x: 450, y: 400 };
-  const t2 = { x: 550, y: 50 };
+  const t1 = { x: 500, y: 390 };
+  const t2 = { x: 500, y: 65 };
   // Rotation pivot (MUST match SVG transform)
   const pivot = { x: 500, y: 240 };
   // Rotate endpoints exactly as SVG does
@@ -74,6 +74,7 @@ function getIntersectionPoint(horizontalY, rotationDeg) {
   // True intersection
   return lineIntersection(rt1, rt2, h1, h2);
 }
+
 
 
 function rotatePoint(x, y, cx, cy, angleDeg) {
