@@ -12,6 +12,7 @@
   const GIVEN_KEYS = ["A","B","C","D","E","F","G","H"];
   let hiddenArcs = ["B","C","D","E","F","G","H"];
   let roundCounter = 0;
+  let randomKey = '';
   setCommonUI({
     btnHome: true,
     btnPlay: true,
@@ -123,13 +124,14 @@
 
   // Function to reset intersecting line
   function resetAngles() {
+    randomKey = GIVEN_KEYS[Math.floor(Math.random() * GIVEN_KEYS.length)];
     const given = Math.floor(Math.random() * 90) + 40;
     currentRotationDeg = given - 90;
     // console.log("given:::"+given+":::::currentRotationDeg::::"+currentRotationDeg);
     document.getElementById("transversal").setAttribute("transform", `rotate(${currentRotationDeg}, 500, 240)`);
     correctAngles = computeAllAngles(given);
     drawTopIntersection(given);
-    drawBottomIntersection();
+    drawBottomIntersection(given);
   }
 
   // Draw input boxes in which angles value has to filled
@@ -163,6 +165,16 @@
     return box;
   }
 
+  // Draw text
+  function drawText(x, y, letter) {
+    const t = document.createElementNS("http://www.w3.org/2000/svg","text");
+    t.setAttribute("x", x);
+    t.setAttribute("y", y);
+    t.setAttribute("class", "angle-text");
+    t.textContent = letter +"°";
+    return t;
+  }
+
   const TOP_OFFSET = {
     A: {x: -100, y: -30},
     B: {x: 40, y: -30},
@@ -170,11 +182,25 @@
     D: {x: -100, y: 10}
   };
 
+  const TOP_TXT_OFFSET = {
+    A: {x: -70, y: -10},
+    B: {x: 35, y: -10},
+    C: {x: 35, y: 30},
+    D: {x: -70, y: 30}
+  };
+
   const BOTTOM_OFFSET = {
     E: {x: -100, y: -30},
     F: {x: 40, y: -30},
     G: {x: 40, y: 10},
     H: {x: -100, y: 10}
+  };
+
+  const BOTTOM_TXT_OFFSET = {
+    E: {x: -70, y: -10},
+    F: {x: 35, y: -10},
+    G: {x: 35, y: 30},
+    H: {x: -70, y: 30}
   };
 
   // Top intersection functionality
@@ -187,35 +213,40 @@
     const r = 30;
     g.appendChild(drawAngleCircle(cx, cy, r));
     // PINK GIVEN ARC
-    g.appendChild(drawPinkArc(cx, cy, r, 180, givenAngle));
-    // GIVEN TEXT
-    const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    txt.setAttribute("x", cx - 55);
-    txt.setAttribute("y", cy - 25);
-    txt.setAttribute("class", "angle-text");
-    txt.textContent = givenAngle + "°";
-    g.appendChild(txt);
-    g.appendChild(drawInputBox(cx + TOP_OFFSET.B.x, cy + TOP_OFFSET.B.y, "B"));
-    g.appendChild(drawInputBox(cx + TOP_OFFSET.D.x, cy + TOP_OFFSET.D.y, "D"));
-    g.appendChild(drawInputBox(cx + TOP_OFFSET.C.x, cy + TOP_OFFSET.C.y, "C"));
+    g.appendChild(drawPinkArc(cx, cy, r, 180, givenAngle));    
+    ["A", "B", "C", "D"].forEach(letter => {
+      if (letter === randomKey) {
+        g.appendChild(drawText(cx + TOP_TXT_OFFSET[letter].x,
+          cy + TOP_TXT_OFFSET[letter].y,
+          correctAngles[letter]));
+      } else {
+        g.appendChild(drawInputBox(cx + TOP_OFFSET[letter].x,
+          cy + TOP_OFFSET[letter].y,
+          letter));
+      }
+    });
   }
 
-  
-
   // Bottom intersection functionality
-  function drawBottomIntersection() {
+  function drawBottomIntersection(givenAngle) {
     const g = document.getElementById("bottomIntersection");
     g.innerHTML = "";
     const intersection = getIntersectionPoint(BOTTOM_LINE_Y, currentRotationDeg);
     const cx = intersection.x;
     const cy = intersection.y;
     const r = 30;
-    // FULL GREY CIRCLE
     g.appendChild(drawAngleCircle(cx, cy, r));
-    g.appendChild(drawInputBox(cx + BOTTOM_OFFSET.E.x, cy + BOTTOM_OFFSET.E.y, "E"));
-    g.appendChild(drawInputBox(cx + BOTTOM_OFFSET.F.x,  cy + BOTTOM_OFFSET.F.y, "F"));
-    g.appendChild(drawInputBox(cx + BOTTOM_OFFSET.H.x, cy + BOTTOM_OFFSET.H.y, "H"));
-    g.appendChild(drawInputBox(cx + + BOTTOM_OFFSET.G.x,  cy + BOTTOM_OFFSET.G.y, "G"));
+    ["E","F","G","H"].forEach(letter => {
+      if (letter === randomKey) {
+        g.appendChild(drawText(cx + BOTTOM_TXT_OFFSET[letter].x,
+          cy + BOTTOM_TXT_OFFSET[letter].y,
+          correctAngles[letter]));
+      } else {
+        g.appendChild(drawInputBox(cx + BOTTOM_OFFSET[letter].x,
+          cy + BOTTOM_OFFSET[letter].y,
+          letter));
+      }
+    });
   }
 
   function validateOnSubmit() {
@@ -244,6 +275,7 @@
         showPopup("greatJobSummary", { angleCount: 3, levelName: 'challenge' });
       }else {
         showPopup("info", { text: "Well done! Your answer is correct." });
+        resetAngles();
       }
     } else {
       showPopup("info", { text: "Sorry! Try again." });
