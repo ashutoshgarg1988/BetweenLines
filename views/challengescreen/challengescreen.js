@@ -9,8 +9,7 @@
 (function initChallengeScreen() {
   const challengeResetBtn = document.getElementById("challengeResetBtn");
   const challengeNextBtn = document.getElementById("challengeNextBtn");
-  const GIVEN_KEYS = ["A","B","C","D","E","F","G","H"];
-  let hiddenArcs = ["B","C","D","E","F","G","H"];
+  const GIVEN_KEYS = ["A", "B", "C", "D", "E", "F", "G", "H"];
   let roundCounter = 0;
   let randomKey = '';
   setCommonUI({
@@ -80,6 +79,7 @@
     return circle;
   }
 
+  // Draws the pink arc
   function drawPinkArc(cx, cy, r, startAngle, sweepAngle) {
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     const start = polar(cx, cy, r, startAngle);
@@ -127,7 +127,6 @@
     randomKey = GIVEN_KEYS[Math.floor(Math.random() * GIVEN_KEYS.length)];
     const given = Math.floor(Math.random() * 90) + 40;
     currentRotationDeg = given - 90;
-    // console.log("given:::"+given+":::::currentRotationDeg::::"+currentRotationDeg);
     document.getElementById("transversal").setAttribute("transform", `rotate(${currentRotationDeg}, 500, 240)`);
     correctAngles = computeAllAngles(given);
     drawTopIntersection(given);
@@ -167,40 +166,40 @@
 
   // Draw text
   function drawText(x, y, letter) {
-    const t = document.createElementNS("http://www.w3.org/2000/svg","text");
+    const t = document.createElementNS("http://www.w3.org/2000/svg", "text");
     t.setAttribute("x", x);
     t.setAttribute("y", y);
     t.setAttribute("class", "angle-text");
-    t.textContent = letter +"°";
+    t.textContent = letter + "°";
     return t;
   }
 
   const TOP_OFFSET = {
-    A: {x: -100, y: -30},
-    B: {x: 40, y: -30},
-    C: {x: 40, y: 10},
-    D: {x: -100, y: 10}
+    A: { x: -100, y: -30 },
+    B: { x: 40, y: -30 },
+    C: { x: 40, y: 10 },
+    D: { x: -100, y: 10 }
   };
 
   const TOP_TXT_OFFSET = {
-    A: {x: -70, y: -10},
-    B: {x: 35, y: -10},
-    C: {x: 35, y: 30},
-    D: {x: -70, y: 30}
+    A: { x: -70, y: -10 },
+    B: { x: 35, y: -10 },
+    C: { x: 35, y: 30 },
+    D: { x: -70, y: 30 }
   };
 
   const BOTTOM_OFFSET = {
-    E: {x: -100, y: -30},
-    F: {x: 40, y: -30},
-    G: {x: 40, y: 10},
-    H: {x: -100, y: 10}
+    E: { x: -100, y: -30 },
+    F: { x: 40, y: -30 },
+    G: { x: 40, y: 10 },
+    H: { x: -100, y: 10 }
   };
 
   const BOTTOM_TXT_OFFSET = {
-    E: {x: -70, y: -10},
-    F: {x: 35, y: -10},
-    G: {x: 35, y: 30},
-    H: {x: -70, y: 30}
+    E: { x: -70, y: -10 },
+    F: { x: 35, y: -10 },
+    G: { x: 35, y: 30 },
+    H: { x: -70, y: 30 }
   };
 
   // Top intersection functionality
@@ -213,7 +212,7 @@
     const r = 30;
     g.appendChild(drawAngleCircle(cx, cy, r));
     // PINK GIVEN ARC
-    g.appendChild(drawPinkArc(cx, cy, r, 180, givenAngle));    
+    drawAllArcs(g, cx, cy, r, ["A", "B", "C", "D"], 180);
     ["A", "B", "C", "D"].forEach(letter => {
       if (letter === randomKey) {
         g.appendChild(drawText(cx + TOP_TXT_OFFSET[letter].x,
@@ -236,7 +235,9 @@
     const cy = intersection.y;
     const r = 30;
     g.appendChild(drawAngleCircle(cx, cy, r));
-    ["E","F","G","H"].forEach(letter => {
+    // Draw all 4 arcs E→F→G→H starting from 180°
+    drawAllArcs(g, cx, cy, r, ["E", "F", "G", "H"], 180);
+    ["E", "F", "G", "H"].forEach(letter => {
       if (letter === randomKey) {
         g.appendChild(drawText(cx + BOTTOM_TXT_OFFSET[letter].x,
           cy + BOTTOM_TXT_OFFSET[letter].y,
@@ -246,6 +247,22 @@
           cy + BOTTOM_OFFSET[letter].y,
           letter));
       }
+    });
+  }
+
+  function drawAllArcs(g, cx, cy, r, letters, startAngle) {
+    let current = startAngle;
+    letters.forEach(letter => {
+      const sweep = correctAngles[letter];
+      const path = drawPinkArc(cx, cy, r, current, sweep);
+      // show only the selected one (randomKey)
+      if (letter === randomKey) {
+        path.style.display = "block";
+      } else {
+        path.style.display = "none";
+      }
+      g.appendChild(path);
+      current += sweep;
     });
   }
 
@@ -271,9 +288,9 @@
     });
     if (allCorrect) {
       roundCounter++;
-      if(roundCounter === 3) {
+      if (roundCounter === 3) {
         showPopup("greatJobSummary", { angleCount: 3, levelName: 'challenge' });
-      }else {
+      } else {
         showPopup("info", { text: "Well done! Your answer is correct." });
         resetAngles();
       }
